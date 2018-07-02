@@ -1,0 +1,37 @@
+10.1.0.164 (Administrator/12345678x@X)
+
+Server 10.1.0.164 (public IP: 120.72.81.104)
+
+trello account: 
+
+openVPN
+hien_nguyen / ser9TwyWyaky
+hieu_bui / hoav3druAlj2
+
+*** API server: mrbill.mrorange.nu
+- Server: mrbill.mrorange.local (it's is the local address of DNS mrbill.mrorange.nu (external address))
+- Windows Account: mrbill_vn / kiTwovMoj6
+
+sql management: sa/12345678x@X
+
+
+database server: 
+EINDHOVEN.mrorange.local
+mrbill/ircAbchic7
+
+sql account mrbill database in mrbill.mrorange.local
+mrbill/kiTwovMoj6
+
+file server:phuket.mrorange.local
+
+github account
+tmadevaccount1/12345678x@X
+
+deploy with /domain:note web.config
+
+
+sql: query data for EINDHOVEN
+select u.UserName,m.Password,m.CreateDate,m.LastPasswordFailureDate,m.passwordchangeddate,m.isconfirmed from UserProfile u join webpages_Membership m on u.UserID = m.UserId where cast(m.CreateDate as date) >'2016-06-22'
+
+
+Branches Hieu : https://dcsvn.tma.com.vn/svn/DC5SVN/Projects/MrBill/Source/Branches/Hieu
