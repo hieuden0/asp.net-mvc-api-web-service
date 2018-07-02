@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="303d6454-a647-4359-a482-3792edbf111e" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:1906/MrBillTransactionServices.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="MrBillTransactionServices.xsd" MetadataType="Schema" ID="7574ed92-f730-468b-8f4d-3f62fdaf0a4b" SourceId="1" SourceUrl="http://localhost:1906/MrBillTransactionServices.svc?xsd=xsd1" />
+    <MetadataFile FileName="MrBillTransactionServices.wsdl" MetadataType="Wsdl" ID="7c806ed3-9dd8-4af4-b439-5689e31f7be2" SourceId="1" SourceUrl="http://localhost:1906/MrBillTransactionServices.svc?wsdl" />
+    <MetadataFile FileName="MrBillTransactionServices1.xsd" MetadataType="Schema" ID="1550c58d-70ea-4174-8dbc-558ba08b58d0" SourceId="1" SourceUrl="http://localhost:1906/MrBillTransactionServices.svc?xsd=xsd3" />
+    <MetadataFile FileName="MrBillTransactionServices2.xsd" MetadataType="Schema" ID="d6e770a4-62c4-44e9-aec1-8cbd15cc3c9c" SourceId="1" SourceUrl="http://localhost:1906/MrBillTransactionServices.svc?xsd=xsd0" />
+    <MetadataFile FileName="MrBillTransactionServices3.xsd" MetadataType="Schema" ID="0595874c-6211-4f63-970b-94bbda041643" SourceId="1" SourceUrl="http://localhost:1906/MrBillTransactionServices.svc?xsd=xsd2" />
+    <MetadataFile FileName="MrBillTransactionServices.disco" MetadataType="Disco" ID="fbaa180f-ec1a-42a8-a449-c1da7b4ccb9f" SourceId="1" SourceUrl="http://localhost:1906/MrBillTransactionServices.svc?disco" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

@@ -1,0 +1,273 @@
+﻿@using MrBill_MVC.MrBillTransactionServices
+
+@{
+    ViewBag.Title = "Add Booking";
+}
+<link href="~/Content/featherlight.css" rel="stylesheet" />
+<link href="~/Content/datepicker.css" rel="stylesheet" />
+<link href="~/Content/custom-add-edit.css" rel="stylesheet" />
+
+<nav class="navbar navbar-inverse navbar-embossed" role="navigation">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
+            <span class="sr-only">Toggle navigation</span>
+        </button>
+    </div>
+    <div class="collapse navbar-collapse" id="navbar-collapse-01">
+        <ul class="nav navbar-nav navbar-left">
+            <li>
+                <a class="navbar-brand" href="/">
+                    <img src="~/Content/img/mrbill.png" alt="" />
+                </a>
+            </li>
+            @Html.Partial("_LoginPartial")
+        </ul>
+    </div>
+</nav>
+<div class="container bloc-xl" style="margin-bottom:25px;">
+    <br />
+    @using (Html.BeginForm("AddBooking", "Travel", FormMethod.Post, new { id = "addForm", @class = "form", enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-horizontal">
+            <div class="form-horizontal">
+                <div class="edit-holder">
+                    @*@if ()
+                        {
+
+                            var url = "http://docs.google.com/gview?url=" +Request.Form["file"]+  "&embedded=true";
+                            <iframe src="@url" height="600" width="430" frameborder="0" class="reciept-img-edit"></iframe>
+                        }
+                        else
+                        {
+                            var src = Request.Form["file"];
+                            <img src="@src" style="float:right;" class="edit-img" />
+                        }*@
+
+
+
+
+                    <div class="image-holder">
+                        <iframe id="pdf" height="450" width="360" frameborder="0" class="reciept-img-edit" style="display: none;margin-bottom: 25px;"></iframe>
+                        <img id="output" style="float: right; display: none" class="edit-img" />
+                        <div class="empty-image" id="empty-image">
+
+                        </div>
+                        <div class="fileUpload file-edit form-inline edit-input">
+                            <span>+ LADDA UPP KVITTO</span>
+                            <input type="file" name="file" id="file" class="upload" onchange="loadFile(event)" />
+                        </div>
+
+                    </div>
+                    @*<div class="fileUpload file-edit form-inline edit-input">
+                            <span>+ LADDA UPP KVITTO</span>
+                            <input type="file" name="file" id="file" class="upload" onchange="loadFile(event)" />
+                        </div>*@
+
+                    <div class="form-holder">
+                        <div class="form-group edit-input">
+                            <span style="color:black; font-weight: bold;position: relative;top: -21px;"> <span style="position: relative; top: -2px;">+</span> LÄGG TILL EN RESA</span>
+                            <span>@ViewBag.SavedText</span>
+                            <table>
+                                <tr class="title">
+                                    <td>Utläggsdatum (*)</td>
+                                    <td class="blue-text-color">Kostnadsställe</td>
+                                </tr>
+                                <tr class="form-inline edit-input">
+                                    <td><input class="form-control inline datepicker createddate" type="text" name="created" value="" readonly /></td>
+                                    <td><input class="form-control type=" text" value="" name="projectNum" /></td>
+                                </tr>
+                                <tr class="title">
+                                    <td class="blue-text-color">Leverantör (*)</td>
+                                    <td class="blue-text-color">Referens (*)</td>
+                                </tr>
+                                <tr class="form-inline edit-input">
+                                    <td><input class="form-control inline" type="text" value="" name="supplier" placeholder="" required /></td>
+                                    <td><input class="form-control" type="text" value="" name="reference" placeholder="" required /></td>
+                                </tr>
+                                <tr class="title">
+                                    <td class="blue-text-color">Datum 1 (*)</td>
+                                    <td class="blue-text-color">Datum 2</td>
+                                </tr>
+                                <tr class="form-inline edit-input">
+                                    <td><input class="form-control inline datepicker date1" type="text" name="ArrivalDate" value="" placeholder="" required readonly /></td>
+                                    <td><input class="form-control datepicker" type="text" name="ReturnDate" value="" placeholder="" readonly /></td>
+                                </tr>
+                                <tr class="title">
+                                    <td class="blue-text-color">Ort, Land</td>
+                                    <td>Produkt (*)</td>
+                                </tr>
+                                <tr class="form-inline edit-input">
+                                    <td><input class="form-control inline" type="text" name="country" value="" placeholder="" /></td>
+                                    <td><input class="form-control" type="text" name="product" value="" placeholder="" required /></td>
+                                </tr>
+                                <tr class="title">
+                                    <td class="blue-text-color">Resenär</td>
+                                    <td class="blue-text-color">Betalsätt</td>
+                                </tr>
+                                <tr class="form-inline edit-input">
+                                    <td><input class="form-control inline" type="text" name="traveller" value="" placeholder="" /></td>
+                                    <td><input class="form-control" type="text" name="payment" value="" placeholder="" /></td>
+                                </tr>
+                                <tr class="title">
+                                    <td class="blue-text-color">Kortinnehavare</td>
+                                    <td>Kvittobelopp (*)</td>
+                                </tr>
+                                <tr class="form-inline edit-input">
+                                    <td><input class="form-control inline" type="text" name="CcHolder" value="" placeholder="" /></td>
+                                    <td><input class="form-control" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="price" value="" placeholder="" required /></td>
+                                </tr>
+                                <tr class="title">
+                                    <td class="blue-text-color">Valuta</td>
+                                    <td class="blue-text-color">Moms</td>
+                                </tr>
+                                <tr class="form-inline edit-input">
+                                    <td><input id="currencyText" class="form-control inline" type="text" name="currency" value="" placeholder="" /></td>
+                                    <td><input id="momsText" class="form-control" type="text" name="vat" value="" placeholder="" /></td>
+                                </tr>
+                                <tr class="title">
+                                    <td class="blue-text-color">Tilläggsinfo</td>
+                                    <td>Lokalt belopp (**)</td>
+                                </tr>
+                                <tr class="form-inline edit-input">
+                                    <td>
+                                        <textarea id="moreInfoText" onkeyup="textCounter(this,'counter',50);" class="form-control inline" type="text" name="moreInfo" value="" placeholder=""></textarea>
+                                    </td>
+                                    <td>
+                                        <input id="localAmountText" class="form-control inline localAmountText" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="localAmount" value="" placeholder="" disabled />
+                                        <input class="edit-booking-btn" type="submit" value="SPARA" />
+                                    </td>
+                                </tr>
+                                <tr class="form-inline edit-input">
+                                    <td><span class="error-message" style="position: absolute; left: 0">* = Obligatoriska fält</span></td>
+                                </tr>
+                                <tr class="form-inline edit-input">
+                                    <td><span class="error-message" style="position: absolute; left: 0">** = Belopp i SEK (om kvittovalutan är annan)</span></td>
+                                </tr>
+                            </table>
+                            @*<div class="form-inline edit-input button-line">*@
+
+                            @*<div class="fileUpload file-edit form-inline edit-input">
+                                    <span>+ LADDA UPP KVITTO</span>
+                                    <input type="file" name="file" id="file" class="upload" onchange="loadFile(event)" />
+                                </div>*@
+                            @*<span class="error-message" style="position: absolute; left: 0">* = Obligatoriska fält</span>
+                                <br />
+                                <span class="error-message" style="position: absolute; left: 0">** = Belopp i SEK (om kvittovalutan är annan)</span>*@
+
+                            @*</div>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+@section scripts
+{
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.11.4.min.js"></script>
+    <script src="~/Scripts/featherlight.js"></script>
+    @*<script src="~/Scripts/bootstrap.min.js"></script>*@
+    <script>
+
+        function textCounter(field, field2, maxlimit) {
+            var countfield = document.getElementById(field2);
+            if (field.value.length > maxlimit) {
+                field.value = field.value.substring(0, maxlimit);
+                return false;
+            } else {
+                countfield.value = maxlimit - field.value.length;
+            }
+        }
+        $("#currencyText").on('change', function () {
+            if ($(this).val().toUpperCase() == 'SEK' || $(this).val().trim() == '') {
+                $("#momsText").prop("disabled", false);
+                $("#localAmountText").prop('required', false);
+                $("#localAmountText").attr("placeholder", "Lokalt belopp");
+                $("#localAmountText").prop("disabled", 'disabled');
+                $("#localAmountText").val("");
+                $("#localAmountText").removeClass("error");
+            } else {
+                $("#momsText").prop("disabled", "disabled");
+                $("#momsText").val("");
+                $("#localAmountText").prop('required', 'required');
+                $("#localAmountText").attr("placeholder", "*Lokalt belopp");
+                $("#localAmountText").prop("disabled", false);
+            }
+
+            $(this).val($(this).val().toUpperCase());
+        });
+
+        (function ($) {
+            if (navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Mac') != -1 && navigator.userAgent.indexOf('Chrome') == -1) {
+                // console.log('Safari on Mac detected, applying class...');
+                $('#moreInfoText').addClass('safari-mac'); // provide a class for the safari-mac specific css to filter with
+            }
+        })(jQuery);
+
+        $("#addForm").validate();
+
+
+
+        $(function () {
+            $(".datepicker").datepicker({
+                inline: true,
+                dateFormat: 'yy-mm-dd',
+                showOtherMonths: true,
+                monthNamesShort: ["Jan", "Feb", "Mars", "April", "Maj", "Juni", "Juli", "Aug", "Sep", "Okt", "Nov", "Dec"],
+                monthNames: ["Jan", "Feb", "Mars", "April", "Maj", "Juni", "Juli", "Aug", "Sep", "Okt", "Nov", "Dec"],
+                //dateFormat: 'dd-mm-yy'
+            });
+        });
+
+        $(function () {
+            $("#date2picker").datepicker({
+                inline: true,
+                //dateFormat: 'yy MM dd',
+                showOtherMonths: true,
+                monthNamesShort: ["Jan", "Feb", "Mars", "April", "Maj", "Juni", "Juli", "Aug", "Sep", "Okt", "Nov", "Dec"],
+                monthNames: ["Jan", "Feb", "Mars", "April", "Maj", "Juni", "Juli", "Aug", "Sep", "Okt", "Nov", "Dec"],
+                //dateFormat: 'dd-mm-yy'
+                onSelect: function (datetext) {
+
+                    var d = new Date(); // for now
+
+                    var h = d.getHours();
+                    h = (h < 10) ? ("0" + h) : h;
+
+                    var m = d.getMinutes();
+                    m = (m < 10) ? ("0" + m) : m;
+
+                    var s = d.getSeconds();
+                    s = (s < 10) ? ("0" + s) : s;
+
+                    datetext = datetext + " " + h + ":" + m + ":" + s;
+
+                    $('#date2picker').val(datetext);
+                }
+            });
+        });
+
+
+
+        var loadFile = function (event) {
+
+            document.getElementById('output').style.display = "none";
+            document.getElementById('pdf').style.display = "none";
+            document.getElementById('empty-image').style.display = "none";
+            var output = document.getElementById('output');
+            var src = URL.createObjectURL(event.target.files[0]);
+            var file = event.target.files[0];
+            if (file.name.toLowerCase().indexOf('pdf') > -1) {
+                output = document.getElementById('pdf');
+            }
+            output.src = src;
+            output.style.display = "inline";
+        };
+
+        $('.edit-img').featherlight($('.edit-img'));
+    </script>
+}

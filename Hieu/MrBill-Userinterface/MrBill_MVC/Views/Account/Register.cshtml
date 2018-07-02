@@ -1,0 +1,96 @@
+﻿@model MrBill_MVC.Models.RegisterModel
+
+@{
+    ViewBag.Title = "Register";
+}
+<link href="~/Content/custom-style-login.css" rel="stylesheet" />
+<nav class="navbar navbar-inverse navbar-embossed" role="navigation">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
+            <span class="sr-only">Toggle navigation</span>
+        </button>
+    </div>
+    <div class="collapse navbar-collapse" id="navbar-collapse-01">
+        <ul class="nav navbar-nav navbar-left">
+            <li>
+                <a class="navbar-brand" href="/">
+                    <img src="~/Content/img/mrbill.png" alt="" />
+                </a>
+            </li>
+            <li>@Html.ActionLink("HEM", "Index", "Home", null, new { @class = "ltc-4" })</li>
+            <li>
+                @Html.ActionLink("OM OSS", "About", "Home", null, new { @class = "ltc-4" })
+            </li>
+            <li>
+                @Html.Partial("_LoginPartial")
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container bloc-xl">
+    <div class="row">
+        <div class="col-sm-4">
+        </div>
+        <div class="col-sm-4">
+            <h4 class="mg-md  "></h4>
+            <h2></h2>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary()
+                <div class="login-form center">
+                    @*<div class="form-group">
+                            @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @placeholder = "Namn" })
+                            <label for="UserName" class="login-field-icon fui-user"></label>
+                        </div>*@
+                    <center>
+                        <h5 class="register-text">Skapa konto</h5>
+                    </center>
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "Email" })
+                        <label for="Email" class="login-field-icon fui-mail"></label>
+                    </div>
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @placeholder = "Förnamn" })
+                        <label for="FirstName" class="login-field-icon fui-mail"></label>
+                    </div>
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", @placeholder = "Efternamn" })
+                        <label for="LastName" class="login-field-icon fui-mail"></label>
+                    </div>
+                    <div class="form-group">
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Lösenord" })
+                        <label for="Password" class="login-field-icon fui-lock"></label>
+                    </div>
+                    <div class="form-group">
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @placeholder = "Bekfräfta Lösenord" })
+                        <label for="ConfirmPassword" class="login-field-icon fui-lock"></label>
+                        <br />
+                        <center>
+                            <span class="user-cond-link">
+                                @Html.ActionLink("Användarvillkor", "UserConditions")
+                            </span>
+                        </center>
+                    </div>
+                    <div>
+                        <input type="submit" value="Register" class="btn btn-block btn-lg btn-primary" />
+                    </div>
+                    @ViewBag.Error
+                    @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
+
+                </div>
+                <br />
+                <br />
+                <br />
+            }
+        </div>
+    </div>
+
+    <br />
+    <br />
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

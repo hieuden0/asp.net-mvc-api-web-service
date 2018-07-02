@@ -1,0 +1,83 @@
+﻿@using MrBill_MVC.UserService
+@model MrBill_MVC.Models.TravelModel
+@{
+	ViewBag.Title = "Manage Account";
+}
+
+<nav class="navbar navbar-inverse navbar-embossed" role="navigation">
+	<div class="navbar-header">
+		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
+			<span class="sr-only">Toggle navigation</span>
+		</button>
+
+	</div>
+	<div class="collapse navbar-collapse" id="navbar-collapse-01">
+		<ul class="nav navbar-nav navbar-left">
+			<li>
+				<a class="navbar-brand" href="/">
+					<img src="~/Content/img/mrbill.png" alt="" />
+				</a>
+			</li>
+			@Html.Partial("_LoginPartial")
+		</ul>
+	</div>
+</nav>
+
+
+<div class="col-lg-12 center account-holder">
+	<div class="center"><h4>Hantera leverantörer</h4></div>
+	<h6>@ViewBag.changed</h6>
+
+	@foreach (var item in (IEnumerable<TransactionSupplier>)@ViewBag.userSuppliers)
+	{
+		<div class="col-lg-3 supplier-info">
+			<div class="supplier-head">
+				<span class="fui-radio-unchecked account-icon"></span>
+				<h6 class="account-head">@item.name</h6>
+			</div>
+			<div class="supplier-edit-info">
+				@using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
+				{
+					@Html.AntiForgeryToken()
+					@Html.ValidationSummary(true)
+
+					<div class="form-group">
+						<div class="form-group" style="display: none;">
+							@Html.TextBoxFor(m => m.CompanyName, new { @id = "company", @class = "form-control", @placeholder = "företag", Value = @item.name })
+							@Html.ValidationMessageFor(m => m.UserName)
+						</div>
+
+						<div class="form-group">
+							@Html.TextBoxFor(m => m.UserName, new { @id = "user", @class = "form-control", @placeholder = "Användarnamn", Value = @item.supplierUsername })
+							@Html.ValidationMessageFor(m => m.UserName)
+
+						</div>
+						<div class="form-group">
+					        @Html.PasswordFor(m => m.Password, new { @id = "pass", @class = "form-control", @placeholder = "Nytt Lösenord" })
+							@Html.ValidationMessageFor(m => m.Password)
+						</div>
+						<div class="form-group">
+					        @Html.PasswordFor(m => m.ConfirmPassword, new { @id = "RePass", @class = "form-control", @placeholder = "Bekräfta Nytt Lösenord" })
+							@Html.ValidationMessageFor(m => m.Password)
+						</div>
+						<div class="form-group">
+						</div>
+						<input type="submit" value="SPARA" class="btn btn-primary btn-lg btn-block" />
+						<br/>
+						<center>
+							<a href="@item.url" target="_blank">Skapa konto</a>
+						</center>
+					</div>
+					
+					
+				}
+			</div>
+		</div>
+	}
+</div>
+
+
+@section Scripts {
+
+	<script src="~/Scripts/manage-account-script.js"></script>
+}

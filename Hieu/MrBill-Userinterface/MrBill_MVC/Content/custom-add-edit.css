@@ -1,0 +1,115 @@
+﻿.main-wrapper-wide {
+	background-image: url('img/skyline-edited.jpg');
+	background-repeat: no-repeat;
+	background-position: top;
+}
+
+  textarea.form-control.inline {
+        height: 100px;
+        resize: none;
+        width: 90% ;
+    }
+
+  input.localAmountText{
+      margin-bottom:30px;
+  }
+
+  textarea.form-control.inline.safari-mac{
+      height: 100px;
+      resize: none;
+      //width: 193px ;
+      width : 90%;
+  }
+ span.form-control inline, span.form-control{
+     height: 33px;
+     background: lightgray;
+     width: auto;
+     line-height:none;
+ }
+ table{
+    margin-bottom: 10px !important;
+    border: 0px solid #fff !important;
+    font-weight:500;
+    font-size :15px;
+ }
+.blue-text-color{
+    color : #04194a;
+}
+
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none;
+  margin: 0; /* Removes leftover margin */
+}
+
+@media (max-width: 991px) { 
+    .edit-holder { max-width: 100% !important }
+    .edit-img {
+        background-color: #F4F6F6;
+        float: right;
+        height: 313px !important;
+        width: 213px !important;
+        margin-top: 50px;
+        cursor: pointer;
+    }
+    .form-inline.edit-input .form-control { margin-right: 9px !important }
+    .form-holder {
+        float: left;
+        width: 67%;
+    }
+    input.form-control.inline,
+    input.form-control {
+        height: 33px;
+        width: 210px !important;
+    }
+
+  
+      textarea.form-control.inline {
+            height: 33px;
+            resize: none;
+            width: 210px ;
+        }
+    
+
+    .edit-booking-btn,
+    .fileUpload.file-edit { width: 209px }
+    .fileUpload.file-edit { left: -7px }
+}
+
+@media (max-width: 1199px) { 
+    .edit-holder { max-width: 95% }
+    .login-form input.form-control {
+        height: 42px;
+        width: 245px !important;
+    }
+}
+.form-group.edit-input { padding-top: 20px }
+.button-line { padding-top: 20px }
+.featherlight-content #first {
+float: none!important;
+    margin: 0 auto;
+    width: 490px;
+    height: auto;
+}
+
+.edit-input select {
+        width: 25% !important;
+        height: 34px !important;
+        padding: 8px 12px;
+        font-family: "Lato", Helvetica, Arial, sans-serif;
+        font-size: 15px;
+        line-height: 1.467;
+        color: #34495e;
+        border: 2px solid #bdc3c7;
+        border-radius: 6px;
+        box-shadow: none;
+        -webkit-transition: border .25s linear, color .25s linear, background-color .25s linear;
+        transition: border .25s linear, color .25s linear, background-color .25s linear;
+    }
+    
+@media(max-width: 991px){
+    .edit-input select {
+        width: 30.5% !important;
+    }
+}

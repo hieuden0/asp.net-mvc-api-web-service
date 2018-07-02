@@ -1,0 +1,25 @@
+﻿@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<title>Word Document</title>
+
+	<style>
+		.print,a {
+			display: none
+		}
+		
+	</style>
+</head>
+<body>
+	<div>
+		@RenderBody()
+	</div>
+	@RenderSection("scripts")
+</body>
+</html>

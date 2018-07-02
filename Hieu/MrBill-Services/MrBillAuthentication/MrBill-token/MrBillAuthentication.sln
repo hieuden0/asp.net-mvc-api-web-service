@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MrBillAuthEncode", "MrBillAuthEncode\MrBillAuthEncode.csproj", "{CFDDBF52-E4F0-4439-B995-EE0FB1F614F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MrBillAuthDecode", "MrBillAuthDecode\MrBillAuthDecode.csproj", "{3932F016-5A1B-48B6-97B1-568A5377C92D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestToken", "TestToken\TestToken.csproj", "{159E8E2F-22D2-4174-A103-248D3926BF45}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CFDDBF52-E4F0-4439-B995-EE0FB1F614F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFDDBF52-E4F0-4439-B995-EE0FB1F614F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFDDBF52-E4F0-4439-B995-EE0FB1F614F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFDDBF52-E4F0-4439-B995-EE0FB1F614F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3932F016-5A1B-48B6-97B1-568A5377C92D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3932F016-5A1B-48B6-97B1-568A5377C92D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3932F016-5A1B-48B6-97B1-568A5377C92D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3932F016-5A1B-48B6-97B1-568A5377C92D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{159E8E2F-22D2-4174-A103-248D3926BF45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{159E8E2F-22D2-4174-A103-248D3926BF45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{159E8E2F-22D2-4174-A103-248D3926BF45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{159E8E2F-22D2-4174-A103-248D3926BF45}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

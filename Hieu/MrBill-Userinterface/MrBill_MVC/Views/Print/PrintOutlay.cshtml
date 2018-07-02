@@ -1,0 +1,410 @@
+﻿@using System.Globalization
+@using System.Web.UI.WebControls
+@using Microsoft.Data.OData.Query.SemanticAst
+@using MrBill_MVC.MrBillTransactionServices
+@model MrBill_MVC.Models.UserModel
+<link href="~/Content/featherlight.css" rel="stylesheet" />
+<link href="~/Content/print-style.css" rel="stylesheet" />
+@*<link href="~/Content/jquery-ui.css" rel="stylesheet" />*@
+<link href="~/Content/jquery-ui.min.css" rel="stylesheet" />
+@*<script src="~/Scripts/jquery-ui.js"></script>*@
+<script src="~/Scripts/jquery-ui.min.js"></script>
+<link href="~/Content/jquery-ui.theme.min.css" rel="stylesheet" />
+<link href="~/Content/jquery-ui.structure.min.css" rel="stylesheet" />
+@{
+    ViewBag.Title = "MyBookings";
+    float totalPrice = 0;
+    float totalVat = 0;
+    var currencyFormat = "N";
+
+    var pdfPath = System.Configuration.ConfigurationManager.AppSettings["pdfPath"];
+}
+
+<div class="container bloc-xl">
+    <br />
+    <br />
+    <div class="row">
+        <span style="float:right;">Utskrivet: @ViewBag.printDate	</span>	<br />
+        Namn: @ViewBag.Name				<br />
+        Företag: @ViewBag.Company		<br />
+        Adress:	 @ViewBag.Adress		<br />
+        Stad: @ViewBag.City				<br />
+        PostNr: @ViewBag.Zip			<br />
+        Land: @ViewBag.Country			<br />
+
+    </div>
+    <div class="row">
+        @*<div class="new-booking">
+                <span class="add-button"><span class=""></span><span class="add">@Html.ActionLink("LÄGG TILL", "AddBooking", null, new { @class = "btn btn-primary btn-lg btn-block" })</span></span>
+            </div>*@
+
+        <h4>@ViewBag.noBook</h4>
+        
+        @foreach (var date in ViewBag.monthList)
+        {
+            <div class="col-sm-12 month-row">
+                <div class="month-header">
+                    <strong class="month-trigger fui-radio-unchecked"></strong><span class="month-header-text">@date.ToString()</span><span class="recepit-number"></span>
+                    <span class="print">
+                        PRINT
+                        <img src="~/Content/img/printer.png" alt="" />
+                    </span>
+                    <span class="export-w no-print">@Html.ActionLink("Export Word", "PrintDocmentOutlay", new { id = @date.Replace(" ", "_") }, null)</span>
+                    @*<span class="export-w no-print"><a id="sendEmailReport" onclick="sendEmail();">Send Email</a></span>*@
+                    <span class="export-w no-print"><a id="downloadReport" onclick="downloadReport();">Export pdf</a></span>
+                    <span class="export-w no-print"><a id="pdfReview" onclick="pdfReview();">Review pdf</a></span>
+                    <script>
+    function sendEmail() {
+        $.ajax({
+            url: "/Print/SendEmailReport",
+            data: { username: "@ViewBag.UserName", month: "@ViewBag.ReportMonth", year: "@ViewBag.ReportYear" },
+            method: "POST",
+            success: function (result) {
+                if (result) {
+                    alert("Report has been sent to your mail.");
+                } else {
+                    alert("Something wrong happened.");
+                }
+            }
+        });
+    };
+
+    function downloadReport() {
+        var url = "/Print/DownloadReport?username=@ViewBag.UserName&month=@ViewBag.ReportMonth&year=@ViewBag.ReportYear";
+
+
+        window.location = url;
+    };
+
+    function pdfReview() {
+        $.ajax({
+            url: "/Print/pdfReview",
+            data: { username: "@ViewBag.UserName", month: "@ViewBag.ReportMonth", year: "@ViewBag.ReportYear" },
+            method: "POST",
+            success: function (result) {
+                if (result != "") {
+                    //var fileName = "abc.pdf";
+                    var fileName = result;
+                    $("#dialog").dialog({
+                        modal: true,
+                        closeOnEscape: false,
+                        title: fileName,
+                        width: 850,
+                        height: 600,
+                        resizable: false,
+                        draggable: false,
+                        dialogClass: "noclose",
+                        create: function () {
+                            var me = $(this);
+                            me.dialog("widget").find('.ui-dialog-titlebar-close').remove();
+                        },
+                        buttons: {
+                            "Print PDF": function () {
+                                window.frames["examplePDF"].focus();
+                                window.frames["examplePDF"].print();
+                            },
+                            "Send Email": function () {
+                                $(this).dialog('close');
+                                $('body').removeClass('stop-scrolling')
+                            },
+                            Close: function () {
+                                $(this).dialog('close');
+                                $('body').removeClass('stop-scrolling')
+                            }
+                        },
+
+                        open: function () {
+                            var object = "<object data=\"{FileName}\" type=\"application/pdf\" width=\"800px\" height=\"400px\">";
+                            object += "If you are unable to view file, you can download from <a href = \"{FileName}\">here</a>";
+                            object += " or download <a target = \"_blank\" href = \"http://get.adobe.com/reader/\">Adobe PDF Reader</a> to view the file.";
+                            object += "</object>";
+                            object = object.replace(/{FileName}/g, "@pdfPath" + fileName);
+                                                //object = object.replace(/{FileName}/g, "\\services\\Pdf\\" + fileName);
+                                                var object2 = "<object data=\"{FileName}\" type=\"application/pdf\" width=\"800px\" height=\"400px\">";
+                                                object2 += "<iframe src=\"{FileName}\" id=\"examplePDF\" name=\"examplePDF\" width=\"100%\" height=\"100%\" style=\"border: none;\">";
+                                                object2 += "If you are unable to view file, you can download from <a href = \"{FileName}\">here</a>";
+                                                object2 += " or download <a target = \"_blank\" href = \"http://get.adobe.com/reader/\">Adobe PDF Reader</a> to view the file.";
+                                                object2 += "</iframe>"
+                                                object2 += "</object>";
+                                                object2 = object2.replace(/{FileName}/g, "@pdfPath" + fileName);
+                                                $("#dialog").html(object2);
+                                                $('body').addClass('stop-scrolling')
+                                            }
+                                        });
+                                    } else {
+                                        alert("Something wrong happened.");
+                                    }
+                                }
+                            });
+                        };
+                    </script>
+                </div>
+                <div class="bookings table-item" style="display: inline !important">
+
+                    <div class="tableHead">
+                        <!--<td align="center">Kategori</td>-->
+
+                        <span class="number-top" align="left">Nr</span>
+                        <span class="date-top" align="left">Datum</span>
+                        <span class="supplier-top" align="left">Leverantör</span>
+                        <span class="destination-top" align="left">Ort</span>
+                        <span class="product-top" align="left">Produkt</span>
+                        <span class="price-top" align="left">Kvittobelopp</span>
+                        <span class="local-amount-top" align="left">SEK</span>
+                        <span class="vat-top" align="left">Moms</span>
+                        <span class="kost-top" align="left">Kostnadsställe</span>
+                        <span class="moreInfo-top" align="left">Tillägsinfo</span>
+                        <span class="reciept-top" align="left">Kvitto</span>
+                    </div>
+
+                    @{int count = 1;}
+                    <div class="booking-holder">
+                        @foreach (var item in ((IEnumerable<TransactionDTO>)ViewBag.transList).Where(item => item.AddedDate.ToString("Y", new CultureInfo("sv-SE")).ToLower() == @date.ToString()).OrderBy(e => e.AirDepTime1))
+                        {
+                            var temp = ((IEnumerable<TransactionDTO>)ViewBag.transList).Where(t => t.AddedDate.ToString("Y", new CultureInfo("sv-SE")).ToLower() == date.ToString()).OrderBy(e => e.AirDepTime1);
+                            if (@item.Vat3 == null)
+                            {
+                                <br /><br />
+                                <div class="col-sm-12 top-book op-cl">
+                                    @*<span class="close-book"><strong class="open-close-btn fui-radio-unchecked"></strong><span>@item.transactionSupplier.ToUpper() @item.date1.ToString("dd MMM yyyy")</span></span>
+                                        <span class="edit-button"><span class="edit-icon fui-new"></span><span class="edit">@Html.ActionLink("REDIGERA", "EditMyBookings", new { id = @item.id })</span></span>*@
+
+                                    <span class="number" align="left">@count</span>
+                                    <span class="date-top" align="left">@item.AirDepTime1.ToString("yyy-dd-MM")</span>
+                                    <span class="supplier-top" align="left">@item.SupplierInfoes.SupplierName</span>
+
+                                    <span class="destination-top" align="left">
+
+                                        @if (@item.Destination != null || @item.Destination != "")
+                                        {
+                                            @item.Destination
+                                        }
+                                        else
+                                        {
+                                            <span>&nbsp;</span>
+                                        }
+                                    </span>
+                                    <span class="product-top" align="left" class="product" title="@item.Product">
+                                        @if (@item.Product != null || @item.Product != "")
+                                        {
+                                            @item.Product
+                                        }
+                                        else
+                                        {
+                                            <span>&nbsp;</span>
+                                        }
+                                    </span>
+
+                                    <span class="price-top" align="left">
+                                        @if (!string.IsNullOrEmpty(item.PriceCurrency) && !item.PriceCurrency.Trim().ToUpperInvariant().Equals("SEK"))
+                                        {
+                                            @(Math.Round(Convert.ToDecimal(@item.Price)) + " " + item.PriceCurrency)
+                                        }
+                                        else
+                                        {
+                                            <span>&nbsp;</span>
+                                        }
+                                    </span>
+
+                                    @if (item.PriceUserCurrency == null || item.PriceUserCurrency == 0)
+                                    {
+                                        <span class="local-amount-top" align="left">@Math.Round(Convert.ToDecimal(@item.Price)).ToString(currencyFormat, CultureInfo.GetCultureInfo("sv"))</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="local-amount-top" align="left">@item.PriceUserCurrency.ToString(currencyFormat, CultureInfo.GetCultureInfo("sv"))</span>
+                                    }
+
+
+                                    @if (item.Vat1 == null)
+                                    {
+                                        <span class="vat-top" align="left">0.00</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="vat-top" align="left">
+                                            @if (@item.Vat1 != null && string.IsNullOrEmpty(item.PriceCurrency) || item.PriceCurrency.ToUpperInvariant().Equals("SEK"))
+                                            {
+                                                @Convert.ToDecimal(@item.Vat1.Value).ToString(currencyFormat, CultureInfo.GetCultureInfo("sv"))
+                                                @*<span>&nbsp;</span>@item.PriceCurrency*@
+                                            }
+                                            else
+                                            {
+                                                <span>&nbsp;</span>
+                                            }
+                                        </span>
+                                    }
+
+                                    <span class="kost-top" align="left">
+                                        @if (item.Project == null)
+                                        {
+                                            <span>&nbsp;</span>
+                                        }
+                                        else
+                                        {
+                                            @item.Project.ProjectNumber
+                                        }
+
+                                    </span>
+                                    @*@{
+                                            var tempDescription = new List<string>();
+                                            if (item.Description != null)
+                                            {
+                                                tempDescription = item.Description.Replace(System.Environment.NewLine, ",").Split(',').ToList();
+                                            }
+                                        }
+                                        <span class="moreInfo-top" align="left" style="display: block;padding: inherit;">
+                                            @foreach (var temp in tempDescription)
+                                            {
+                                                <span style="padding: inherit;">@temp</span>
+                                            }
+                                        </span>*@
+                                    @if (item.Description != null)
+                                    {
+                                        <span class="moreInfo-top" align="left">@item.Description.Trim()</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="moreInfo-top" align="left"><span>&nbsp;</span></span>
+                                    }
+
+                                    @if (!string.IsNullOrEmpty(@item.ReceiptLink))
+                                    {
+                                        <span class="reciept-top" align="left">Ja</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="reciept-top" align="left">Nej</span>
+                                    }
+
+                                    @*@Html.ActionLink("|", "EditMyBookings", new { id = @item.id })*@
+
+
+                                </div>
+                                    count++;
+                                    if (item.PriceUserCurrency == null || item.PriceUserCurrency == 0)
+                                    {
+                                        totalPrice += item.Price;
+                                    }
+                                    else
+                                    {
+                                        totalPrice += item.PriceUserCurrency;
+                                    }
+                                    if (string.IsNullOrEmpty(item.PriceCurrency) || item.PriceCurrency.ToUpperInvariant().Equals("SEK"))
+                                    {
+                                        totalVat += item.Vat1.Value;
+                                    }
+
+                            }
+                        }
+                  
+                        <div class="total">                            
+                            <span class="total-title total-book" align="left">Total</span>
+                            <span class="total-price total-book" align="left">@Math.Round(Convert.ToDecimal(@totalPrice)).ToString(currencyFormat, CultureInfo.GetCultureInfo("sv"))</span>
+                            <span class="total-vat total-book" align="left">@Math.Round(Convert.ToDecimal(@totalVat)).ToString(currencyFormat, CultureInfo.GetCultureInfo("sv"))</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+        @*IMAGES*@
+        <div class="attached-images">
+            @{int imageCount = 1;}
+            @foreach (var date in ViewBag.monthList)
+            {
+                foreach (var item in ((IEnumerable<TransactionDTO>)ViewBag.transList).Where(item => item.AddedDate.ToString("Y", new CultureInfo("sv-SE")).ToLower() == @date.ToString()).OrderBy(e => e.AirDepTime1))
+                {
+                    if (@item.Vat3 == null && @item.ReceiptLink != null)
+                    {
+                        <div class="pagebreak"> </div>
+                        <h5>KVITTO @imageCount</h5>
+                        <div class="print-attached-info attached-head">
+                            <span class="date">Datum</span>
+                            <span class="supplier">Leverantör</span>
+                            <span class="destination">Ort</span>
+                            <span class="product">Produkt</span>
+                            <span class="price">Kvittobelopp</span>
+                            <span class="vat">Moms</span>
+                            <span class="cardnr">Betalsätt</span>
+                        </div>
+
+
+                        <div class="print-attached-info attached-info">
+                            <span class="date">@item.AddedDate.ToShortDateString()</span>
+                            <span class="supplier">@item.SupplierInfoes.SupplierName</span>
+                            <span class="destination">@item.Destination</span>
+                            <span class="product">@item.Product</span>
+                            <span class="price">@Convert.ToDecimal(@item.Price).ToString(currencyFormat) @item.PriceCurrency</span>
+                            <span class="vat">
+                                @if (!string.IsNullOrEmpty(item.PriceCurrency) && item.PriceCurrency.ToUpperInvariant().Equals("SEK"))
+                                {
+                                    if (@item.Vat1 != null)
+                                    {
+                                        @Convert.ToDecimal(@item.Vat1).ToString(currencyFormat)
+                                    }
+                                    else
+                                    {
+                                        <span>0,00</span>
+                                    }
+                                }
+                                else
+                                {
+                                    <span>&nbsp;</span>
+                                }
+                                @*@item.PriceCurrency*@
+                            </span>
+                            <span class="cardnr">@item.CardNumber</span>
+                        </div>
+                        <br />
+                        if (item.ReceiptLink == null)
+                        {
+                            <div class="img-holder">
+                                <img class="reciept-img" src="" />
+                            </div>
+                        }
+                        else if (item.ReceiptLink.ToLower().Contains(".pdf"))
+                        {
+
+                            var url = "http://docs.google.com/gview?url=" + ViewBag.Url + @item.ReceiptLink + "&embedded=true";
+                            <iframe src="@url" height="850" width="700" frameborder="0" class="reciept-img"></iframe>
+
+                            @*<object data="@item.fileLocation" type="application/pdf" height="1040" width="738" class="reciept-img">
+                                    <p>
+                                        <a href="@item.fileLocation">
+                                            Om PDFn inte visas kan du klicka här
+                                        </a>
+                                    </p>
+                                </object>*@
+                        }
+                        else
+                        {
+                            <div class="img-holder">
+                                @*<span>Nr @countImg</span>*@
+                                <img class="reciept-img" src="@item.ReceiptLink" />
+                            </div>
+                        }
+
+                        imageCount++;
+                    }
+
+                }
+
+            }
+        </div>
+        
+        @*IMAGES*@
+
+        @section scripts
+		{
+
+            <script src="~/Scripts/print-script.js"></script>
+
+        }
+    </div>
+    <br />
+    <div id="dialog" class="progress-dialog non-printable" style="display: none">
+        @*<div class="progress-dialog">
+            </div>*@
+    </div>
+</div>

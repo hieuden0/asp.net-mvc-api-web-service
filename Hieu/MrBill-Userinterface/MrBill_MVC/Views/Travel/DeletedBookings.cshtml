@@ -1,0 +1,143 @@
+﻿@using System.Globalization
+@using MrBill_MVC.MrBillTransactionServices
+@model MrBill_MVC.Models.UserModel
+<link href="~/Content/featherlight.css" rel="stylesheet" />
+<link href="~/Content/custom-style-delete.css" rel="stylesheet" />
+@{
+    ViewBag.Title = "MyBookings";
+}
+
+
+<nav class="navbar navbar-inverse navbar-embossed" role="navigation">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
+            <span class="sr-only">Toggle navigation</span>
+        </button>
+    </div>
+    <div class="collapse navbar-collapse" id="navbar-collapse-01">
+        <ul class="nav navbar-nav navbar-left">
+            <li>
+                <a class="navbar-brand" href="/">
+                    <img src="~/Content/img/mrbill.png" alt="" />
+                </a>
+            </li>
+            @Html.Partial("_LoginPartial")
+        </ul>
+    </div>
+</nav>
+<div class="container bloc-xl">
+    <br />
+    <br />
+    <div class="filter-container">
+        @Html.ActionLink("Visa aktiva transaktioner", "MyBookings", "Travel", null, new { @class = "btn btn-social-twitter" })
+        @*<span id="remove-filter" class="btn btn-social-twitter">Visa aktiva bokningar</span>*@
+        @*	<span id="month-filter" class="btn btn-social-twitter">Visa bara denna månad</span>*@
+
+    </div>
+    <br />
+    <h2>Inaktiva transaktioner</h2>
+    <br />
+    <div class="row">
+        @*<div class="new-booking">
+                <span class="add-button"><span class=""></span><span class="add">@Html.ActionLink("LÄGG TILL", "AddBooking", null, new { @class = "btn btn-primary btn-lg btn-block" })</span></span>
+            </div>*@
+
+        <h4>@ViewBag.noBook</h4>
+        @foreach (var date in ViewBag.monthList)
+        {
+            <div class="col-sm-12 month-row">
+                <div class="month-header">
+                    <strong class="month-trigger fui-radio-unchecked"></strong><span class="month-header-text">@date.ToString()</span><span class="recepit-number"></span>
+
+                </div>
+                <table class="bookings table-item flat-table flat-table-1">
+                    <thead>
+                        <tr class="tableHead">
+                            <!--<td align="center">Kategori</td>-->
+                            <td align="center">Från</td>
+                            <td align="center">Till</td>
+                            <td align="center">Leverantör</td>
+                            <td align="center">Referens</td>
+                            <td align="center">Ort</td>
+                            <td align="center">Produkt</td>
+                            <td align="center">Resenär</td>
+                            <td align="center">Betalsätt</td>
+                            <td align="center">Kortinnehavare</td>
+                            <td align="center">Belopp</td>
+                            <td align="center">Moms</td>
+                            <td align="center">Kostnadsställe</td>
+                            <td align="center">Kvitto</td>
+                            @*<td align="center">Redigera</td>*@
+                            <td align="center">Aktivera</td>
+                        </tr>
+                    </thead>
+                    @foreach (var item in ((IEnumerable<TransactionDTO>)ViewBag.transList).Where(item => item.AirDepTime1.ToString("Y", new CultureInfo("sv-SE")).ToLower() == @date.ToString()).OrderBy(e => e.AirDepTime1))
+                    {
+                        if (@item.Vat3 == 0)
+                        {
+
+                            @*<div class="col-sm-12 top-book op-cl">*@
+                            @*<span class="close-book"><strong class="open-close-btn fui-radio-unchecked"></strong><span>@item.transactionSupplier.ToUpper() @item.date1.ToString("dd MMM yyyy")</span></span>
+                                <span class="edit-button"><span class="edit-icon fui-new"></span><span class="edit">@Html.ActionLink("REDIGERA", "EditMyBookings", new { id = @item.id })</span></span>*@
+                            <tbody>
+                                <tr>
+                                    @* <td align="center">@item.tripType</td> *@
+
+                                    <td align="center">@item.AirDepTime1.ToString("dd MMM yyy")</td>
+                                    <td align="center">@item.AirDepTime2.ToString("dd MMM yyy")</td>
+                                    <td align="center">@item.SupplierInfoes.SupplierName</td>
+                                    <td align="center">@item.BookingRef</td>
+                                    <td align="center">@item.Destination</td>
+                                    <td align="center" class="product" title="@item.Product">@item.Product</td>
+                                    <td align="center">@item.Traveller</td>
+                                    <td align="center">@item.CardNumber</td>
+                                    <td align="center">@item.CardHolder</td>
+                                    <td align="center">@Math.Round(Convert.ToDecimal(@item.Price)) @item.PriceCurrency</td>
+
+                                    @if (item.Vat1 == 0)
+                                    {
+                                        <td align="center">0.00 @item.PriceCurrency</td>
+                                    }
+                                    else
+                                    {
+                                        <td align="center">
+                                            @item.Vat1 @if (@item.Vat1 != 0)
+                                            {@item.PriceCurrency}
+                                        </td>
+                                    }
+                                    @{ var projectName = item.Project != null ? item.Project.ProjectNumber : "";}
+                                    <td align="center">@projectName</td>
+                                    <td align="center"><a href="@item.ReceiptLink" target="_blank" class="kvitto-link">ladda ner</a></td>
+
+                                    @*<td align="center"><a href="@Url.Action("EditMyBookings", new { id = @item.id })" class="edit-booking fui-new"></a></td>*@
+
+                                    <td align="center"><a href="@Url.Action("ActivateBooking", new { id = @item.TransactionId })" class="edit-booking fui-check-circle"></a></td>
+                                    @*@Html.ActionLink("|", "EditMyBookings", new { id = @item.id })*@
+                                </tr>
+                            </tbody>
+                                @*</div>*@
+                                            }
+                                        }
+                </table>
+            </div>}
+
+        <div id="add-box" class="add-popup">
+            @*DESIGN FOR ADDING A BOOKING*@
+            <div class="text-div">
+                <textarea class="add-info-box head form-control"></textarea>
+                <button class="btn btn-primary btn-lg btn-block add-info-btn">SPARA</button>
+            </div>
+        </div>
+        @*<div id="edit-box" class="edit-popup">
+            </div>*@
+
+        @section scripts
+		{
+            <script src="~/Scripts/featherlight.js"></script>
+            <script src="~/Scripts/country-code-converter.js"></script>
+            <script src="~/Scripts/myBookings-lib.js"></script>
+            <script src="~/Scripts/myBookings-script.js"></script>
+        }
+    </div>
+    <br />
+</div>

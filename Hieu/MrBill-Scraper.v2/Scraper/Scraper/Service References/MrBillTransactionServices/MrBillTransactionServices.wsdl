@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="MrBillTransactionServices" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://mrbill.mrorange.nu/services/MrBillTransactionServices.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://mrbill.mrorange.nu/services/MrBillTransactionServices.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://mrbill.mrorange.nu/services/MrBillTransactionServices.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/MrBillServices.DTO" />
+      <xsd:import schemaLocation="http://mrbill.mrorange.nu/services/MrBillTransactionServices.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IMrBillTransactionServices_GetUserTransactionsForCheck_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserTransactionsForCheck" />
+  </wsdl:message>
+  <wsdl:message name="IMrBillTransactionServices_GetUserTransactionsForCheck_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserTransactionsForCheckResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMrBillTransactionServices_GetTransactionsForUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTransactionsForUser" />
+  </wsdl:message>
+  <wsdl:message name="IMrBillTransactionServices_GetTransactionsForUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTransactionsForUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMrBillTransactionServices_SaveTransactionSuppliers_InputMessage">
+    <wsdl:part name="parameters" element="tns:SaveTransactionSuppliers" />
+  </wsdl:message>
+  <wsdl:message name="IMrBillTransactionServices_SaveTransactionSuppliers_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SaveTransactionSuppliersResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMrBillTransactionServices_GetTransactionById_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTransactionById" />
+  </wsdl:message>
+  <wsdl:message name="IMrBillTransactionServices_GetTransactionById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTransactionByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMrBillTransactionServices_CreateNewTransaction_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateNewTransaction" />
+  </wsdl:message>
+  <wsdl:message name="IMrBillTransactionServices_CreateNewTransaction_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateNewTransactionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMrBillTransactionServices_CreateNewTransactionEx_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateNewTransactionEx" />
+  </wsdl:message>
+  <wsdl:message name="IMrBillTransactionServices_CreateNewTransactionEx_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateNewTransactionExResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMrBillTransactionServices_UpdateTransaction_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateTransaction" />
+  </wsdl:message>
+  <wsdl:message name="IMrBillTransactionServices_UpdateTransaction_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateTransactionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMrBillTransactionServices_CreateProject_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateProject" />
+  </wsdl:message>
+  <wsdl:message name="IMrBillTransactionServices_CreateProject_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateProjectResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMrBillTransactionServices_GetProjectID_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProjectID" />
+  </wsdl:message>
+  <wsdl:message name="IMrBillTransactionServices_GetProjectID_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetProjectIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMrBillTransactionServices_CreateSupplier_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateSupplier" />
+  </wsdl:message>
+  <wsdl:message name="IMrBillTransactionServices_CreateSupplier_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateSupplierResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMrBillTransactionServices_GetSupplierIDBySupplierName_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSupplierIDBySupplierName" />
+  </wsdl:message>
+  <wsdl:message name="IMrBillTransactionServices_GetSupplierIDBySupplierName_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSupplierIDBySupplierNameResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMrBillTransactionServices_GetAllBookingRefByUserAndSupplier_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllBookingRefByUserAndSupplier" />
+  </wsdl:message>
+  <wsdl:message name="IMrBillTransactionServices_GetAllBookingRefByUserAndSupplier_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllBookingRefByUserAndSupplierResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IMrBillTransactionServices">
+    <wsdl:operation name="GetUserTransactionsForCheck">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMrBillTransactionServices/GetUserTransactionsForCheck" message="tns:IMrBillTransactionServices_GetUserTransactionsForCheck_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMrBillTransactionServices/GetUserTransactionsForCheckResponse" message="tns:IMrBillTransactionServices_GetUserTransactionsForCheck_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTransactionsForUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMrBillTransactionServices/GetTransactionsForUser" message="tns:IMrBillTransactionServices_GetTransactionsForUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMrBillTransactionServices/GetTransactionsForUserResponse" message="tns:IMrBillTransactionServices_GetTransactionsForUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveTransactionSuppliers">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMrBillTransactionServices/SaveTransactionSuppliers" message="tns:IMrBillTransactionServices_SaveTransactionSuppliers_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMrBillTransactionServices/SaveTransactionSuppliersResponse" message="tns:IMrBillTransactionServices_SaveTransactionSuppliers_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTransactionById">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMrBillTransactionServices/GetTransactionById" message="tns:IMrBillTransactionServices_GetTransactionById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMrBillTransactionServices/GetTransactionByIdResponse" message="tns:IMrBillTransactionServices_GetTransactionById_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateNewTransaction">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMrBillTransactionServices/CreateNewTransaction" message="tns:IMrBillTransactionServices_CreateNewTransaction_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMrBillTransactionServices/CreateNewTransactionResponse" message="tns:IMrBillTransactionServices_CreateNewTransaction_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateNewTransactionEx">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMrBillTransactionServices/CreateNewTransactionEx" message="tns:IMrBillTransactionServices_CreateNewTransactionEx_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMrBillTransactionServices/CreateNewTransactionExResponse" message="tns:IMrBillTransactionServices_CreateNewTransactionEx_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTransaction">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMrBillTransactionServices/UpdateTransaction" message="tns:IMrBillTransactionServices_UpdateTransaction_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMrBillTransactionServices/UpdateTransactionResponse" message="tns:IMrBillTransactionServices_UpdateTransaction_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateProject">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMrBillTransactionServices/CreateProject" message="tns:IMrBillTransactionServices_CreateProject_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMrBillTransactionServices/CreateProjectResponse" message="tns:IMrBillTransactionServices_CreateProject_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProjectID">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMrBillTransactionServices/GetProjectID" message="tns:IMrBillTransactionServices_GetProjectID_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMrBillTransactionServices/GetProjectIDResponse" message="tns:IMrBillTransactionServices_GetProjectID_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateSupplier">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMrBillTransactionServices/CreateSupplier" message="tns:IMrBillTransactionServices_CreateSupplier_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMrBillTransactionServices/CreateSupplierResponse" message="tns:IMrBillTransactionServices_CreateSupplier_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSupplierIDBySupplierName">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMrBillTransactionServices/GetSupplierIDBySupplierName" message="tns:IMrBillTransactionServices_GetSupplierIDBySupplierName_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMrBillTransactionServices/GetSupplierIDBySupplierNameResponse" message="tns:IMrBillTransactionServices_GetSupplierIDBySupplierName_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllBookingRefByUserAndSupplier">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMrBillTransactionServices/GetAllBookingRefByUserAndSupplier" message="tns:IMrBillTransactionServices_GetAllBookingRefByUserAndSupplier_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMrBillTransactionServices/GetAllBookingRefByUserAndSupplierResponse" message="tns:IMrBillTransactionServices_GetAllBookingRefByUserAndSupplier_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IMrBillTransactionServices" type="tns:IMrBillTransactionServices">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetUserTransactionsForCheck">
+      <soap:operation soapAction="http://tempuri.org/IMrBillTransactionServices/GetUserTransactionsForCheck" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTransactionsForUser">
+      <soap:operation soapAction="http://tempuri.org/IMrBillTransactionServices/GetTransactionsForUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveTransactionSuppliers">
+      <soap:operation soapAction="http://tempuri.org/IMrBillTransactionServices/SaveTransactionSuppliers" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTransactionById">
+      <soap:operation soapAction="http://tempuri.org/IMrBillTransactionServices/GetTransactionById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateNewTransaction">
+      <soap:operation soapAction="http://tempuri.org/IMrBillTransactionServices/CreateNewTransaction" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateNewTransactionEx">
+      <soap:operation soapAction="http://tempuri.org/IMrBillTransactionServices/CreateNewTransactionEx" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTransaction">
+      <soap:operation soapAction="http://tempuri.org/IMrBillTransactionServices/UpdateTransaction" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateProject">
+      <soap:operation soapAction="http://tempuri.org/IMrBillTransactionServices/CreateProject" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProjectID">
+      <soap:operation soapAction="http://tempuri.org/IMrBillTransactionServices/GetProjectID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateSupplier">
+      <soap:operation soapAction="http://tempuri.org/IMrBillTransactionServices/CreateSupplier" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSupplierIDBySupplierName">
+      <soap:operation soapAction="http://tempuri.org/IMrBillTransactionServices/GetSupplierIDBySupplierName" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllBookingRefByUserAndSupplier">
+      <soap:operation soapAction="http://tempuri.org/IMrBillTransactionServices/GetAllBookingRefByUserAndSupplier" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MrBillTransactionServices">
+    <wsdl:port name="BasicHttpBinding_IMrBillTransactionServices" binding="tns:BasicHttpBinding_IMrBillTransactionServices">
+      <soap:address location="http://mrbill.mrorange.nu/services/MrBillTransactionServices.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

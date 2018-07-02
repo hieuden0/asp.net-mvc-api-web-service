@@ -1,0 +1,1111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:ns2="http://security.springframework.org" xmlns:tns="http://service.profile.octagroup.com" xmlns:ns6="http://security.profile.octagroup.com" xmlns:ns3="http://lang.java" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap11="http://schemas.xmlsoap.org/soap/envelope/" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope" xmlns:ns5="http://exception.profile.octagroup.com" xmlns:ns4="http://userdetails.security.springframework.org" xmlns:soapenc12="http://www.w3.org/2003/05/soap-encoding" xmlns:soapenc11="http://schemas.xmlsoap.org/soap/encoding/" xmlns:ns1="http://model.profile.octagroup.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://service.profile.octagroup.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://service.profile.octagroup.com">
+      <xsd:element name="getUserByUsername">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="username" nillable="true" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="ArrayOfString">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="getUserByUsernameResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="out" nillable="true" type="ns1:User" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="UsernameNotFoundException" type="ns4:UsernameNotFoundException" />
+      <xsd:element name="synchUser">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="userId" nillable="true" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="synchUserResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="out" nillable="true" type="ns1:User" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="UserSynchException" type="ns5:UserSynchException" />
+      <xsd:element name="getUser">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="userId" nillable="true" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getUserResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="out" nillable="true" type="ns1:User" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="sendForgotPasswordEmail">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="username" nillable="true" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="sendForgotPasswordEmailResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="out" nillable="true" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getValidatedUser">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="username" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="1" maxOccurs="1" name="password" nillable="true" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getValidatedUserResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="out" nillable="true" type="ns1:User" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="saveUser">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="in0" nillable="true" type="ns1:User" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="saveUserResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="out" nillable="true" type="ns1:User" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="UserSaveException" type="ns5:UserSaveException" />
+      <xsd:element name="StaleObjectException" type="ns5:StaleObjectException" />
+      <xsd:element name="UserExistsException" type="ns5:UserExistsException" />
+      <xsd:element name="removeUser">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="userId" nillable="true" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="removeUserResponse">
+        <xsd:complexType />
+      </xsd:element>
+      <xsd:element name="getUsersByUser">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="userId" nillable="true" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getUsersByUserResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="Users" nillable="true" type="ns1:ArrayOfUser" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getTravelers">
+        <xsd:complexType />
+      </xsd:element>
+      <xsd:element name="getTravelersResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="Travelers" nillable="true" type="ns1:ArrayOfUser" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getLightProfileUsers">
+        <xsd:complexType />
+      </xsd:element>
+      <xsd:element name="getLightProfileUsersResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="Users" nillable="true" type="ns1:ArrayOfUser" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="synchLightProfileUser">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="userId" nillable="true" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="synchLightProfileUserResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="out" nillable="true" type="ns1:User" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getUserBySingleSignOn">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="username" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="1" maxOccurs="1" name="companyName" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="1" maxOccurs="1" name="password" nillable="true" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getUserBySingleSignOnResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="out" nillable="true" type="ns1:User" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="CompanyNotFoundException" type="ns5:CompanyNotFoundException" />
+      <xsd:element name="AuthenticationToken" type="ns6:AuthenticationToken" />
+    </xsd:schema>
+    <xsd:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://model.profile.octagroup.com">
+      <xsd:complexType name="User">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="accountExpired" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="accountLocked" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="activityNumbers" nillable="true" type="ns1:ArrayOfReference" />
+          <xsd:element minOccurs="0" name="adapters" nillable="true" type="ns1:ArrayOfAdapter" />
+          <xsd:element minOccurs="0" name="address" nillable="true" type="ns1:Address" />
+          <xsd:element minOccurs="0" name="agreementAirCode1" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="agreementAirCode2" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="agreementAirCode3" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="agreementCodeOS" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="agreementCodeSK" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="airBonusCards" nillable="true" type="ns1:ArrayOfBonusCard" />
+          <xsd:element minOccurs="0" name="airMeal" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="airMealFreeText" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="airNotes" nillable="true" type="ns1:ArrayOfInformation" />
+          <xsd:element minOccurs="0" name="airRemarks" nillable="true" type="ns1:ArrayOfInformation" />
+          <xsd:element minOccurs="0" name="airSeating" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="airYearCards" nillable="true" type="ns1:ArrayOfYearCard" />
+          <xsd:element minOccurs="0" name="allergicToAnimals" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="amadeusPriorityElements" nillable="true" type="ns1:ArrayOfAmadeusPriorityElement" />
+          <xsd:element minOccurs="0" name="arlandaExpressFormOfIdentities" nillable="true" type="ns1:ArrayOfFormOfIdentity" />
+          <xsd:element minOccurs="0" name="associatedGroups" nillable="true" type="ns1:ArrayOfGroup" />
+          <xsd:element minOccurs="0" name="autoBilling" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="availableAirGdsFormOfPayments" nillable="true" type="ns1:ArrayOfFormOfPayment" />
+          <xsd:element minOccurs="0" name="availableAirLccFormOfPayments" nillable="true" type="ns1:ArrayOfFormOfPayment" />
+          <xsd:element minOccurs="0" name="availableBoatFormOfPayments" nillable="true" type="ns1:ArrayOfFormOfPayment" />
+          <xsd:element minOccurs="0" name="availableCarFormOfPayments" nillable="true" type="ns1:ArrayOfFormOfPayment" />
+          <xsd:element minOccurs="0" name="availableHotelFormOfPayments" nillable="true" type="ns1:ArrayOfFormOfPayment" />
+          <xsd:element minOccurs="0" name="availableOtherFormOfPayments" nillable="true" type="ns1:ArrayOfFormOfPayment" />
+          <xsd:element minOccurs="0" name="availableTrainFormOfPayments" nillable="true" type="ns1:ArrayOfFormOfPayment" />
+          <xsd:element minOccurs="0" name="availableTransferFormOfPayments" nillable="true" type="ns1:ArrayOfFormOfPayment" />
+          <xsd:element minOccurs="0" name="boatBonusCards" nillable="true" type="ns1:ArrayOfBonusCard" />
+          <xsd:element minOccurs="0" name="boatNotes" nillable="true" type="ns1:ArrayOfInformation" />
+          <xsd:element minOccurs="0" name="boatRemarks" nillable="true" type="ns1:ArrayOfInformation" />
+          <xsd:element minOccurs="0" name="boatYearCards" nillable="true" type="ns1:ArrayOfYearCard" />
+          <xsd:element minOccurs="0" name="bonusCards" nillable="true" type="ns1:ArrayOfBonusCard" />
+          <xsd:element minOccurs="0" name="businessPhoneNumber" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="carBonusCards" nillable="true" type="ns1:ArrayOfBonusCard" />
+          <xsd:element minOccurs="0" name="carNotes" nillable="true" type="ns1:ArrayOfInformation" />
+          <xsd:element minOccurs="0" name="carRemarks" nillable="true" type="ns1:ArrayOfInformation" />
+          <xsd:element minOccurs="0" name="carType" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="carYearCards" nillable="true" type="ns1:ArrayOfYearCard" />
+          <xsd:element minOccurs="0" name="companyIdentity" nillable="true" type="ns1:Identity" />
+          <xsd:element minOccurs="0" name="convertedFromLightProfile" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="costCenters" nillable="true" type="ns1:ArrayOfReference" />
+          <xsd:element minOccurs="0" name="creationDate" type="xsd:dateTime" />
+          <xsd:element minOccurs="0" name="credentialsExpired" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="departmentIdentity" nillable="true" type="ns1:Identity" />
+          <xsd:element name="email" type="xsd:string" />
+          <xsd:element minOccurs="0" name="employeeNumber" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="enabled" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="externalSystemIdentifiers" nillable="true" type="ns1:ArrayOfExternalSystemIdentifier" />
+          <xsd:element minOccurs="0" name="faxNumber" nillable="true" type="xsd:string" />
+          <xsd:element name="firstName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="formOfIdentities" nillable="true" type="ns1:ArrayOfFormOfIdentity" />
+          <xsd:element minOccurs="0" name="formOfPayments" nillable="true" type="ns1:ArrayOfFormOfPayment" />
+          <xsd:element minOccurs="0" name="homePhoneNumber" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="hotelAccountCode" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="hotelBonusCards" nillable="true" type="ns1:ArrayOfBonusCard" />
+          <xsd:element minOccurs="0" name="hotelNotes" nillable="true" type="ns1:ArrayOfInformation" />
+          <xsd:element minOccurs="0" name="hotelRemarks" nillable="true" type="ns1:ArrayOfInformation" />
+          <xsd:element minOccurs="0" name="hotelSmoking" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="hotelYearCards" nillable="true" type="ns1:ArrayOfYearCard" />
+          <xsd:element minOccurs="0" name="id" nillable="true" type="xsd:long" />
+          <xsd:element minOccurs="0" name="informations" nillable="true" type="ns1:ArrayOfInformation" />
+          <xsd:element minOccurs="0" name="lastLoginDate" type="xsd:dateTime" />
+          <xsd:element minOccurs="0" name="lastModifiedDate" type="xsd:dateTime" />
+          <xsd:element name="lastName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="lightProfile" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="lightProfileTravelAgencyId" nillable="true" type="xsd:long" />
+          <xsd:element minOccurs="0" name="link4U" nillable="true" type="ns1:Link4U" />
+          <xsd:element minOccurs="0" name="link4UAgreementCode" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="link4UForm" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="link4UPayerID" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="mobile" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="mrBillProfile" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="noOfLogins" nillable="true" type="xsd:int" />
+          <xsd:element minOccurs="0" name="officeIdentity" nillable="true" type="ns1:Identity" />
+          <xsd:element minOccurs="0" name="organisationIdentities" nillable="true" type="ns1:ArrayOfIdentity" />
+          <xsd:element minOccurs="0" name="otherBonusCards" nillable="true" type="ns1:ArrayOfBonusCard" />
+          <xsd:element minOccurs="0" name="otherNotes" nillable="true" type="ns1:ArrayOfInformation" />
+          <xsd:element minOccurs="0" name="otherReferences" nillable="true" type="ns1:ArrayOfReference" />
+          <xsd:element minOccurs="0" name="otherRemarks" nillable="true" type="ns1:ArrayOfInformation" />
+          <xsd:element minOccurs="0" name="otherYearCards" nillable="true" type="ns1:ArrayOfYearCard" />
+          <xsd:element minOccurs="0" name="partnerId" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="passport" nillable="true" type="ns1:Passport" />
+          <xsd:element name="password" type="xsd:string" />
+          <xsd:element minOccurs="0" name="preferredDepartureAirport" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="preferredDestinationAirport" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="preferredLanguage" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="projectNumbers" nillable="true" type="ns1:ArrayOfReference" />
+          <xsd:element minOccurs="0" name="recordLocator" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="references" nillable="true" type="ns1:ArrayOfReference" />
+          <xsd:element minOccurs="0" name="requisitionNumbers" nillable="true" type="ns1:ArrayOfReference" />
+          <xsd:element minOccurs="0" name="roleList" nillable="true" type="ns1:ArrayOfLabelValue" />
+          <xsd:element minOccurs="0" name="roles" nillable="true" type="ns1:ArrayOfRole" />
+          <xsd:element minOccurs="0" name="sections" nillable="true" type="ns1:ArrayOfReference" />
+          <xsd:element minOccurs="0" name="selectedActivityNumber" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="selectedCostCenter" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="selectedCustomerNumber" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="selectedOtherReference" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="selectedProjectNumber" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="selectedRequisitionNumber" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="selectedSection" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="socialSecurityNumber" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="sosName" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="sosNumber" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="sosRelation" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="specialRequest" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="statusList" nillable="true" type="ns1:ArrayOfLabelValue" />
+          <xsd:element minOccurs="0" name="supervisorEmail" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="title" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="trainBonusCards" nillable="true" type="ns1:ArrayOfBonusCard" />
+          <xsd:element minOccurs="0" name="trainNotes" nillable="true" type="ns1:ArrayOfInformation" />
+          <xsd:element minOccurs="0" name="trainRemarks" nillable="true" type="ns1:ArrayOfInformation" />
+          <xsd:element minOccurs="0" name="trainYearCards" nillable="true" type="ns1:ArrayOfYearCard" />
+          <xsd:element minOccurs="0" name="transactionSuppliers" nillable="true" type="ns1:ArrayOfTransactionSupplier" />
+          <xsd:element minOccurs="0" name="transactions" nillable="true" type="ns1:ArrayOfTransaction" />
+          <xsd:element minOccurs="0" name="travelAgencyIdentity" nillable="true" type="ns1:Identity" />
+          <xsd:element minOccurs="0" name="travelwireId" nillable="true" type="xsd:string" />
+          <xsd:element name="username" type="xsd:string" />
+          <xsd:element name="version" type="xsd:int" />
+          <xsd:element minOccurs="0" name="yearCards" nillable="true" type="ns1:ArrayOfYearCard" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfInformation">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="Information" nillable="true" type="ns1:Information" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Information">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="companyIdentity" nillable="true" type="ns1:Identity" />
+          <xsd:element minOccurs="0" name="id" nillable="true" type="xsd:long" />
+          <xsd:element name="information" type="xsd:string" />
+          <xsd:element minOccurs="0" name="officeIdentity" nillable="true" type="ns1:Identity" />
+          <xsd:element minOccurs="0" name="order" nillable="true" type="xsd:int" />
+          <xsd:element minOccurs="0" name="organisationIdentity" nillable="true" type="ns1:Identity" />
+          <xsd:element name="product" type="xsd:string" />
+          <xsd:element name="type" type="xsd:string" />
+          <xsd:element minOccurs="0" name="userIdentity" nillable="true" type="ns1:Identity" />
+          <xsd:element name="version" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Identity">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="id" nillable="true" type="xsd:long" />
+          <xsd:element minOccurs="0" name="name" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfTransaction">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="Transaction" nillable="true" type="ns1:Transaction" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Transaction">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="addedDate" type="xsd:dateTime" />
+          <xsd:element minOccurs="0" name="attachedPersons" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="bookingReference" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="category" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="country" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="creditCardNumber" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="creditCardOwner" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="currency" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="date1" type="xsd:dateTime" />
+          <xsd:element minOccurs="0" name="date2" type="xsd:dateTime" />
+          <xsd:element minOccurs="0" name="departureCity" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="description" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="destination" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="destinationCity" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="expenseDate" type="xsd:dateTime" />
+          <xsd:element minOccurs="0" name="fileLocation" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="id" nillable="true" type="xsd:long" />
+          <xsd:element minOccurs="0" name="localAmount" nillable="true" type="xsd:decimal" />
+          <xsd:element minOccurs="0" name="multiTransactionId" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="numberOfUnits" nillable="true" type="xsd:int" />
+          <xsd:element minOccurs="0" name="paymentType" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="prePaid" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="price" nillable="true" type="xsd:decimal" />
+          <xsd:element minOccurs="0" name="product" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="removedDate" type="xsd:dateTime" />
+          <xsd:element minOccurs="0" name="toBeDeleted" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="total" nillable="true" type="xsd:decimal" />
+          <xsd:element name="transactionDate" type="xsd:dateTime" />
+          <xsd:element name="transactionOwner" type="xsd:string" />
+          <xsd:element name="transactionStatus" type="ns1:TransactionStatus" />
+          <xsd:element minOccurs="0" name="transactionSupplier" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="travelerConfirmationEmail" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="travelerCostCenter" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="travelerEmployeeId" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="travelerMembershipCard" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="travelerName" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="travelerProjectNumber" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="tripType" nillable="true" type="xsd:string" />
+          <xsd:element name="userIdentity" type="ns1:Identity" />
+          <xsd:element minOccurs="0" name="userType" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="vat1" nillable="true" type="xsd:decimal" />
+          <xsd:element minOccurs="0" name="vat2" nillable="true" type="xsd:decimal" />
+          <xsd:element minOccurs="0" name="vat3" nillable="true" type="xsd:decimal" />
+          <xsd:element name="version" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:simpleType name="TransactionStatus">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="SHOWN" />
+          <xsd:enumeration value="HIDDEN" />
+          <xsd:enumeration value="DISABLED" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="ArrayOfYearCard">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="YearCard" nillable="true" type="ns1:YearCard" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="YearCard">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="id" nillable="true" type="xsd:long" />
+          <xsd:element name="info" type="xsd:string" />
+          <xsd:element name="name" type="xsd:string" />
+          <xsd:element name="number" type="xsd:string" />
+          <xsd:element name="product" type="xsd:string" />
+          <xsd:element name="userIdentity" type="ns1:Identity" />
+          <xsd:element name="version" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfBonusCard">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="BonusCard" nillable="true" type="ns1:BonusCard" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="BonusCard">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="companyIdentity" nillable="true" type="ns1:Identity" />
+          <xsd:element minOccurs="0" name="groupMemberIdentity" nillable="true" type="ns1:Identity" />
+          <xsd:element minOccurs="0" name="id" nillable="true" type="xsd:long" />
+          <xsd:element name="name" type="xsd:string" />
+          <xsd:element name="number" type="xsd:string" />
+          <xsd:element name="product" type="xsd:string" />
+          <xsd:element minOccurs="0" name="usedAsFoid" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="userIdentity" nillable="true" type="ns1:Identity" />
+          <xsd:element name="version" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfExternalSystemIdentifier">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="ExternalSystemIdentifier" nillable="true" type="ns1:ExternalSystemIdentifier" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ExternalSystemIdentifier">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="externalId" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="externalSystem" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="parentId" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="parentName" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="parentType" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfGroup">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="Group" nillable="true" type="ns1:Group" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Group">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="companyIdentity" nillable="true" type="ns1:Identity" />
+          <xsd:element minOccurs="0" name="id" nillable="true" type="xsd:long" />
+          <xsd:element minOccurs="0" name="leisureRelated" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="members" nillable="true" type="ns1:ArrayOfGroupMember" />
+          <xsd:element minOccurs="0" name="organisationIdentity" nillable="true" type="ns1:Identity" />
+          <xsd:element minOccurs="0" name="userIdentity" nillable="true" type="ns1:Identity" />
+          <xsd:element name="version" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfGroupMember">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="GroupMember" nillable="true" type="ns1:GroupMember" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="GroupMember">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="bonusCards" nillable="true" type="ns1:ArrayOfBonusCard" />
+          <xsd:element minOccurs="0" name="dateOfBirth" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="emailAddress" nillable="true" type="xsd:string" />
+          <xsd:element name="firstName" type="xsd:string" />
+          <xsd:element name="groupIdentity" type="ns1:Identity" />
+          <xsd:element minOccurs="0" name="id" nillable="true" type="xsd:long" />
+          <xsd:element name="lastName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="mobilePhone" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="passport" nillable="true" type="ns1:Passport" />
+          <xsd:element name="title" type="xsd:string" />
+          <xsd:element name="version" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Passport">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="dateOfBirth" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="expireDate" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="firstname" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="gender" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="issueCountry" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="nationality" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="number" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="remainingNames" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="surname" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Link4U">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="agreementCode" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="backOfficeEmail" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="backUrl" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="colours" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="defaultProjectNumber" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="link4UId" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="orderNote" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="payerAccountUpdateAllowed" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="payerID" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="profile" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="url" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="xmlParameters" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfAdapter">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="Adapter" nillable="true" type="ns1:Adapter" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Adapter">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="adapterType" nillable="true" type="ns1:AdapterType" />
+          <xsd:element minOccurs="0" name="adapterTypeId" nillable="true" type="xsd:long" />
+          <xsd:element minOccurs="0" name="companyIdentity" nillable="true" type="ns1:Identity" />
+          <xsd:element minOccurs="0" name="enabled" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="id" nillable="true" type="xsd:long" />
+          <xsd:element minOccurs="0" name="login" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="officeIdentity" nillable="true" type="ns1:Identity" />
+          <xsd:element minOccurs="0" name="parameters" nillable="true" type="ns1:ArrayOfParameter" />
+          <xsd:element minOccurs="0" name="password" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="payByInvoice" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="payByTravelAccount" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="realmName" nillable="true" type="xsd:string" />
+          <xsd:element name="version" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfParameter">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="Parameter" nillable="true" type="ns1:Parameter" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Parameter">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="id" nillable="true" type="xsd:long" />
+          <xsd:element minOccurs="0" name="name" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="value" nillable="true" type="xsd:string" />
+          <xsd:element name="version" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="AdapterType">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="displayName" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="id" nillable="true" type="xsd:long" />
+          <xsd:element minOccurs="0" name="name" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfReference">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="Reference" nillable="true" type="ns1:Reference" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Reference">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="amadeusRow" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="codes" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="codesList" nillable="true" type="tns:ArrayOfString" />
+          <xsd:element minOccurs="0" name="companyIdentity" nillable="true" type="ns1:Identity" />
+          <xsd:element minOccurs="0" name="departmentIdentity" nillable="true" type="ns1:Identity" />
+          <xsd:element minOccurs="0" name="freeText" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="id" nillable="true" type="xsd:long" />
+          <xsd:element minOccurs="0" name="label" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="mandatory" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="officeIdentity" nillable="true" type="ns1:Identity" />
+          <xsd:element minOccurs="0" name="order" nillable="true" type="xsd:int" />
+          <xsd:element minOccurs="0" name="synchReference" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="type" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="userSelectable" type="xsd:boolean" />
+          <xsd:element name="version" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfFormOfIdentity">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="FormOfIdentity" nillable="true" type="ns1:FormOfIdentity" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="FormOfIdentity">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="cardInfo" nillable="true" type="ns1:CardInfo" />
+          <xsd:element minOccurs="0" name="id" nillable="true" type="xsd:long" />
+          <xsd:element minOccurs="0" name="markedForDeletion" type="xsd:boolean" />
+          <xsd:element name="product" type="xsd:string" />
+          <xsd:element minOccurs="0" name="userIdentity" nillable="true" type="ns1:Identity" />
+          <xsd:element name="version" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="CardInfo">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="cardHolderFirstName" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="cardHolderLastName" nillable="true" type="xsd:string" />
+          <xsd:element name="cardNumber" type="xsd:string" />
+          <xsd:element minOccurs="0" name="cardPrefix" nillable="true" type="xsd:string" />
+          <xsd:element name="cardType" type="xsd:string" />
+          <xsd:element minOccurs="0" name="expireMonth" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="expireYear" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="issueCountry" nillable="true" type="xsd:string" />
+          <xsd:element name="viewCardNumber" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfAmadeusPriorityElement">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="AmadeusPriorityElement" nillable="true" type="ns1:AmadeusPriorityElement" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="AmadeusPriorityElement">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="companyIdentity" nillable="true" type="ns1:Identity" />
+          <xsd:element minOccurs="0" name="id" nillable="true" type="xsd:long" />
+          <xsd:element minOccurs="0" name="information" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="markedForDeletion" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="order" nillable="true" type="xsd:int" />
+          <xsd:element minOccurs="0" name="userIdentity" nillable="true" type="ns1:Identity" />
+          <xsd:element name="version" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfRole">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="Role" nillable="true" type="ns1:Role" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Role">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="authority" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="description" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="id" nillable="true" type="xsd:long" />
+          <xsd:element minOccurs="0" name="name" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfTransactionSupplier">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="TransactionSupplier" nillable="true" type="ns1:TransactionSupplier" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="TransactionSupplier">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="id" nillable="true" type="xsd:long" />
+          <xsd:element minOccurs="0" name="name" nillable="true" type="xsd:string" />
+          <xsd:element name="supplierPassword" type="xsd:string" />
+          <xsd:element name="supplierUsername" type="xsd:string" />
+          <xsd:element minOccurs="0" name="toBeDeleted" type="xsd:boolean" />
+          <xsd:element name="url" type="xsd:string" />
+          <xsd:element minOccurs="0" name="userIdentity" nillable="true" type="ns1:Identity" />
+          <xsd:element name="version" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfLabelValue">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="LabelValue" nillable="true" type="ns1:LabelValue" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="LabelValue">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="label" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="value" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfIdentity">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="Identity" nillable="true" type="ns1:Identity" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfFormOfPayment">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="FormOfPayment" nillable="true" type="ns1:FormOfPayment" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="FormOfPayment">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="cardInfo" nillable="true" type="ns1:CardInfo" />
+          <xsd:element minOccurs="0" name="companyIdentity" nillable="true" type="ns1:Identity" />
+          <xsd:element minOccurs="0" name="departmentIdentity" nillable="true" type="ns1:Identity" />
+          <xsd:element minOccurs="0" name="enabled" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="id" nillable="true" type="xsd:long" />
+          <xsd:element minOccurs="0" name="invoiceInfo" nillable="true" type="ns1:InvoiceInfo" />
+          <xsd:element name="name" type="xsd:string" />
+          <xsd:element minOccurs="0" name="officeIdentity" nillable="true" type="ns1:Identity" />
+          <xsd:element name="paymentType" type="xsd:string" />
+          <xsd:element name="product" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productAirGDSEnabled" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="productAirLCCEnabled" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="productBoatEnabled" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="productCarEnabled" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="productHotelEnabled" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="productOtherEnabled" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="productTrainEnabled" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="productTransferEnabled" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="synchronise" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="useOnline" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="userIdentity" nillable="true" type="ns1:Identity" />
+          <xsd:element name="version" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="InvoiceInfo">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="address" nillable="true" type="xsd:string" />
+          <xsd:element name="city" type="xsd:string" />
+          <xsd:element minOccurs="0" name="coAddress" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="country" nillable="true" type="xsd:string" />
+          <xsd:element name="postalCode" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Address">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="address" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="address2" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="city" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="coAddress" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="coAddress2" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="country" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="postalCode" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfUser">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="User" nillable="true" type="ns1:User" />
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+    <xsd:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://userdetails.security.springframework.org">
+      <xsd:complexType name="UsernameNotFoundException">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="authentication" nillable="true" type="ns2:Authentication" />
+          <xsd:element minOccurs="0" name="extraInformation" nillable="true" type="xsd:anyType" />
+          <xsd:element minOccurs="0" name="message" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="mostSpecificCause" nillable="true" type="ns3:Throwable" />
+          <xsd:element minOccurs="0" name="rootCause" nillable="true" type="ns3:Throwable" />
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+    <xsd:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://lang.java">
+      <xsd:complexType name="Throwable" />
+    </xsd:schema>
+    <xsd:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://security.springframework.org">
+      <xsd:complexType name="Authentication">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="authenticated" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="authorities" nillable="true" type="ns2:ArrayOfGrantedAuthority" />
+          <xsd:element minOccurs="0" name="credentials" nillable="true" type="xsd:anyType" />
+          <xsd:element minOccurs="0" name="details" nillable="true" type="xsd:anyType" />
+          <xsd:element minOccurs="0" name="principal" nillable="true" type="xsd:anyType" />
+          <xsd:element minOccurs="0" name="name" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfGrantedAuthority">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="GrantedAuthority" nillable="true" type="ns2:GrantedAuthority" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="GrantedAuthority">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="authority" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+    <xsd:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://exception.profile.octagroup.com">
+      <xsd:complexType name="UserSynchException" />
+      <xsd:complexType name="UserSaveException" />
+      <xsd:complexType name="StaleObjectException" />
+      <xsd:complexType name="UserExistsException" />
+      <xsd:complexType name="CompanyNotFoundException" />
+    </xsd:schema>
+    <xsd:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://security.profile.octagroup.com">
+      <xsd:complexType name="AuthenticationToken">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="password" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="username" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="getUserByUsernameRequest">
+    <wsdl:part name="parameters" element="tns:getUserByUsername" />
+  </wsdl:message>
+  <wsdl:message name="getUsersByUserRequestHeaders">
+    <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+  </wsdl:message>
+  <wsdl:message name="synchUserResponse">
+    <wsdl:part name="parameters" element="tns:synchUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="getUserResponse">
+    <wsdl:part name="parameters" element="tns:getUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="UserSaveException">
+    <wsdl:part name="UserSaveException" element="tns:UserSaveException" />
+  </wsdl:message>
+  <wsdl:message name="synchLightProfileUserRequestHeaders">
+    <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+  </wsdl:message>
+  <wsdl:message name="getUserByUsernameRequestHeaders">
+    <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+  </wsdl:message>
+  <wsdl:message name="synchLightProfileUserResponse">
+    <wsdl:part name="parameters" element="tns:synchLightProfileUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="sendForgotPasswordEmailResponse">
+    <wsdl:part name="parameters" element="tns:sendForgotPasswordEmailResponse" />
+  </wsdl:message>
+  <wsdl:message name="synchUserRequest">
+    <wsdl:part name="parameters" element="tns:synchUser" />
+  </wsdl:message>
+  <wsdl:message name="removeUserResponse">
+    <wsdl:part name="parameters" element="tns:removeUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="getUsersByUserRequest">
+    <wsdl:part name="parameters" element="tns:getUsersByUser" />
+  </wsdl:message>
+  <wsdl:message name="CompanyNotFoundException">
+    <wsdl:part name="CompanyNotFoundException" element="tns:CompanyNotFoundException" />
+  </wsdl:message>
+  <wsdl:message name="getValidatedUserRequest">
+    <wsdl:part name="parameters" element="tns:getValidatedUser" />
+  </wsdl:message>
+  <wsdl:message name="UserExistsException">
+    <wsdl:part name="UserExistsException" element="tns:UserExistsException" />
+  </wsdl:message>
+  <wsdl:message name="getLightProfileUsersRequest">
+    <wsdl:part name="parameters" element="tns:getLightProfileUsers" />
+  </wsdl:message>
+  <wsdl:message name="getLightProfileUsersRequestHeaders">
+    <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+  </wsdl:message>
+  <wsdl:message name="getUserBySingleSignOnRequestHeaders">
+    <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+  </wsdl:message>
+  <wsdl:message name="synchLightProfileUserRequest">
+    <wsdl:part name="parameters" element="tns:synchLightProfileUser" />
+  </wsdl:message>
+  <wsdl:message name="UsernameNotFoundException">
+    <wsdl:part name="UsernameNotFoundException" element="tns:UsernameNotFoundException" />
+  </wsdl:message>
+  <wsdl:message name="saveUserResponse">
+    <wsdl:part name="parameters" element="tns:saveUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="sendForgotPasswordEmailRequest">
+    <wsdl:part name="parameters" element="tns:sendForgotPasswordEmail" />
+  </wsdl:message>
+  <wsdl:message name="UserSynchException">
+    <wsdl:part name="UserSynchException" element="tns:UserSynchException" />
+  </wsdl:message>
+  <wsdl:message name="removeUserRequest">
+    <wsdl:part name="parameters" element="tns:removeUser" />
+  </wsdl:message>
+  <wsdl:message name="saveUserRequestHeaders">
+    <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+  </wsdl:message>
+  <wsdl:message name="getUserRequestHeaders">
+    <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+  </wsdl:message>
+  <wsdl:message name="StaleObjectException">
+    <wsdl:part name="StaleObjectException" element="tns:StaleObjectException" />
+  </wsdl:message>
+  <wsdl:message name="getUserBySingleSignOnRequest">
+    <wsdl:part name="parameters" element="tns:getUserBySingleSignOn" />
+  </wsdl:message>
+  <wsdl:message name="getLightProfileUsersResponse">
+    <wsdl:part name="parameters" element="tns:getLightProfileUsersResponse" />
+  </wsdl:message>
+  <wsdl:message name="sendForgotPasswordEmailRequestHeaders">
+    <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+  </wsdl:message>
+  <wsdl:message name="getUserBySingleSignOnResponse">
+    <wsdl:part name="parameters" element="tns:getUserBySingleSignOnResponse" />
+  </wsdl:message>
+  <wsdl:message name="getUserRequest">
+    <wsdl:part name="parameters" element="tns:getUser" />
+  </wsdl:message>
+  <wsdl:message name="getValidatedUserResponse">
+    <wsdl:part name="parameters" element="tns:getValidatedUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="getUserByUsernameResponse">
+    <wsdl:part name="parameters" element="tns:getUserByUsernameResponse" />
+  </wsdl:message>
+  <wsdl:message name="saveUserRequest">
+    <wsdl:part name="parameters" element="tns:saveUser" />
+  </wsdl:message>
+  <wsdl:message name="removeUserRequestHeaders">
+    <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+  </wsdl:message>
+  <wsdl:message name="getTravelersRequestHeaders">
+    <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+  </wsdl:message>
+  <wsdl:message name="synchUserRequestHeaders">
+    <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+  </wsdl:message>
+  <wsdl:message name="getUsersByUserResponse">
+    <wsdl:part name="parameters" element="tns:getUsersByUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="getTravelersRequest">
+    <wsdl:part name="parameters" element="tns:getTravelers" />
+  </wsdl:message>
+  <wsdl:message name="getValidatedUserRequestHeaders">
+    <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+  </wsdl:message>
+  <wsdl:message name="getTravelersResponse">
+    <wsdl:part name="parameters" element="tns:getTravelersResponse" />
+  </wsdl:message>
+  <wsdl:portType name="UserServicePortType">
+    <wsdl:operation name="getUserByUsername">
+      <wsdl:input name="getUserByUsernameRequest" message="tns:getUserByUsernameRequest" />
+      <wsdl:output name="getUserByUsernameResponse" message="tns:getUserByUsernameResponse" />
+      <wsdl:fault name="UsernameNotFoundException" message="tns:UsernameNotFoundException" />
+    </wsdl:operation>
+    <wsdl:operation name="synchUser">
+      <wsdl:input name="synchUserRequest" message="tns:synchUserRequest" />
+      <wsdl:output name="synchUserResponse" message="tns:synchUserResponse" />
+      <wsdl:fault name="UserSynchException" message="tns:UserSynchException" />
+    </wsdl:operation>
+    <wsdl:operation name="getUser">
+      <wsdl:input name="getUserRequest" message="tns:getUserRequest" />
+      <wsdl:output name="getUserResponse" message="tns:getUserResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="sendForgotPasswordEmail">
+      <wsdl:input name="sendForgotPasswordEmailRequest" message="tns:sendForgotPasswordEmailRequest" />
+      <wsdl:output name="sendForgotPasswordEmailResponse" message="tns:sendForgotPasswordEmailResponse" />
+      <wsdl:fault name="UsernameNotFoundException" message="tns:UsernameNotFoundException" />
+    </wsdl:operation>
+    <wsdl:operation name="getValidatedUser">
+      <wsdl:input name="getValidatedUserRequest" message="tns:getValidatedUserRequest" />
+      <wsdl:output name="getValidatedUserResponse" message="tns:getValidatedUserResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="saveUser">
+      <wsdl:input name="saveUserRequest" message="tns:saveUserRequest" />
+      <wsdl:output name="saveUserResponse" message="tns:saveUserResponse" />
+      <wsdl:fault name="UserSynchException" message="tns:UserSynchException" />
+      <wsdl:fault name="UserSaveException" message="tns:UserSaveException" />
+      <wsdl:fault name="UserExistsException" message="tns:UserExistsException" />
+      <wsdl:fault name="StaleObjectException" message="tns:StaleObjectException" />
+    </wsdl:operation>
+    <wsdl:operation name="removeUser">
+      <wsdl:input name="removeUserRequest" message="tns:removeUserRequest" />
+      <wsdl:output name="removeUserResponse" message="tns:removeUserResponse" />
+      <wsdl:fault name="UserSynchException" message="tns:UserSynchException" />
+    </wsdl:operation>
+    <wsdl:operation name="getUsersByUser">
+      <wsdl:input name="getUsersByUserRequest" message="tns:getUsersByUserRequest" />
+      <wsdl:output name="getUsersByUserResponse" message="tns:getUsersByUserResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getTravelers">
+      <wsdl:input name="getTravelersRequest" message="tns:getTravelersRequest" />
+      <wsdl:output name="getTravelersResponse" message="tns:getTravelersResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getLightProfileUsers">
+      <wsdl:input name="getLightProfileUsersRequest" message="tns:getLightProfileUsersRequest" />
+      <wsdl:output name="getLightProfileUsersResponse" message="tns:getLightProfileUsersResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="synchLightProfileUser">
+      <wsdl:input name="synchLightProfileUserRequest" message="tns:synchLightProfileUserRequest" />
+      <wsdl:output name="synchLightProfileUserResponse" message="tns:synchLightProfileUserResponse" />
+      <wsdl:fault name="UserSynchException" message="tns:UserSynchException" />
+    </wsdl:operation>
+    <wsdl:operation name="getUserBySingleSignOn">
+      <wsdl:input name="getUserBySingleSignOnRequest" message="tns:getUserBySingleSignOnRequest" />
+      <wsdl:output name="getUserBySingleSignOnResponse" message="tns:getUserBySingleSignOnResponse" />
+      <wsdl:fault name="CompanyNotFoundException" message="tns:CompanyNotFoundException" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="UserServiceHttpBinding" type="tns:UserServicePortType">
+    <wsdlsoap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="getUserByUsername">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="getUserByUsernameRequest">
+        <wsdlsoap:body use="literal" />
+        <wsdlsoap:header message="tns:getUserByUsernameRequestHeaders" part="AuthenticationToken" use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getUserByUsernameResponse">
+        <wsdlsoap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="UsernameNotFoundException">
+        <wsdlsoap:fault use="literal" name="UsernameNotFoundException" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="synchUser">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="synchUserRequest">
+        <wsdlsoap:body use="literal" />
+        <wsdlsoap:header message="tns:synchUserRequestHeaders" part="AuthenticationToken" use="literal" />
+      </wsdl:input>
+      <wsdl:output name="synchUserResponse">
+        <wsdlsoap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="UserSynchException">
+        <wsdlsoap:fault use="literal" name="UserSynchException" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getUser">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="getUserRequest">
+        <wsdlsoap:body use="literal" />
+        <wsdlsoap:header message="tns:getUserRequestHeaders" part="AuthenticationToken" use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getUserResponse">
+        <wsdlsoap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sendForgotPasswordEmail">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="sendForgotPasswordEmailRequest">
+        <wsdlsoap:body use="literal" />
+        <wsdlsoap:header message="tns:sendForgotPasswordEmailRequestHeaders" part="AuthenticationToken" use="literal" />
+      </wsdl:input>
+      <wsdl:output name="sendForgotPasswordEmailResponse">
+        <wsdlsoap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="UsernameNotFoundException">
+        <wsdlsoap:fault use="literal" name="UsernameNotFoundException" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getValidatedUser">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="getValidatedUserRequest">
+        <wsdlsoap:body use="literal" />
+        <wsdlsoap:header message="tns:getValidatedUserRequestHeaders" part="AuthenticationToken" use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getValidatedUserResponse">
+        <wsdlsoap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="saveUser">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="saveUserRequest">
+        <wsdlsoap:body use="literal" />
+        <wsdlsoap:header message="tns:saveUserRequestHeaders" part="AuthenticationToken" use="literal" />
+      </wsdl:input>
+      <wsdl:output name="saveUserResponse">
+        <wsdlsoap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="UserSynchException">
+        <wsdlsoap:fault use="literal" name="UserSynchException" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="UserSaveException">
+        <wsdlsoap:fault use="literal" name="UserSaveException" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="StaleObjectException">
+        <wsdlsoap:fault use="literal" name="StaleObjectException" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="UserExistsException">
+        <wsdlsoap:fault use="literal" name="UserExistsException" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="removeUser">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="removeUserRequest">
+        <wsdlsoap:body use="literal" />
+        <wsdlsoap:header message="tns:removeUserRequestHeaders" part="AuthenticationToken" use="literal" />
+      </wsdl:input>
+      <wsdl:output name="removeUserResponse">
+        <wsdlsoap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="UserSynchException">
+        <wsdlsoap:fault use="literal" name="UserSynchException" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getUsersByUser">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="getUsersByUserRequest">
+        <wsdlsoap:body use="literal" />
+        <wsdlsoap:header message="tns:getUsersByUserRequestHeaders" part="AuthenticationToken" use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getUsersByUserResponse">
+        <wsdlsoap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTravelers">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="getTravelersRequest">
+        <wsdlsoap:body use="literal" />
+        <wsdlsoap:header message="tns:getTravelersRequestHeaders" part="AuthenticationToken" use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getTravelersResponse">
+        <wsdlsoap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getLightProfileUsers">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="getLightProfileUsersRequest">
+        <wsdlsoap:body use="literal" />
+        <wsdlsoap:header message="tns:getLightProfileUsersRequestHeaders" part="AuthenticationToken" use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getLightProfileUsersResponse">
+        <wsdlsoap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="synchLightProfileUser">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="synchLightProfileUserRequest">
+        <wsdlsoap:body use="literal" />
+        <wsdlsoap:header message="tns:synchLightProfileUserRequestHeaders" part="AuthenticationToken" use="literal" />
+      </wsdl:input>
+      <wsdl:output name="synchLightProfileUserResponse">
+        <wsdlsoap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="UserSynchException">
+        <wsdlsoap:fault use="literal" name="UserSynchException" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getUserBySingleSignOn">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="getUserBySingleSignOnRequest">
+        <wsdlsoap:body use="literal" />
+        <wsdlsoap:header message="tns:getUserBySingleSignOnRequestHeaders" part="AuthenticationToken" use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getUserBySingleSignOnResponse">
+        <wsdlsoap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="CompanyNotFoundException">
+        <wsdlsoap:fault use="literal" name="CompanyNotFoundException" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="UserService">
+    <wsdl:port name="UserServiceHttpPort" binding="tns:UserServiceHttpBinding">
+      <wsdlsoap:address location="http://192.168.20.140:8080/profile_mrb/services/UserService" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

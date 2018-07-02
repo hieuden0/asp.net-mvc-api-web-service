@@ -1,0 +1,4 @@
+﻿#faqs h3	{ cursor:pointer;font-size: 20px; margin-top: 15px; margin-bottom: 5px}
+#faqs h3.active	{ color:#0578AA; }
+#faqs div { height:0; overflow:hidden; position:relative; }
+#faqs div p	{ padding:0;font-size: 15px;margin-bottom: 0px;}

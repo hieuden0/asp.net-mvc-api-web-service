@@ -1,0 +1,62 @@
+﻿@model MrBill_MVC.Models.LoginModel
+
+@{
+	ViewBag.Title = "Log in";
+	Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>MRBILL</title>
+
+	<link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+	<link href="~/Content/bootstrap.css" rel="stylesheet" />
+	<link href="~/Content/flat-ui.css" rel="stylesheet" />
+	<link href="~/Content/footer-distributed-with-address-and-phones.css" rel="stylesheet" />
+	<link href="~/Content/custom-style-login.css" rel="stylesheet" />
+</head>
+<body>
+	<div class="bloc d-bloc" id="bloc-5">
+		<div class="container bloc-xl">
+			<div class="row">
+				<div class="col-sm-4">
+				</div>
+				<div class="col-sm-4">
+					<br />
+					@using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
+					{
+						@Html.AntiForgeryToken()
+						@Html.ValidationSummary(true)
+						<div class="login-form">
+							<div class="form-group">
+								<div class="form-group">
+									@Html.TextBoxFor(m => m.UserName, new { @id = "user", @class = "form-control", @placeholder = "Email" })
+									<label for="Email" class="login-field-icon fui-mail"></label>
+									@Html.ValidationMessageFor(m => m.UserName)
+								</div>
+								<div class="form-group">
+									@Html.PasswordFor(m => m.Password, new { @id = "pass", @class = "form-control", @placeholder = "Lösenord" })
+									<label for="Password" class="login-field-icon fui-lock"></label>
+									@Html.ValidationMessageFor(m => m.Password)
+								</div>
+								<div class="form-group">
+									@Html.CheckBoxFor(m => m.RememberMe, new { @class = "" })
+									@Html.LabelFor(m => m.RememberMe, new { @class = "" })
+								</div>
+								<input type="submit" value="Log in" class="btn btn-primary btn-lg btn-block" />
+								@Html.ActionLink("Glömt lösenordet?", "LostPassword", "Account", null, new { @class = "forgot" })
+								<span>@ViewBag.Message</span>
+							</div>
+						</div>
+
+					}
+				</div>
+			</div>
+			<br />
+			<br />
+
+			<br />
+		</div>
+	</div>
+</body>
+</html>

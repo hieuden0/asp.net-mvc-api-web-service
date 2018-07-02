@@ -1,0 +1,288 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+@section featured {
+    @*<link href="~/Content/jquery.fullPage.css" rel="stylesheet"/>*@
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/start-page-style.css" rel="stylesheet" />
+}
+<div class="page1">
+   
+    <nav class="navbar navbar-inverse navbar-embossed" role="navigation">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
+                <span class="sr-only">Toggle navigation</span>
+            </button>
+
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-collapse-01">
+	        <ul class="nav navbar-nav navbar-left">
+				<li>
+					<a class="navbar-brand" href="/">
+						<img src="~/Content/img/mrbill.png" alt="" />
+					</a>
+				</li>
+		        <li class ="active-menu">
+			        @Html.ActionLink("HEM", "Index", "Home", null, new { @class = "menu-item" })
+		        </li>
+		        <li>
+			        @Html.ActionLink("OM OSS", "About", "Home", null, new { @class = "menu-item" })
+		        </li>
+		        <li>
+			        @Html.Partial("_LoginPartial")
+		        </li>
+	        </ul>
+
+        </div>
+    </nav>
+    <div class="text-center" style="margin-top: 100px;">
+        @*<div class="start-box">
+            
+        </div>*@
+
+        <div class="vc-content">
+        <h1 class="tc-4">
+            Slipp resekvitton med MrBill
+        </h1>
+	        <h5 class="tc-4">
+		        Låt oss ta hand om alla dina reseutlägg
+	        </h5>
+			<div class="column-holder"></div>
+	        <div class="row">
+		        <div class="col-md-4 column"><h4>Nivå 1 - <b>39:-</b>/användare <br/>(Gratis 3 månader)</h4>
+			        <ul class="column-list">
+				        <li>
+					        Glöm dina resekvitton (flyg, hotell, taxi, tåg & parkering) det tar vi hand om åt dig.
+				        </li>
+				        <li>
+					        Med MrBill är kvittona tillgängliga när du behöver dem.
+				        </li>
+				        <li>
+					        Märk dina utlägg med referens
+				        </li>
+			        </ul>
+				
+		        </div>
+		        <div class="col-md-4 column"><h4>Nivå 2 - <b>79:-</b>/användare <br /></h4>
+			        <ul class="column-list">
+				        <li>
+					        Mobil-app med fotofunktion för övriga utlägg.
+				        </li>
+				        <li>
+					        Du slipper fylla i din reseräkning.
+				        </li>
+				        <li>
+					        Du reser billigare med avtalspriser.
+				        </li>
+				        <li>
+					        Har du någon som bokar dina resor åt dig har vi lösningar för det också.
+				        </li>
+			        </ul>
+		        </div>
+		        <div class="col-md-4 column"><h4>Nivå 3 - <b>149:-</b>/användare <br /></h4>
+			        <ul class="column-list">
+				        <li>
+					        Anslut dina betalkort (VISA/MasterCard) så sammanställer vi dina utlägg.
+				        </li>
+				        <li>
+					        Automatiserad överföring till ekonomisystem.
+				        </li>
+				        <li>
+					        Få din reseräkning attesterad digitalt.
+				        </li>
+				        <li>
+					        tidsbesparande.
+				        </li>
+			        </ul>
+				
+		        </div>
+	        </div>
+	        <div class="row">
+		        <!--<div class="col-md-4 email-text center-div">
+			            <h4>Vill du bli kund?</h4><br/>
+			            Skriv in din mail så kontaktar vi dig!
+
+		            </div>
+			        <div class="col-md-4 center-div">
+				
+				        <input type="text" class="form-control email-input" placeholder="Email" /> <button class="btn btn-primary btn-lg btn-block email-btn">Skicka</button>
+				
+			        </div>-->
+				<div class="col-md-4 center-div">
+					<span style="color:white;">för mer info kontakta oss på</span> <a href="mailto:info@MrBill.se">info@Mrbill.se</a>
+				</div>
+        </div>
+				<div class="col-md-4 column"><h4>Nivå 2 - <b>79:-</b>/användare <br /></h4>
+					<ul class="column-list">
+						<li>
+							Mobil-app med fotofunktion för övriga utlägg.
+						</li>
+						<li>
+							Du slipper fylla i din reseräkning.
+						</li>
+						<li>
+							Du reser billigare med avtalspriser.
+						</li>
+						<li>
+							Har du någon som bokar dina resor åt dig har vi lösningar för det också.
+						</li>
+					</ul>
+				</div>
+				<div class="col-md-4 column"><h4>Nivå 3 - <b>149:-</b>/användare <br /></h4>
+					<ul class="column-list">
+						<li>
+							Anslut dina betalkort (VISA/MasterCard) så sammanställer vi dina utlägg.
+						</li>
+						<li>
+							Automatiserad överföring till ekonomisystem.
+						</li>
+						<li>
+							Få din reseräkning attesterad digitalt.
+						</li>
+						<li>
+							tidsbesparande.
+						</li>
+					</ul>
+				
+				</div>
+			</div>
+			
+
+	        <br />
+        <br />
+
+    </div>
+      
+    </div>
+</div>
+<div class="page2">
+    <div class="container bloc-md" id="hero-bloc">
+        <div class="row">
+            <div class="col-sm-12">
+                <h2 class="mg-md text-center">
+                    En hög med kvitton efter varje resa?
+                </h2>
+                <h4 class="mg-md text-center  ">
+                    Sitter du också i slutet på månaden med en hög kvitton som du försöker få ordning på inför reseräkning- och utläggsredovisning?<br /><br />Använd MrBills tjänster och minimera din manuella hantering av resekvitton och utlägg.
+                </h4>
+            </div>
+        </div>
+        <div class="row voffset">
+            <div class="col-sm-4">
+                <h3 class="mg-md text-center  ">
+                    <span class="fa fa-desktop"></span> Digitalt
+                </h3>
+                <p class="text-center">
+                    Använd de leverantörer som är anslutna till MrBill och få alla resetransaktioner digitalt.
+                </p>
+            </div>
+            <div class="col-sm-4">
+                <h3 class="mg-md text-center  ">
+                    <span class="fa fa-list-ol"></span> Översikt
+                </h3>
+                <p class="text-center">
+                    Se alla transaktioner under en period eller filtrera efter dem du vill se.
+                </p>
+            </div>
+            <div class="col-sm-4">
+                <h3 class="mg-md text-center  ">
+                    <span class="fa fa-paste"></span> Kontroll
+                </h3>
+                <p class="text-center">
+                    Flagga transaktioner per kund, kostnadsställe eller projekt.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page3" style="background-color: #D2E3E3;">
+    <div class="bloc  l-bloc " id="bloc-3">
+        <div class="container bloc-md">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h2 class="mg-md text-center  ">
+                        Trött på manuell hantering av reseutlägg?
+                    </h2>
+                    <h3 class="mg-md text-center  ">
+                        Automatisk hämtning och sortering av resedata
+                    </h3>
+                </div>
+            </div>
+            <div class="row voffset">
+                <div class="col-sm-6">
+                    <div class="text-center">
+                        <span class="fa fa-plane icon-round icon-md icon-5"></span>
+                    </div>
+                    <h3 class="mg-md  ">
+                        Flyg
+                    </h3>
+                    <p class="mg-lg ">
+                        Boka ditt flyg via MrBills leverantörer. Alla dina kvitton samlas på ditt MrBill-konto. Från ditt konto kan du sedan sortera utläggen för att t.ex. underlätta vidarefakturering och utläggsredovisning.
+                    </p>
+                    <div class="text-center">
+                        <span class="fa fa-cab icon-round icon-md"></span>
+                    </div>
+                    <h3 class="mg-md  ">
+                        Taxi
+                    </h3>
+                    <p class="mg-lg ">
+                        Boka din taxi via MrBills leverantörer. Kliv ur taxin utan att tänka på något kvitto, MrBill håller reda på dina resor och underlättar din utläggsredovisning.
+                    </p>
+                </div>
+                <div class="col-sm-6">
+                    <div class="text-center">
+                        <span class="fa fa-car icon-round icon-md"></span>
+                    </div>
+                    <h3 class="mg-md  ">
+                        Hyrbil
+                    </h3>
+                    <p class="mg-lg ">
+                        Boka din hyrbil via MrBills leverantörer och få dina transaktioner på ett och samma ställe. Vi hjälper dig att välja rätt leverantör och ser även till att du blir en prioriterad kund.
+                    </p>
+                    <div class="text-center">
+                        <span class="fa fa-building icon-round icon-md"></span>
+                    </div>
+                    <h3 class="mg-md  ">
+                        Hotell
+                    </h3>
+                    <p class="mg-lg ">
+                        Boka ditt hotell via MrBills leverantörer och få dina hotelltransaktioner på ett och samma ställe. Givetvis behåller du dina egna avtal och membership-förmåner.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page4">
+    <div class="bloc  l-bloc " id="bloc-4">
+        <div class="container bloc-md">
+            <div class="row">
+                <div class="col-sm-12">
+					<h2 class="mg-md  text-center " style="color:white;">
+						Ordning och reda...allt på ett ställe!
+					</h2>
+	                
+					@*<img src="~/Content/img/Top_view_500 pixels.jpg" id="bottom-img" class="img-responsive center mg-lg" width="600" alt='' />*@
+	                
+					<p class="text-center " style="color:white;">
+                        Sluta leta efter kvitton, bokningar och transaktioner. Med MrBill har du all information på ett ställe.
+                    </p>
+					<p class="text-center  mg-md" style="color:white;">
+						Du slipper hålla reda på alla dokument när det är dags att göra reseräkningen eller utläggsredovisningen.
+					</p>
+                    <div class="text-center">
+                        @Html.ActionLink("Mer information", "About", "Home", null, new { @class = "btn (null) btn-d btn-lg" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+  
+    <script src="~/Scripts/custom-script-home.js"></script>
+
+}
+

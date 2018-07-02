@@ -1,0 +1,70 @@
+﻿@{
+	ViewBag.Title = "FAQ";
+}
+@section Scripts
+{
+	<script src="@Url.Content("~/scripts/faq.js")"></script>
+}
+
+<link href="~/Content/faq.css" rel="stylesheet" />
+
+
+<nav class="navbar navbar-inverse navbar-embossed" role="navigation">
+	<div class="navbar-header">
+		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
+			<span class="sr-only">Toggle navigation</span>
+		</button>
+	</div>
+	<div class="collapse navbar-collapse" id="navbar-collapse-01">
+
+		<ul class="nav navbar-nav navbar-left">
+			<li>
+				<a class="navbar-brand" href="/">
+					<img src="~/Content/img/mrbill.png" alt="" />
+				</a>
+			</li>
+			@Html.Partial("_LoginPartial")
+		</ul>
+	</div>
+</nav>
+<div class="container" id="faqs">
+	<br />
+
+
+	<h3>Vad är MrBill?</h3>
+	<div>
+		<p>MrBill är ett administrativt gränssnitt som samlar in information från researrangörer vilket underlättar för dig som affärsresenär när det är dags att redovisa/bokföra reseutlägg.</p>
+	</div>
+	<h3>Hur får man ett konto hos MrBill?</h3>
+	<div>
+		<p>Då vi fortfarande är i startgroparna vill vi gärna ha en direktkontakt med dig som kund så fyll i formuläret under “skapa konto” så kontaktar vi dig.</p>
+	</div>
+	<h3>Hur ansluter MrBill till de leverantörer som finns i systemet?</h3>
+	<div>
+		<p>MrBill använder de konton som du som användare redan har hos leverantörerna som MrBill för närvarande stödjer. </p>
+	</div>
+
+	<h3>Om jag har kvitton hos andra leverantörer som ni ej är anslutna till ännu?</h3>
+	<div>
+		<p>Dem kan du lägga till och ladda upp manuellt tills vi hunnit utveckla en anslutning till deras system.</p>
+	</div>
+	<h3>Använder ni informationen till något annat?</h3>
+	<div>
+		<p>Nej, vi samlar bara in informationen för användarens skull.</p>
+	</div>
+	<h3>Vad kostar MrBill?</h3>
+	<div>
+		<p>MrBills grundtjänst kostar 39:- kronor i månaden.</p>
+	</div>
+	<h3>Kan jag säga upp tjänsten?</h3>
+	<div>
+		<p>Ja, du kan avsluta tjänsten när du vill och alla dina inloggningsuppgifter tas bort.</p>
+	</div>
+	<h3>Hur betalar jag för tjänsten?</h3>
+	<div>
+		<p>För närvarande via faktura.</p>
+	</div>
+
+</div>
+<br />
+<br />

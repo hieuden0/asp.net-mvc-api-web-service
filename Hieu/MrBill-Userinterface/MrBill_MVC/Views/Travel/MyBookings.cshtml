@@ -1,0 +1,83 @@
+﻿@using MrBill_MVC
+@using System.Globalization
+@using MrBill_MVC.TransactionService
+@using MrBill_MVC.MrBillTransactionServices
+@model MrBill_MVC.Models.UserModel
+<link href="~/Content/featherlight.css" rel="stylesheet" />
+<link href="~/Content/mybookings.css" rel="stylesheet" />
+<link href="~/Content/jquery-ui.min.css" rel="stylesheet" />
+<link href="~/Content/jquery-ui.theme.min.css" rel="stylesheet" />
+<link href="~/Content/jquery-ui.structure.min.css" rel="stylesheet" />
+<link href="~/Content/jquery.dropdown.min.css" rel="stylesheet" />
+
+<script src="~/Scripts/jquery-2.1.4.min.js"></script>
+<script src="~/Scripts/jquery-ui.min.js"></script>
+<script src="~/Scripts/jquery.dropdown.min.js"></script>
+
+
+@{
+    ViewBag.Title = "MyBookings";
+    int count = 0;
+    var pdfPath = System.Configuration.ConfigurationManager.AppSettings["pdfPath"];
+    var currencyFormat = "N";
+}
+
+
+<nav class="navbar navbar-inverse navbar-embossed" role="navigation">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
+            <span class="sr-only">Toggle navigation</span>
+        </button>
+    </div>
+    <div class="collapse navbar-collapse" id="navbar-collapse-01">
+        <ul class="nav navbar-nav navbar-left">
+            <li>
+                <a class="navbar-brand" href="/">
+                    <img src="~/Content/img/mrbill.png" alt="" />
+                </a>
+            </li>
+            @Html.Partial("_LoginPartial")
+        </ul>
+    </div>
+</nav>
+<div class="container bloc-xl">
+    <div class="filter-container no-print">
+    </div>
+
+    <br />
+  @*partial view*@
+    <div id="contentPartial">
+        @Html.Action("Content", "Travel")
+    </div>
+   
+    <br />
+
+    <div id="dialog" class="progress-dialog non-printable" style="display: none">
+    </div>
+    <div id="dialog2" style="display: none">
+    </div>
+    <div id="loading" style="display:none">
+        <img id="loading-image"  src="~/Content/img/page-loader.gif" alt="Loading..." />
+    </div>
+</div>
+
+<script>
+    function reloadContent(date) {
+        var baseUrl = document.location.origin;
+        $.ajax({
+            url: baseUrl + "/Travel/Content",         
+            method: "GET",
+            cache: false,
+            success: function (data) {
+                var dataTemp = data;
+                if (dataTemp != undefined) {
+                    $("#contentPartial").html(data);
+                }            
+                if (transMonth(date.split("-")[0] ) != (new Date().getMonth() + 1)) {
+                    $("#month-row-" + date).click();
+                }            
+                $('#loading').hide();
+            }
+        });
+    }
+</script>

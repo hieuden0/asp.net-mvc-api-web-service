@@ -1,0 +1,279 @@
+﻿@using MrBill_MVC.MrBillTransactionServices
+
+@{
+    ViewBag.Title = "EditMyBookings";
+}
+
+<link href="~/Content/datepicker.css" rel="stylesheet" />
+<link href="~/Content/custom-style.css" rel="stylesheet" />
+<link href="~/Content/featherlight.css" rel="stylesheet" />
+<link href="~/Content/custom-add-edit.css" rel="stylesheet" />
+
+<nav class="navbar navbar-inverse navbar-embossed" role="navigation">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
+            <span class="sr-only">Toggle navigation</span>
+        </button>
+    </div>
+    <div class="collapse navbar-collapse" id="navbar-collapse-01">
+        <ul class="nav navbar-nav navbar-left">
+            <li>
+                <a class="navbar-brand" href="/">
+                    <img src="~/Content/img/mrbill.png" alt="" />
+                </a>
+            </li>
+            @Html.Partial("_LoginPartial")
+        </ul>
+    </div>
+</nav>
+<div style="display: none">
+    @ViewBag.ReturnStatus
+</div>
+<div class="container bloc-xl">
+    <br />
+    @using (Html.BeginForm("EditMyBookings", "Travel", FormMethod.Post, new { @id = "editForm", @class = "form", enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-horizontal">
+            @foreach (var item in ((List<TransactionDTO>)@ViewBag.transaction))
+            {
+                int transId = item.TransactionId;
+                <div class="form-horizontal">
+                    <div class="edit-holder">
+                        @*@Html.ActionLink("Tillbaka", "MyBookings", null, new { @class = "btn btn-primary btn-lg btn-block back-btn" })*@
+                        <div class="image-holder">
+                            @if (@item.ReceiptLink.ToLower().Contains(".pdf"))
+                            {
+                                var url = "http://docs.google.com/gview?url=" + @ViewBag.Url + @item.ReceiptLink + "&embedded=true";
+                                <iframe src="@url" height="450" width="360" style="margin-bottom: 25px;" id="first" frameborder="0" class="reciept-img-edit first-image"></iframe>
+                            }
+                            else if (string.IsNullOrEmpty(@item.ReceiptLink))
+                            {
+
+                                <img id="output" style="float: right; display: none" class="edit-img" />
+                                <div class="empty-image edit-empty-image" id="empty-image">
+                                </div>
+                            }
+                            else
+                            {
+                                <img src="@item.ReceiptLink" style="float: right;" id="first" class="edit-img first-image" />
+                            }
+                            <iframe id="pdf" height="450" width="360" frameborder="0" class="reciept-img-edit" style="display: none; margin-bottom: 25px;"></iframe>
+                            <img id="output" style="float:right;display: none" class="edit-img" />
+                            <div class="fileUpload file-edit form-inline edit-input">
+                                <span>+ LADDA UPP KVITTO</span>
+                                <input type="file" name="file" id="file" class="upload" onchange="loadFile(event)" />
+                            </div>
+
+                        </div>
+                        <input class="form-control" type="hidden" name="TransactionId" value="@transId">
+
+
+
+                        <div class="form-holder">
+                            <div class="form-group edit-input">
+                                <span style="color:black; font-weight: bold;position: relative;top: -21px;">+ REDIGERA DIN BOKNING</span>
+                                <input type="text" name="id" value="@item.TransactionId" hidden />
+
+                                <table>
+                                    <tr class="title">
+                                        <td>Utläggsdatum (*)</td>
+                                        <td class="blue-text-color">Kostnadsställe</td>
+                                    </tr>
+                                    <tr class="form-inline edit-input">
+                                        @{
+                            var projectName = item.Project != null ? item.Project.ProjectNumber : "";
+                            var projectNameEdited = ViewBag.ProjectName == null ? projectName : ViewBag.ProjectName;
+                            var bookingDate = item.BookingDate != DateTime.MinValue ? item.BookingDate.ToString("yyyy-MM-dd") : "";
+                            var addedDate = item.AddedDate.ToString("yyyy-MM-dd");
+                            var date2 = item.AirDepTime2 != DateTime.MinValue ? item.AirDepTime2.ToString("yyyy-MM-dd") : "";
+                            var css_datePicker = "datepicker";
+                            if (item.TransactionGroupID != null)
+                            {
+                                css_datePicker = "datepicker-expect-month";
+                            }
+                                        }
+                                        <td><input class="form-control @css_datePicker createdDate" type="text" name="created" value="@addedDate" placeholder="" readonly /></td>
+                                        <td><input class="form-control" type="text" name="projectNum" value="@projectNameEdited" placeholder="" /></td>
+                                    </tr>
+                                    <tr class="title">
+                                        <td class="blue-text-color">Leverantör (*)</td>
+                                        <td class="blue-text-color">Referens (*)</td>
+                                    </tr>
+                                    <tr class="form-inline edit-input">
+                                        @{ var supplierName = ViewBag.SupplierName == "" ? item.SupplierInfoes.SupplierName : ViewBag.SupplierName; }
+                                        @{if (item.Status == 5)
+                                        {
+                                            <td><input id="supplier" class="form-control" type="text" name="supplier" value="@supplierName" placeholder="" required disabled /></td>
+                                        }
+                                        else
+                                        {
+                                            <td><input id="supplier" class="form-control" type="text" name="supplier" value="@supplierName" placeholder="" required /></td>
+                                        }
+                                        }
+                                        <td><input class="form-control" type="text" name="reference" value="@item.BookingRef" placeholder="" required /></td>
+                                    </tr>
+                                    <tr class="title">
+                                        <td class="blue-text-color">Datum 1 (*)</td>
+                                        <td class="blue-text-color">Datum 2</td>
+                                    </tr>
+                                    <tr class="form-inline edit-input">
+                                        <td><input class="form-control datepicker" name="date1" type="text" value="@item.AirDepTime1.ToShortDateString()" placeholder="" required /></td>
+                                        <td><input class="form-control datepicker" name="date2" type="text" value="@date2" placeholder="" readonly/></td>
+                                    </tr>
+                                    <tr class="title">
+                                        <td class="blue-text-color">Ort, Land</td>
+                                        <td>Produkt (*)</td>
+                                    </tr>
+                                    <tr class="form-inline edit-input">
+                                        <td><input class="form-control" type="text" name="country" value="@item.Destination" placeholder="" /></td>
+                                        <td><input class="form-control" type="text" name="product" value="@item.Product" placeholder="" required /></td>
+                                    </tr>
+                                    <tr class="title">
+                                        <td class="blue-text-color">Resenär</td>
+                                        <td class="blue-text-color">Betalsätt</td>
+                                    </tr>
+                                    <tr class="form-inline edit-input">
+                                        <td><input class="form-control" type="text" name="traveller" value="@item.Traveller" placeholder="" /></td>
+                                        <td><input class="form-control" type="text" name="payment" value="@item.CardNumber" placeholder="" /></td>
+                                    </tr>
+                                    <tr class="title">
+                                        <td class="blue-text-color">Kortsinnehavare</td>
+                                        <td>Kvittobelopp (*)</td>
+                                    </tr>
+                                    <tr class="form-inline edit-input">
+                                        <td><input class="form-control" type="text" name="CcHolder" value="@item.CardHolder" placeholder="" /></td>
+                                        <td><input class="form-control" type="text" name="price" value="@Convert.ToDecimal(@item.Price).ToString("#,0.00")" placeholder="" required /></td>
+                                    </tr>
+                                    <tr class="title">
+                                        <td class="blue-text-color">Valuta</td>
+                                        <td class="blue-text-color">Moms</td>
+                                    </tr>
+                                    <tr class="form-inline edit-input">
+                                        <td><input class="form-control" type="text" name="currency" value="@item.PriceCurrency" placeholder="" /></td>
+                                        <td><input class="form-control" type="text" name="vat" value="@Convert.ToDecimal(@item.Vat1).ToString("#,0.00")" placeholder="" required /></td>
+                                    </tr>
+                                    <tr class="title">
+                                        <td class="blue-text-color">Tillägssinfo</td>
+                                        <td>Lokalt belopp (**)</td>
+                                    </tr>
+                                    <tr class="form-inline edit-input">
+                                        <td>
+                                            <textarea id="moreInfoText" onkeyup="textCounter(this,'counter',50);" class="form-control inline" type="text" name="moreInfo" placeholder="">@item.Description</textarea>
+                                        </td>
+                                        <td>
+                                            <input class="form-control localAmountText" type="text" name="localAmount" value="@item.PriceUserCurrency" placeholder="" />
+                                            <input class="edit-booking-btn" type="submit" value="SPARA" />
+                                        </td>
+                                    </tr>
+                                    <tr class="form-inline edit-input">
+                                        <td><span class="error-message" style="position: absolute; left: 0">*Rödmarkerade rutor måste fyllas i</span></td>
+                                    </tr>
+                                    <tr class="form-inline edit-input">
+                                        <td><span class="error-message" style="position: absolute; left: 0">** = Belopp i SEK (om kvittovalutan är annan)</span></td>
+                                    </tr>
+                                </table>
+
+
+                                @*<div class="form-inline edit-input button-line">*@
+
+                                @*<div class="fileUpload file-edit form-inline edit-input">
+                                        <span>+ LADDA UPP KVITTO</span>
+                                        <input type="file" name="file" id="file" class="upload" onchange="loadFile(event)" />
+                                    </div>*@
+                                @*</div>*@
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            }
+        </div>
+    }
+</div>
+@section scripts{
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.11.4.min.js"></script>
+    <script src="~/Scripts/featherlight.js"></script>
+    <script>
+        $("#editForm").validate();
+        $(function () {
+            $(".datepicker").datepicker({
+                inline: true,
+                dateFormat: 'yy-mm-dd',
+                showOtherMonths: true,
+                monthNamesShort: ["Jan", "Feb", "Mars", "April", "Maj", "Juni", "Juli", "Aug", "Sep", "Okt", "Nov", "Dec"],
+                monthNames: ["Jan", "Feb", "Mars", "April", "Maj", "Juni", "Juli", "Aug", "Sep", "Okt", "Nov", "Dec"],
+                dayNamesShort: ['Sö', 'Må', 'Ti', 'On', 'To', 'Fr', 'Lö'],
+                dayNamesMin: ['Sö', 'Må', 'Ti', 'On', 'To', 'Fr', 'Lö']
+                //dateFormat: 'dd-mm-yy'
+            });
+        });
+        var loadFile = function (event) {
+            document.getElementById('output').style.display = "none";
+            document.getElementById('pdf').style.display = "none";
+            document.getElementById('empty-image').style.display = "none";
+            var output = document.getElementById('output');
+            var src = URL.createObjectURL(event.target.files[0]);
+            var file = event.target.files[0];
+            if (file.name.toLowerCase().indexOf('pdf') > -1) {
+                output = document.getElementById('pdf');
+            }
+            output.src = src;
+            output.style.display = "inline";
+        };
+
+
+        $('#first').featherlight($('#first'));
+
+
+        $(function () {
+            $(".datepicker-expect-month").datepicker({
+                inline: true,
+                dateFormat: 'yy-mm-dd',
+                showOtherMonths: true,
+                monthNamesShort: ["Jan", "Feb", "Mars", "April", "Maj", "Juni", "Juli", "Aug", "Sep", "Okt", "Nov", "Dec"],
+                monthNames: ["Jan", "Feb", "Mars", "April", "Maj", "Juni", "Juli", "Aug", "Sep", "Okt", "Nov", "Dec"],
+                stepMonths: 0,
+            });
+        });
+
+        $(function () {
+            $("#date2picker").datepicker({
+                inline: true,
+                //dateFormat: 'yy MM dd',
+                showOtherMonths: true,
+                monthNamesShort: ["Jan", "Feb", "Mars", "April", "Maj", "Juni", "Juli", "Aug", "Sep", "Okt", "Nov", "Dec"],
+                monthNames: ["Jan", "Feb", "Mars", "April", "Maj", "Juni", "Juli", "Aug", "Sep", "Okt", "Nov", "Dec"],
+                //dateFormat: 'dd-mm-yy'
+                onSelect: function (datetext) {
+
+                    var d = new Date(); // for now
+
+                    var h = d.getHours();
+                    h = (h < 10) ? ("0" + h) : h;
+
+                    var m = d.getMinutes();
+                    m = (m < 10) ? ("0" + m) : m;
+
+                    var s = d.getSeconds();
+                    s = (s < 10) ? ("0" + s) : s;
+
+                    datetext = datetext + " " + h + ":" + m + ":" + s;
+
+                    $('#date2picker').val(datetext);
+                }
+            });
+        });
+
+        function textCounter(field, field2, maxlimit) {
+            var countfield = document.getElementById(field2);
+            if (field.value.length > maxlimit) {
+                field.value = field.value.substring(0, maxlimit);
+                return false;
+            } else {
+                countfield.value = maxlimit - field.value.length;
+            }
+        }
+    </script>
+}

@@ -1,0 +1,382 @@
+﻿
+body {
+	background: white;
+	color: black;
+	margin: 0;
+}
+.tableHead span{ 
+	float: left;
+	font-size: 14px;
+}
+.tableHead {
+	height: 10px;
+}
+.top-book span {
+	float: left;
+	font-size: 12px;
+}
+.total {
+    clear: both;
+    padding-top: 10px;
+    margin-left : 503px;
+}
+.total-title{
+    width : 117px;
+}
+.total-price{
+    width : 80px;
+}
+.total-book{
+	float: left;
+	font-size: 14px !important;
+    color : navy;
+    font-weight : bold;
+}
+.number-top {
+	padding-left: 10px;
+	width: 40px;
+}
+.number {
+	width: 40px;
+	padding-left: 10px;
+}
+.date-top {
+	width: 90px;
+}
+.supplier-top {
+	width: 120px;
+}
+.destination-top {
+	width: 140px;
+	height: 10px;
+}
+.local-amount-top{
+    width: 80px;
+	height: 10px;
+}
+.product-top {
+	width: 110px;
+	height: 10px;
+}
+.price-top {
+	width: 120px;
+}
+.vat-top {
+	width: 60px;
+}
+.kost-top {
+	width: 130px;
+	height: 10px;
+}
+.reciept-top {
+	width: 20px;
+    height: auto;
+}
+.moreInfo-top{
+    //display:inline-block;
+    width: 150px;
+    min-height: 10px;
+    margin-right : 5px;
+    //white-space: nowrap;
+    overflow:hidden !important;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;  
+    max-height: 73px;
+    white-space: pre-wrap;
+}
+
+.top-book:nth-child(odd) {
+	background-color: lightgray!important;
+	
+}
+body .printable {
+	display: block !important;
+}
+
+footer {
+	display: none !important;
+}
+
+.navbar-inverse {
+	display: none;
+}
+
+@media all {
+ .pagebreak  { display: none; }
+}
+.export-w a:hover{
+		color:white;
+}
+.export-w a:active{
+		color:white;
+}
+
+
+.reciept-img {
+       display: block;
+    margin-left: auto;
+    margin-right: auto;
+	margin-bottom: 25px;
+	max-width: 450px;
+}
+.main-wrapper-wide {
+width: 100% !important;
+    background-color: white;
+	padding-left:10px;
+	padding-right:10px;
+	padding-top: 10px;
+    box-shadow: 0px 0px 0px #7F7F7F;
+}
+
+.attached-images {
+    width: 95%;
+    float: right;
+	clear: both;
+}
+
+.print-attached-info span{
+	float: left;
+    font-size: 15px;
+}
+
+.attached-head {
+	background-color: lightgray;
+	padding-left: 10px;
+	height: 30px;
+}
+
+.attached-head span{
+	
+}
+
+tr:nth-child(even) {
+	background-color: lightgray;
+}
+
+.attached-info {
+	padding-left: 10px;
+}
+
+.date {
+	width: 110px;
+}
+.supplier {
+	width: 150px;
+}
+.destination {
+	width: 200px;
+    height: 20px;
+}
+.product {
+	width: 200px;
+    height: 20px;
+}
+.price {
+	width: 100px;
+}
+ .currency {
+	width: 100px;
+}
+.vat {
+	width: 100px;
+}
+.cardnr {
+	width: 220px;
+    height: 10px;
+}
+
+
+.ui-widget-overlay
+{
+  opacity: .50 !important;
+  filter: Alpha(Opacity=50) !important;
+
+  background-color: rgb(50, 50, 50) !important;  
+}
+
+.stop-scrolling {
+  height: 100%;
+  overflow: hidden;
+}
+
+.noclose .ui-dialog-titlebar-close
+{
+    display:none;
+}
+
+
+
+.col-sm-12.top-book.op-cl {
+    /* margin-left: -59px !important; */
+    padding-left: 0px;
+}
+
+#dialog{
+    background: url("/Content/img/page-loader.gif");
+    background-repeat: no-repeat;
+    background-position: center;
+    /* width: 25%; */
+    background-size: 8%;
+}
+
+@media print {
+    .printable { display: block; }
+    .non-printable { display: none; }
+	.pagebreak {
+		display: inline-block;
+		page-break-inside: avoid;
+		page-break-before: always;
+		-webkit-region-break-after: always;
+	}
+	.pagebreak {
+		display: block;
+		page-break-before: always;
+	}
+
+	table {
+		float: none !important;
+	}
+
+	div {
+		float: none !important;
+	}
+
+	.no-print {
+		display: none!important;
+	}
+
+	div {
+		float: none !important;
+		display: block !important;
+	}
+
+	.col-sm-12.month-row {
+		max-width: 150%;
+		margin-left: -115px !important;
+		float: right!important;
+	}
+
+	.tableHead span {
+		float: left;
+		font-size: 12px!important;
+	}
+	.top-book span {
+		float: left;
+		font-size: 10px!important;
+	}
+
+    .total-book span {
+	    float: left;
+	    font-size: 14px !important;
+    }
+
+	.number-top {
+		padding-left: 10px;
+		width: 25px;
+		margin-right: 10px;
+	}
+	.number {
+		width: 40px;
+		padding-left: 25px;
+		margin-right: 10px;
+	}
+	.date-top {
+		width: 60px;
+	}
+	.supplier-top {
+		width: 70px;
+	    height: 10px;
+	}
+	.destination-top {
+		width: 80px;
+		    height: 10px;
+	}
+	.product-top {
+		width: 60px;
+		height: 10px;
+	}
+	.price-top {
+		width: 80px;
+	}
+	.vat-top {
+		width: 40px;
+		height: 10px;
+	}
+	.kost-top {
+		width: 100px;
+	}
+	.reciept-top {
+		width: 70px;
+	}
+    .moreInfo-top{
+        width: 70px;
+        height: 20px !important;
+    }
+    .total {
+        margin-left : 305px;
+        margin-top : 30px;
+    }
+    .total-title{
+     width : 80px;
+    }
+    .total-price{
+        width : 80px;
+    }
+    .total-book{
+	    float: left;
+	    font-size: 14px !important;
+        color : navy;
+        font-weight : bold;
+    }
+
+	.attached-images {
+		width: 120%;
+		float: right;
+		clear: both;
+	}
+	.attached-images span {
+		font-size: 12px;
+	}
+	.date {
+		width: 100px;
+	}
+	.supplier {
+		width: 110px;
+	}
+	.destination {
+		width: 120px;
+	}
+	.product {
+		width: 100px;
+	}
+	.price {
+		width: 80px;
+	}
+	.vat {
+		width: 80px;
+	}
+	.cardnr {
+		width: 120px;
+	}
+    .currency {
+		width: 100px;
+	}
+    .moreInfo{
+        width: 100px;
+    }
+
+    .reciept-img{
+        width: 80%;        
+        float: left;
+        margin-top: 20px;
+        max-height : 1100px;
+    }
+
+    .img-holder{
+        padding-left: 10%;
+        padding-right: 10%;
+        
+    }
+}

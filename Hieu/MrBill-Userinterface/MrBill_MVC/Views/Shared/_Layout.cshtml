@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - MrBill</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#000">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    @*<link href="~/Content/style.css" rel="stylesheet" />
+        <link href="~/Content/Site.css" rel="stylesheet" />*@
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/flat-ui.css" rel="stylesheet" />
+	<link href="~/Content/footer-distributed-with-address-and-phones.css" rel="stylesheet" />
+	<link href="~/Content/custom-style.css" rel="stylesheet" />
+    <link href="~/Content/jquery.dropdown.min.css" rel="stylesheet" />
+
+</head>
+<body>
+	<div class="main-wrapper-wide">
+		
+		@RenderSection("featured", required: false)
+
+			@RenderBody()
+
+			<div class="push"></div>
+
+			<footer class="footer-distributed">
+
+				<div class="footer-left">
+
+					<a class="footer-comp-logo" href="/">
+						<img src="~/Content/img/mrbill.png" alt="" />
+					</a>
+					<br />
+					<p class="footer-links">
+						<a href="/">Hem</a>
+						·
+						<a href="/Home/About">Om oss</a>
+						·
+						<a href="/Account/Login">Logga in</a>
+						·
+						<a href="/Home/Faq">Faq</a>
+					</p>
+					<p class="footer-company-name">MrBill &copy; 2015</p>
+				</div>
+				<div class="footer-center">
+					<div>
+						<i class="fa fa-map-marker"></i>
+						<p><span>Nygränd 10</span> Stockholm, Sverige</p>
+					</div>
+					<div>
+						<i class="fa fa-phone"></i>
+						<p>+46 70 545 44</p>
+					</div>
+					<div>
+						<i class="fa fa-envelope"></i>
+						<p><a href="mailto:info@mrbill.se">info@mrbill.se</a></p>
+					</div>
+				</div>
+				<div class="footer-right">
+					<p class="footer-company-about">
+						<span>Om oss</span>
+						MrBill är en tjänst för dig som reser i tjänsten och idag hanterar dina kvitton och reseutlägg manuellt. MrBill hjälper er med personlig rådgivning så att ni kan resa smartare.
+					</p>
+					<div class="footer-icons">
+						<a href="#"><i class="fa fa-facebook"></i></a>
+						<a href="#"><i class="fa fa-twitter"></i></a>
+						<a href="#"><i class="fa fa-linkedin"></i></a>
+						<a href="#"><i class="fa fa-github"></i></a>
+					</div>
+				</div>
+			</footer>
+		</div>
+	<script src="~/Scripts/jquery-2.1.4.min.js"></script>
+    @*<script src="~/Scripts/flat-ui.min.js"></script>*@
+    @RenderSection("scripts", required: false)
+    <script src="~/Scripts/global-script.js"></script>
+    <script src="~/Scripts/jquery-ui-1.11.4.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery-ui.min.js"></script>
+    @*<script src="~/Scripts/jquery.dropdown.min.js"></script>*@
+</body>
+</html>

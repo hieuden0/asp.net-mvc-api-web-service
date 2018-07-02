@@ -1,0 +1,271 @@
+﻿@using System.Globalization
+@using MrBill_MVC
+@using MrBill_MVC.TransactionService
+@using MrBill_MVC.MrBillTransactionServices
+@model MrBill_MVC.Models.UserModel
+<link href="~/Content/featherlight.css" rel="stylesheet" />
+
+@{
+    ViewBag.Title = "MyBookings";
+}
+
+
+<nav class="navbar navbar-inverse navbar-embossed" role="navigation">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
+            <span class="sr-only">Toggle navigation</span>
+        </button>
+    </div>
+    <div class="collapse navbar-collapse" id="navbar-collapse-01">
+        <ul class="nav navbar-nav navbar-left">
+            <li>
+                <a class="navbar-brand" href="/">
+                    <img src="~/Content/img/mrbill.png" alt="" />
+                </a>
+            </li>
+            @Html.Partial("_LoginPartial")
+        </ul>
+    </div>
+</nav>
+<div class="container bloc-xl">
+    <br />
+    <br />
+    <div class="filter-container no-print">
+    </div>
+
+    <br />
+    <div class="row">
+        <div class="sort-holder">
+            <div class="sort sort-added">
+                UTLÄGG
+            </div>
+            <div class="sort sort-traveldate">
+                RESERÄKNING
+            </div>
+        </div>
+
+        <h4>@ViewBag.noBook</h4>
+        @foreach (var date in ViewBag.monthList)
+        {
+            <div class="col-sm-12 month-row">
+                <div class="month-header">
+                    <strong class="month-trigger "></strong><span class="month-header-text">@date.ToString()</span><span class="recepit-number"></span>
+                    <span class="print">
+                        <a href="@Url.Action("Print", "Print", new {id = @date.Replace(" ", "_")})" class="print" target="_blank"><span class="glyphicon glyphicon-print"></span></a>
+                    </span>
+                </div>
+                <div class="bookings table-item flat-table flat-table-1" id="stackable-table">
+                    @*class="bookings table-item">*@
+
+                    <div class="col-lg-12 header">
+                        <span class="date-head">DATUM</span>
+                        <span class="location-head">PLATS</span>
+                        <span class="price-head">BELOPP</span>
+                    </div>
+
+                    @foreach (var item in ((IEnumerable<TransactionDTO>)ViewBag.transList).Where(item => item.AddedDate.ToString("Y", new CultureInfo("sv-SE")).ToLower() == @date.ToString()))//.OrderBy(e => e.date1))
+                    {
+                        if (@item.Vat3 == null)
+                        {
+
+                            <div class="col-sm-12 top-book op-cl">
+                                @*<span class="close-book"><strong class="open-close-btn fui-radio-unchecked"></strong><span>@item.transactionSupplier.ToUpper() @item.date1.ToString("dd MMM yyyy")</span></span>
+                                    <span class="edit-button"><span class="edit-icon fui-new"></span><span class="edit">@Html.ActionLink("REDIGERA", "EditMyBookings", new { id = @item.id })</span></span>*@
+                                <div class="month-bookings-holder">
+                                    <span class="visible-indicator glyphicon glyphicon-chevron-up"></span>
+                                    @{ var supplierName = item.SupplierInfoes.SupplierName; }
+                                    @if (supplierName.ToLower().Contains("sas") || supplierName.ToLower().Contains("norwegian"))
+                                    {
+                                        <span class="glyphicon glyphicon-plane"></span>
+                                    }
+                                    else if (supplierName.ToLower().Contains("hotels") || supplierName.ToLower().Contains("hotels"))
+                                    {
+                                        <span class="glyphicon glyphicon-home"></span>
+                                    }
+                                    else if (supplierName.ToLower().Contains("cabonline") || supplierName.ToLower().Contains("easypark") || supplierName.ToLower().Contains("sj"))
+                                    {
+                                        <span class="glyphicon glyphicon-road"></span>
+                                    }
+                                    else
+                                    {
+                                        <span class="glyphicon glyphicon-file"></span>
+                                    }
+
+                                    <span><img class="supplier-logo" src="/Images/suppliers/@(String.Format("{0} {1}", supplierName.Replace(".", "_"), ".jpg").Replace(" ", ""))" onError=" this.src='/Content/img/mrbill_bak.png' ;" alt="@supplierName.ToLower().Replace(".", "_")" /></span>
+                                    <span class="date-container">
+                                        <span class="info-span date1">@item.AirDepTime1.ToString("dd MMM").ToUpper()</span>
+                                        @if (@item.AirDepTime2.ToString("dd MMM yyyy") != "01 jan 0001")
+                                        {
+                                            <span class="info-span">@item.AirDepTime2.ToString("dd MMM").ToUpper()</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="info-span">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                        }
+                                    </span>
+                                    <span class="info-span short-location">
+
+                                        @if (@item.Destination.Length < 15)
+                                        {
+                                            @item.Destination
+                                        }
+                                        else if (@item.Destination.Length > 15)
+                                        {
+                                            @item.Destination.Substring(0, 15)
+                                        }
+                                        else
+                                        {
+                                            @item.Destination
+                                        }
+                                    </span>
+                                    <span class="info-span price-span">@Convert.ToDecimal(@item.Price).ToString("#,0.00") @item.PriceCurrency</span>
+                                    <span class="icons">
+                                        <span><a href="@Url.Action("EditMyBookings", new {id = @item.TransactionId})" class="edit-booking glyphicon glyphicon-edit"></a></span>
+                                        <span><span class="glyphicon glyphicon-print"></span></span>
+                                        @*@if (@item.fileLocation.ToLower().Contains(".pdf"))
+                                            {
+                                                <span><a href="@item.fileLocation" download="@item.transactionSupplier-@item.bookingReference .pdf" target="_blank" class="kvitto-link"><span class="glyphicon glyphicon-floppy-save"></span></a></span>
+                                            }
+                                            else if (@item.fileLocation.ToLower().Contains(".jpg"))
+                                            {
+                                                <span><a href="@item.fileLocation" download="@item.transactionSupplier-@item.bookingReference .jpg" target="_blank" class="kvitto-link"><span class="glyphicon glyphicon-floppy-save"></span></a></span>
+                                            }
+
+                                            else*@
+                                        {
+                                        <span></span>
+                                        }
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span><a href="@Url.Action("RemoveBooking", new {id = @item.TransactionId})" class="edit-booking glyphicon glyphicon-remove"></a></span>
+                                    </span>
+                                    <div class="more-info-booking">
+                                        <div class="col-lg-12 small-header">
+                                            <span class="ref-head">REFERENS</span>
+                                            <span class="traveller-head">RESENÄR</span>
+                                            <span class="trip-head">RESA</span>
+                                            <span class="tax-head">MOMS</span>
+                                            <span class="payment-head">BETALSÄTT</span>
+
+                                            <div class="info-holder">
+                                                <span class="ref-info">@item.BookingRef</span>
+                                                <span class="traveller-info">@item.Traveller</span>
+                                                <span class="trip-info">@item.Destination</span>
+                                                <span class="vat-info">
+                                                    @if (@item.Vat1 != 0)
+                                                    {
+                                                        @Convert.ToDecimal(@item.Vat1).ToString("#,0.00")
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>0,00</span>
+                                                    }
+                                                    @item.PriceCurrency
+                                                </span>
+                                                <span class="payment-info">
+                                                    @if (@item.CardNumber != null && @item.CardNumber.Length > 20)
+                                                    {
+                                                        @item.CardNumber.Substring(0, 20)<span>...</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        @item.CardNumber
+                                                    }
+                                                </span>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    @* <td align="center">@item.tripType</td> *@
+                                    @*<span >@item.date1.ToString("dd MMM yyy")</span>
+                                        <span >@item.date2.ToString("dd MMM yyy")</span>
+                                        <span >@item.transactionSupplier</span>
+                                        <span >@item.bookingReference</span>
+                                        <span class="remove2">@item.destination</span>
+                                        <span class="product remove1" title="@item.product">@item.product</span>
+                                        <span class="remove1">@item.travelerName</span>
+                                        <span class="remove1">@item.creditCardNumber</span>
+                                        <span class="remove1">@item.creditCardOwner</span>
+                                        <span>@Convert.ToDecimal(@item.price.Value).ToString("#.##") @item.currency.Replace(",", "")</span>*@
+
+                                    @*@if (item.vat1 == null)
+                                        {
+                                            <span>0.00 @item.currency.Replace(",", "")</span>
+                                        }
+                                        else
+                                        {
+                                            <span>
+                                                @Convert.ToDecimal(@item.vat1).ToString("#.##") @item.currency.Replace(",", "")
+                                            </span>
+                                        }*@
+                                    @*<span >@item.travelerProjectNumber</span>
+
+
+                                        @if (@item.fileLocation.ToLower().Contains(".pdf"))
+                                        {
+                                            <span ><a href="@item.fileLocation" download="@item.transactionSupplier-@item.bookingReference .pdf" target="_blank" class="kvitto-link">ladda ner</a></span>
+                                        }
+                                        else if (@item.fileLocation.ToLower().Contains(".jpg"))
+                                        {
+                                            <span ><a href="@item.fileLocation" download="@item.transactionSupplier-@item.bookingReference .jpg" target="_blank" class="kvitto-link">ladda ner</a></span>
+                                        }*@
+
+                                    @*else
+                                        {
+                                            <td ></td>
+                                        }*@
+
+                                    @*<span ><a href="@Url.Action("EditMyBookings", new { id = @item.id })" class="edit-booking fui-new"></a></span>
+
+                                        <span ><a href="@Url.Action("RemoveBooking", new { id = @item.id })" class="edit-booking fui-trash"></a></span>*@
+                                    @*@Html.ActionLink("|", "EditMyBookings", new { id = @item.id })*@
+
+                                </div>
+                            </div>
+                                            }
+                                        }
+                </div>
+
+            </div>}
+        <div class="date-holder">
+            <div class="deleted-bookings">
+                @Html.ActionLink("inaktiva", "DeletedBookings", "Travel", null)
+            </div>
+
+            <div class="last-year-holder">
+                <span>@DateTime.Now.AddYears(-1).Year.ToString()</span>
+
+            </div>
+            <div class="year-holder" style="margin-bottom: 5px;">
+                <span>@Html.ActionLink(@DateTime.Now.Year.ToString(), "MyBookings", "travel")</span>
+                <div class="month-holder">
+
+                </div>
+            </div>
+
+        </div>
+
+        <div id="add-box" class="add-popup">
+            @*DESIGN FOR ADDING A BOOKING*@
+            <div class="text-div">
+                <textarea class="add-info-box head form-control"></textarea>
+                <button class="btn btn-primary btn-lg btn-block add-info-btn">SPARA</button>
+            </div>
+        </div>
+        @*<div id="edit-box" class="edit-popup">
+            </div>*@
+
+        @section scripts
+{
+            <script src="~/Scripts/jquery-ui-1.11.4.js"></script>
+            <script src="~/Scripts/featherlight.js"></script>
+            <script src="~/Scripts/country-code-converter.js"></script>
+            <script src="~/Scripts/myBookings-lib.js"></script>
+            <script src="~/Scripts/myBookings-script.js"></script>
+        }
+    </div>
+    <br />
+</div>

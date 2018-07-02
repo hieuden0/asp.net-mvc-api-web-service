@@ -1,0 +1,145 @@
+﻿@model MrBill_MVC.MrBillUserServices.UserDTO
+@{
+    ViewBag.Title = "Uppdatera konto";
+}
+
+<nav class="navbar navbar-inverse navbar-embossed" role="navigation">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
+            <span class="sr-only">Toggle navigation</span>
+        </button>
+
+    </div>
+    <div class="collapse navbar-collapse" id="navbar-collapse-01">
+        <ul class="nav navbar-nav navbar-left">
+            <li>
+                <a class="navbar-brand" href="/">
+                    <img src="~/Content/img/mrbill.png" alt="" />
+                </a>
+            </li>
+            @Html.Partial("_LoginPartial")
+        </ul>
+    </div>
+</nav>
+<div class="container bloc-xl">
+    <br />
+    <br />
+    <br />
+    <div class="row">
+        <div class="col-sm-2">
+        </div>
+        <div class="col-sm-4">
+            @using (Html.BeginForm("UpdateAccount", "Account"))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary()
+                <div class="login-form">
+                    <div class="form-group">
+
+                        <div class="form-group">
+
+                            <div class="form-group">
+                                @Html.TextBoxFor(m => m.FirstName, new { @id = "first", @class = "form-control", @placeholder = "Förnamn", Value = Model.FirstName })
+                            </div>
+                            <div class="form-group">
+                                @Html.TextBoxFor(m => m.LastName, new { @id = "last", @class = "form-control", @placeholder = "Efternamn", value = Model.LastName })
+                            </div>
+                            <div class="form-group">
+                                @Html.TextBoxFor(m => m.CompanyInfo.CompanyName, new { @id = "comp", @class = "form-control", @placeholder = "Företag", value = Model.CompanyInfo.CompanyName })
+                            </div>
+                            <div class="form-group">
+                                @Html.TextBoxFor(m => m.Address, new { @id = "addr", @class = "form-control", @placeholder = "Gata", value = Model.Address })
+                            </div>
+                            <div class="form-group">
+                                @Html.TextBoxFor(m => m.City, new { @id = "street", @class = "form-control", @placeholder = "Stad", value = Model.City })
+                            </div>
+                            <div class="form-group">
+                                @Html.TextBoxFor(m => m.PostCode, new { @id = "postal", @class = "form-control", @placeholder = "Postnummer", value = Model.PostCode })
+                            </div>
+                            <div class="form-group">
+                                @Html.TextBoxFor(m => m.Country, new { @id = "land", @class = "form-control", @placeholder = "Land", value = Model.Country })
+                            </div>
+                        </div>
+
+                        <input type="submit" class="btn btn-primary btn-lg btn-block" value="Uppdatera information" />
+                    </div>
+                </div>
+            }            
+        </div>
+
+        <div class="col-sm-4">
+  
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary()
+                <div class="login-form">
+                    <div class="form-group">
+
+                        <div class="form-group">
+                            <div class="form-group">
+                                <p>E-mail (bifogade filer)</p>
+                            </div>
+                                <div class="form-group">
+                                    @{
+                                        var emailSetting = ViewBag.emailSetting;
+                                        string isFile = "selected";
+                                        string isLink = "";
+                                        if (emailSetting != null)
+                                        {
+                                            isFile = emailSetting.SettingValue == "file" ? "selected" : null;
+                                            isLink = emailSetting.SettingValue == "link" ? "selected" : null;
+                                        }
+
+
+                                    }
+
+
+                                    @*@Html.TextBoxFor(m => m.FirstName, new { @id = "first", @class = "form-control", @placeholder = "Förnamn", Value = Model.FirstName })*@
+                                    <select id="emaiSetting" class="email-setting">
+
+                                        <option @isFile value="file">Skicka e-mail med 10MB filer</option>
+
+                                        <option @isLink value="link">Skicka enbart e-mail med länk där filen kan laddas ner &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
+
+                                    </select>                                                                                                         
+                                </div>
+                            </div>
+
+                        <input type="submit" class="btn btn-primary btn-lg btn-block" value="Uppdatera inställningar" onclick="addValue()" />
+
+                        <script>
+                            function addValue() {
+                                var settingValue = $("#emaiSetting").val();
+                                $.ajax({
+                                    url: "/Account/AddOrUpdateSetting",
+                                    data: { settingValue: settingValue },
+                                    method: "POST",
+                                    success: function (result) {
+                                        if (result == "1") {
+                                            location.reload();
+                                        } else if(result == '0') {
+                                            alert('Something wrong happen');
+                                        } else {
+                                            alert(result);
+                                        }
+                                    }
+                                })
+                            };
+
+                        </script>
+                    </div>
+                </div>
+        </div>
+
+    </div>
+    <br />
+    <br />
+    @*<div class="login-form" id="externalLogins">
+            <h3>Add an external login</h3>
+            @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
+        </div>*@
+    <br />
+    <br />
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

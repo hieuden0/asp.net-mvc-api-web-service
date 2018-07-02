@@ -1,0 +1,65 @@
+﻿@model MrBill_MVC.Models.LocalPasswordModel
+@{
+    ViewBag.Title = "Manage Account";
+}
+
+
+
+<nav class="navbar navbar-inverse navbar-embossed" role="navigation">
+	<div class="navbar-header">
+		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
+			<span class="sr-only">Toggle navigation</span>
+		</button>
+
+	</div>
+	<div class="collapse navbar-collapse" id="navbar-collapse-01">
+		<ul class="nav navbar-nav navbar-left">
+			<li>
+				<a class="navbar-brand" href="/">
+					<img src="~/Content/img/mrbill.png" alt="" />
+				</a>
+			</li>
+			@Html.Partial("_LoginPartial")
+		</ul>
+	</div>
+</nav>
+
+@*<nav class="navbar navbar-inverse navbar-embossed" role="navigation">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
+            <span class="sr-only">Toggle navigation</span>
+        </button>
+     
+    </div>
+	<div class="collapse navbar-collapse" id="navbar-collapse-01">
+		
+			<a class="navbar-brand" href="/">
+				<img src="~/Content/img/mrbill.png" alt="" />
+			</a>
+		
+		<ul class="nav navbar-nav navbar-left">
+			@Html.Partial("_LoginPartial")
+		</ul>
+	</div>
+</nav>*@
+<div class="container bloc-xl">
+    <div class="row">
+        <div class="col-sm-4">
+        </div>
+        <div class="col-sm-4">
+            @(ViewBag.HasLocalPassword ? Html.Partial("_ChangePasswordPartial") : Html.Partial("_SetPasswordPartial"))
+            @Html.Action("RemoveExternalLogins")
+        </div>
+    </div>
+    <br />
+    <br />
+    @*<div class="login-form" id="externalLogins">
+        <h3>Add an external login</h3>
+        @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
+    </div>*@
+    <br />
+    <br />
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

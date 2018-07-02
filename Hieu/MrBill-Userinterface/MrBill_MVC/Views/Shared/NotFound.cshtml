@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "Sidan kan inte hittas";
+}
+<nav class="navbar navbar-inverse navbar-embossed" role="navigation">
+	<div class="navbar-header">
+		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
+			<span class="sr-only">Toggle navigation</span>
+		</button>
+
+	</div>
+	<div class="collapse navbar-collapse" id="navbar-collapse-01">
+		<ul class="nav navbar-nav navbar-left">
+			<li>
+				<a class="navbar-brand" href="/">
+					<img src="~/Content/img/mrbill.png" alt="" />
+				</a>
+			</li>
+			@Html.Partial("_LoginPartial")
+		</ul>
+	</div>
+</nav>
+<center>
+	<h1>Sidan kan inte hittas</h1>
+</center>
+<p>kunde inte hitta sidan: @ViewBag.RequestedUrl</p>
+@if (ViewBag.ReferrerUrl != null) {
+<p>Gå tillbaka till <a href="@ViewBag.ReferrerUrl">Föregående sida</a>.</p>
+}
+
+@* Error page must be longer than 512 bytes for IE and Chrome to show it. 
+   So add padding in case we're short. *@
+@(new string(' ', 512))

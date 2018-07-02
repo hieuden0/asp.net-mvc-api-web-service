@@ -1,0 +1,119 @@
+﻿@{
+    ViewBag.Title = "About";
+}
+
+<nav class="navbar navbar-inverse navbar-embossed" role="navigation">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
+            <span class="sr-only">Toggle navigation</span>
+        </button>
+
+    </div>
+    <div class="collapse navbar-collapse" id="navbar-collapse-01">
+	    <ul class="nav navbar-nav navbar-left">
+			<li>
+				<a class="navbar-brand" href="/">
+					<img src="~/Content/img/mrbill.png" alt="" />
+				</a>
+			</li>
+		    <li >
+			    @Html.ActionLink("HEM", "Index", "Home", null, new { @class = "menu-item" })
+		    </li>
+		    <li class="active-menu">
+			    @Html.ActionLink("OM OSS", "About", "Home", null, new { @class = "menu-item" })
+		    </li>
+		    <li>
+			    @Html.Partial("_LoginPartial")
+		    </li>
+	    </ul>
+
+    </div>
+</nav>
+
+
+    <!-- bloc-6 -->
+    <div class="bloc l-bloc" id="" style="padding-top: 100px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h2 class="text-center mg-sm headline">
+                        De vanligaste frågorna om MrBill
+                    </h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- bloc-6 END -->
+    <!-- bloc-7 -->
+    <div class="bloc  l-bloc " id="bloc-7">
+        <div class="container bloc-md">
+            <div class="row">
+                <div class="col-sm-4">
+                    <h3 class="mg-md  ">
+                        Vad är MrBill?
+                    </h3>
+                    <p class="">
+                        MrBill är en tjänst för dig som reser i tjänsten och idag hanterar dina kvitton och reseutlägg manuellt. MrBill hjälper er med personlig rådgivning så att ni kan resa smartare.
+                    </p>
+                </div>
+                <div class="col-sm-4">
+                    <h3 class="mg-md  ">
+                        Vilka står bakom MrBill?
+                    </h3>
+                    <p class="">
+                        MrBill är grundat av flera personer med lång erfarenhet från resebranschen som själva tröttnat på hanteringen av verifikat från resor de utför.
+                    </p>
+                </div>
+                <div class="col-sm-4">
+                    <h3 class="mg-md  ">
+                        Kan jag avsluta tjänsten när jag vill?
+                    </h3>
+                    <p class="">
+                        Ja, då MrBill idag enbart använder sig av information från de kanaler du väljer så kan du avsluta/koppla ifrån leverantörerna själv.
+                    </p>
+                </div>
+            </div><br /><br />
+            <div class="row">
+                <div class="col-sm-4">
+                    <h3 class="mg-md  ">
+                        Vad kan MrBill göra för mig?
+                    </h3>
+                    <p class="">
+                        Med MrBill kan du boka dina resor via de vanliga direktkanalerna (direkt hos leverantörerna) och samla dina kvitton och transaktioner på ett ställe. Detta göra att du lätt kan ta ut en sammanställning över de transaktioner du genomfört för din bokföring eller reseredovisning.
+                    </p>
+                </div>
+                <div class="col-sm-4">
+                    <h3 class="mg-md  ">
+                        Bokar jag mina resor hos MrBill?
+                    </h3>
+                    <p class="">
+                        Om du idag bokar flyg, taxi, hotell etc. hos olika leverantörer kan MrBill hjälpa dig att effektivisera dina bokningsprocesser samt tiden det tar dig att sammanställa och redovisa dina resetransaktioner.
+                    </p>
+                </div>
+                <div class="col-sm-4">
+                    <h3 class="mg-md  ">
+                        Vad kan jag tjäna på att använda MrBill?
+                    </h3>
+                    <p class="">
+                        Om du idag bokar flyg, taxi, hotell etc. hos olika leverantörer kan MrBill hjälpa dig att effektivisera dina bokningsprocesser samt tiden det tar dig att sammanställa och redovisa dina resetransaktioner.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- bloc-7 END -->
+    <!-- bloc-8 -->
+    <div class="bloc l-bloc " id="bloc-8">
+        <div class="container bloc-sm">
+            <div class="row">
+                <div class="col-sm-12">
+                  
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- bloc-8 END -->
+    <!-- Footer - bloc-9 -->
+
+
+<!-- Main container END -->

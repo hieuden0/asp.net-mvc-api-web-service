@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc12="http://www.w3.org/2003/05/soap-encoding" xmlns:ns2="http://model.profile.octagroup.com" xmlns:soap11="http://schemas.xmlsoap.org/soap/envelope/" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope" xmlns:tns="http://service.profile.octagroup.com" xmlns:soapenc11="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns3="http://security.profile.octagroup.com" xmlns:ns1="http://dto.model.profile.octagroup.com" targetNamespace="http://service.profile.octagroup.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://service.profile.octagroup.com">
+      <xsd:element name="getMrBillUsersWithoutSuppliers">
+        <xsd:complexType />
+      </xsd:element>
+      <xsd:element name="getMrBillUsersWithoutSuppliersResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="out" nillable="true" type="ns1:ArrayOfContactInfoDTO" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getMrBillUsers">
+        <xsd:complexType />
+      </xsd:element>
+      <xsd:element name="getMrBillUsersResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="out" nillable="true" type="ns1:ArrayOfMrBillDTO" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="AuthenticationToken" type="ns3:AuthenticationToken" />
+    </xsd:schema>
+    <xsd:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://dto.model.profile.octagroup.com">
+      <xsd:complexType name="ArrayOfContactInfoDTO">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="ContactInfoDTO" nillable="true" type="ns1:ContactInfoDTO" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ContactInfoDTO">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="email" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="firstName" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="lastName" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="mobile" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="userId" nillable="true" type="xsd:long" />
+          <xsd:element minOccurs="0" name="username" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfMrBillDTO">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="MrBillDTO" nillable="true" type="ns1:MrBillDTO" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="MrBillDTO">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="transactionSuppliers" nillable="true" type="ns2:ArrayOfTransactionSupplier" />
+          <xsd:element minOccurs="0" name="transactions" nillable="true" type="ns2:ArrayOfTransaction" />
+          <xsd:element minOccurs="0" name="userId" nillable="true" type="xsd:long" />
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+    <xsd:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://model.profile.octagroup.com">
+      <xsd:complexType name="ArrayOfTransactionSupplier">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="TransactionSupplier" nillable="true" type="ns2:TransactionSupplier" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="TransactionSupplier">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="id" nillable="true" type="xsd:long" />
+          <xsd:element minOccurs="0" name="name" nillable="true" type="xsd:string" />
+          <xsd:element name="supplierPassword" type="xsd:string" />
+          <xsd:element name="supplierUsername" type="xsd:string" />
+          <xsd:element minOccurs="0" name="toBeDeleted" type="xsd:boolean" />
+          <xsd:element name="url" type="xsd:string" />
+          <xsd:element minOccurs="0" name="userIdentity" nillable="true" type="ns2:Identity" />
+          <xsd:element name="version" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Identity">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="id" nillable="true" type="xsd:long" />
+          <xsd:element minOccurs="0" name="name" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfTransaction">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="Transaction" nillable="true" type="ns2:Transaction" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Transaction">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="addedDate" type="xsd:dateTime" />
+          <xsd:element minOccurs="0" name="attachedPersons" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="bookingReference" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="category" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="country" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="creditCardNumber" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="creditCardOwner" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="currency" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="date1" type="xsd:dateTime" />
+          <xsd:element minOccurs="0" name="date2" type="xsd:dateTime" />
+          <xsd:element minOccurs="0" name="departureCity" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="description" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="destination" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="destinationCity" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="expenseDate" type="xsd:dateTime" />
+          <xsd:element minOccurs="0" name="fileLocation" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="id" nillable="true" type="xsd:long" />
+          <xsd:element minOccurs="0" name="localAmount" nillable="true" type="xsd:decimal" />
+          <xsd:element minOccurs="0" name="multiTransactionId" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="numberOfUnits" nillable="true" type="xsd:int" />
+          <xsd:element minOccurs="0" name="paymentType" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="prePaid" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="price" nillable="true" type="xsd:decimal" />
+          <xsd:element minOccurs="0" name="product" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="removedDate" type="xsd:dateTime" />
+          <xsd:element minOccurs="0" name="toBeDeleted" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="total" nillable="true" type="xsd:decimal" />
+          <xsd:element name="transactionDate" type="xsd:dateTime" />
+          <xsd:element name="transactionOwner" type="xsd:string" />
+          <xsd:element name="transactionStatus" type="ns2:TransactionStatus" />
+          <xsd:element minOccurs="0" name="transactionSupplier" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="travelerConfirmationEmail" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="travelerCostCenter" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="travelerEmployeeId" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="travelerMembershipCard" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="travelerName" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="travelerProjectNumber" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="tripType" nillable="true" type="xsd:string" />
+          <xsd:element name="userIdentity" type="ns2:Identity" />
+          <xsd:element minOccurs="0" name="userType" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="vat1" nillable="true" type="xsd:decimal" />
+          <xsd:element minOccurs="0" name="vat2" nillable="true" type="xsd:decimal" />
+          <xsd:element minOccurs="0" name="vat3" nillable="true" type="xsd:decimal" />
+          <xsd:element name="version" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:simpleType name="TransactionStatus">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="SHOWN" />
+          <xsd:enumeration value="HIDDEN" />
+          <xsd:enumeration value="DISABLED" />
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:schema>
+    <xsd:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://security.profile.octagroup.com">
+      <xsd:complexType name="AuthenticationToken">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="password" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="username" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="getMrBillUsersWithoutSuppliersRequestHeaders">
+    <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+  </wsdl:message>
+  <wsdl:message name="getMrBillUsersWithoutSuppliersResponse">
+    <wsdl:part name="parameters" element="tns:getMrBillUsersWithoutSuppliersResponse" />
+  </wsdl:message>
+  <wsdl:message name="getMrBillUsersResponse">
+    <wsdl:part name="parameters" element="tns:getMrBillUsersResponse" />
+  </wsdl:message>
+  <wsdl:message name="getMrBillUsersWithoutSuppliersRequest">
+    <wsdl:part name="parameters" element="tns:getMrBillUsersWithoutSuppliers" />
+  </wsdl:message>
+  <wsdl:message name="getMrBillUsersRequestHeaders">
+    <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+  </wsdl:message>
+  <wsdl:message name="getMrBillUsersRequest">
+    <wsdl:part name="parameters" element="tns:getMrBillUsers" />
+  </wsdl:message>
+  <wsdl:portType name="MrBillServicePortType">
+    <wsdl:operation name="getMrBillUsersWithoutSuppliers">
+      <wsdl:input name="getMrBillUsersWithoutSuppliersRequest" message="tns:getMrBillUsersWithoutSuppliersRequest" />
+      <wsdl:output name="getMrBillUsersWithoutSuppliersResponse" message="tns:getMrBillUsersWithoutSuppliersResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getMrBillUsers">
+      <wsdl:input name="getMrBillUsersRequest" message="tns:getMrBillUsersRequest" />
+      <wsdl:output name="getMrBillUsersResponse" message="tns:getMrBillUsersResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="MrBillServiceHttpBinding" type="tns:MrBillServicePortType">
+    <wsdlsoap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="getMrBillUsersWithoutSuppliers">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="getMrBillUsersWithoutSuppliersRequest">
+        <wsdlsoap:body use="literal" />
+        <wsdlsoap:header message="tns:getMrBillUsersWithoutSuppliersRequestHeaders" part="AuthenticationToken" use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getMrBillUsersWithoutSuppliersResponse">
+        <wsdlsoap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getMrBillUsers">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="getMrBillUsersRequest">
+        <wsdlsoap:body use="literal" />
+        <wsdlsoap:header message="tns:getMrBillUsersRequestHeaders" part="AuthenticationToken" use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getMrBillUsersResponse">
+        <wsdlsoap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MrBillService">
+    <wsdl:port name="MrBillServiceHttpPort" binding="tns:MrBillServiceHttpBinding">
+      <wsdlsoap:address location="http://192.168.20.140:8080/profile_mrb/services/MrBillService" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

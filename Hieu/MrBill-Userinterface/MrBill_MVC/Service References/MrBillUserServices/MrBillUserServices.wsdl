@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="MrBillUserServices" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:1906/MrBillUserServices.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:1906/MrBillUserServices.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:1906/MrBillUserServices.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/MrBillServices.DTO" />
+      <xsd:import schemaLocation="http://localhost:1906/MrBillUserServices.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IMrBillUserServices_CreateUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateUser" />
+  </wsdl:message>
+  <wsdl:message name="IMrBillUserServices_CreateUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMrBillUserServices_UpdateUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateUser" />
+  </wsdl:message>
+  <wsdl:message name="IMrBillUserServices_UpdateUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMrBillUserServices_GetUserByUsername_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserByUsername" />
+  </wsdl:message>
+  <wsdl:message name="IMrBillUserServices_GetUserByUsername_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserByUsernameResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMrBillUserServices_GetUserIDByUsername_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserIDByUsername" />
+  </wsdl:message>
+  <wsdl:message name="IMrBillUserServices_GetUserIDByUsername_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserIDByUsernameResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMrBillUserServices_GetAllSupplierInfoList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllSupplierInfoList" />
+  </wsdl:message>
+  <wsdl:message name="IMrBillUserServices_GetAllSupplierInfoList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllSupplierInfoListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMrBillUserServices_AddOrUpdateSetting_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddOrUpdateSetting" />
+  </wsdl:message>
+  <wsdl:message name="IMrBillUserServices_AddOrUpdateSetting_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddOrUpdateSettingResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMrBillUserServices_GetSetingById_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSetingById" />
+  </wsdl:message>
+  <wsdl:message name="IMrBillUserServices_GetSetingById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSetingByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMrBillUserServices_IsSuperAdmin_InputMessage">
+    <wsdl:part name="parameters" element="tns:IsSuperAdmin" />
+  </wsdl:message>
+  <wsdl:message name="IMrBillUserServices_IsSuperAdmin_OutputMessage">
+    <wsdl:part name="parameters" element="tns:IsSuperAdminResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMrBillUserServices_IsAdmin_InputMessage">
+    <wsdl:part name="parameters" element="tns:IsAdmin" />
+  </wsdl:message>
+  <wsdl:message name="IMrBillUserServices_IsAdmin_OutputMessage">
+    <wsdl:part name="parameters" element="tns:IsAdminResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMrBillUserServices_GetAllMessage_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllMessage" />
+  </wsdl:message>
+  <wsdl:message name="IMrBillUserServices_GetAllMessage_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllMessageResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMrBillUserServices_GetAllUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllUser" />
+  </wsdl:message>
+  <wsdl:message name="IMrBillUserServices_GetAllUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMrBillUserServices_GetAllUserSupplierInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllUserSupplierInfo" />
+  </wsdl:message>
+  <wsdl:message name="IMrBillUserServices_GetAllUserSupplierInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllUserSupplierInfoResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IMrBillUserServices">
+    <wsdl:operation name="CreateUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMrBillUserServices/CreateUser" message="tns:IMrBillUserServices_CreateUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMrBillUserServices/CreateUserResponse" message="tns:IMrBillUserServices_CreateUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMrBillUserServices/UpdateUser" message="tns:IMrBillUserServices_UpdateUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMrBillUserServices/UpdateUserResponse" message="tns:IMrBillUserServices_UpdateUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserByUsername">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMrBillUserServices/GetUserByUsername" message="tns:IMrBillUserServices_GetUserByUsername_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMrBillUserServices/GetUserByUsernameResponse" message="tns:IMrBillUserServices_GetUserByUsername_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserIDByUsername">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMrBillUserServices/GetUserIDByUsername" message="tns:IMrBillUserServices_GetUserIDByUsername_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMrBillUserServices/GetUserIDByUsernameResponse" message="tns:IMrBillUserServices_GetUserIDByUsername_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllSupplierInfoList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMrBillUserServices/GetAllSupplierInfoList" message="tns:IMrBillUserServices_GetAllSupplierInfoList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMrBillUserServices/GetAllSupplierInfoListResponse" message="tns:IMrBillUserServices_GetAllSupplierInfoList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddOrUpdateSetting">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMrBillUserServices/AddOrUpdateSetting" message="tns:IMrBillUserServices_AddOrUpdateSetting_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMrBillUserServices/AddOrUpdateSettingResponse" message="tns:IMrBillUserServices_AddOrUpdateSetting_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSetingById">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMrBillUserServices/GetSetingById" message="tns:IMrBillUserServices_GetSetingById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMrBillUserServices/GetSetingByIdResponse" message="tns:IMrBillUserServices_GetSetingById_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="IsSuperAdmin">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMrBillUserServices/IsSuperAdmin" message="tns:IMrBillUserServices_IsSuperAdmin_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMrBillUserServices/IsSuperAdminResponse" message="tns:IMrBillUserServices_IsSuperAdmin_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="IsAdmin">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMrBillUserServices/IsAdmin" message="tns:IMrBillUserServices_IsAdmin_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMrBillUserServices/IsAdminResponse" message="tns:IMrBillUserServices_IsAdmin_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllMessage">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMrBillUserServices/GetAllMessage" message="tns:IMrBillUserServices_GetAllMessage_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMrBillUserServices/GetAllMessageResponse" message="tns:IMrBillUserServices_GetAllMessage_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMrBillUserServices/GetAllUser" message="tns:IMrBillUserServices_GetAllUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMrBillUserServices/GetAllUserResponse" message="tns:IMrBillUserServices_GetAllUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllUserSupplierInfo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMrBillUserServices/GetAllUserSupplierInfo" message="tns:IMrBillUserServices_GetAllUserSupplierInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMrBillUserServices/GetAllUserSupplierInfoResponse" message="tns:IMrBillUserServices_GetAllUserSupplierInfo_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IMrBillUserServices" type="tns:IMrBillUserServices">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CreateUser">
+      <soap:operation soapAction="http://tempuri.org/IMrBillUserServices/CreateUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUser">
+      <soap:operation soapAction="http://tempuri.org/IMrBillUserServices/UpdateUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserByUsername">
+      <soap:operation soapAction="http://tempuri.org/IMrBillUserServices/GetUserByUsername" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserIDByUsername">
+      <soap:operation soapAction="http://tempuri.org/IMrBillUserServices/GetUserIDByUsername" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllSupplierInfoList">
+      <soap:operation soapAction="http://tempuri.org/IMrBillUserServices/GetAllSupplierInfoList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddOrUpdateSetting">
+      <soap:operation soapAction="http://tempuri.org/IMrBillUserServices/AddOrUpdateSetting" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSetingById">
+      <soap:operation soapAction="http://tempuri.org/IMrBillUserServices/GetSetingById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsSuperAdmin">
+      <soap:operation soapAction="http://tempuri.org/IMrBillUserServices/IsSuperAdmin" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsAdmin">
+      <soap:operation soapAction="http://tempuri.org/IMrBillUserServices/IsAdmin" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllMessage">
+      <soap:operation soapAction="http://tempuri.org/IMrBillUserServices/GetAllMessage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllUser">
+      <soap:operation soapAction="http://tempuri.org/IMrBillUserServices/GetAllUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllUserSupplierInfo">
+      <soap:operation soapAction="http://tempuri.org/IMrBillUserServices/GetAllUserSupplierInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MrBillUserServices">
+    <wsdl:port name="BasicHttpBinding_IMrBillUserServices" binding="tns:BasicHttpBinding_IMrBillUserServices">
+      <soap:address location="http://localhost:1906/MrBillUserServices.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

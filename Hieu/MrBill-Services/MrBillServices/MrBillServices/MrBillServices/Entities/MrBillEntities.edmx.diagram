@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8c6f348c1d274516be370861b433475d" Name="Diagram1" ZoomLevel="88">
+        <EntityTypeShape EntityType="MrBillDBModel.CompanyInfo" Width="1.5" PointX="0.75" PointY="16.625" />
+        <EntityTypeShape EntityType="MrBillDBModel.CostCenter" Width="1.5" PointX="5.25" PointY="22.375" />
+        <EntityTypeShape EntityType="MrBillDBModel.Email" Width="1.5" PointX="5.25" PointY="19.75" />
+        <EntityTypeShape EntityType="MrBillDBModel.Employee" Width="1.5" PointX="5.25" PointY="8.625" />
+        <EntityTypeShape EntityType="MrBillDBModel.log" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="MrBillDBModel.PaymentType" Width="1.5" PointX="8.25" PointY="17.75" />
+        <EntityTypeShape EntityType="MrBillDBModel.Project" Width="1.5" PointX="5.25" PointY="14.25" />
+        <EntityTypeShape EntityType="MrBillDBModel.ScraperLog" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="MrBillDBModel.Setting" Width="1.5" PointX="5.25" PointY="17" />
+        <EntityTypeShape EntityType="MrBillDBModel.SupplierInfo" Width="1.5" PointX="6" PointY="4.875" />
+        <EntityTypeShape EntityType="MrBillDBModel.sysdiagram" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="MrBillDBModel.TransactionGroup" Width="1.5" PointX="8.25" PointY="11.375" />
+        <EntityTypeShape EntityType="MrBillDBModel.TripCategory" Width="1.5" PointX="8.25" PointY="20" />
+        <EntityTypeShape EntityType="MrBillDBModel.UserProfile" Width="1.5" PointX="3" PointY="12.25" />
+        <EntityTypeShape EntityType="MrBillDBModel.UserRole" Width="1.5" PointX="0.75" PointY="11.25" />
+        <EntityTypeShape EntityType="MrBillDBModel.UserSupplierInfo" Width="1.5" PointX="8.25" PointY="14" />
+        <EntityTypeShape EntityType="MrBillDBModel.webpages_Membership" Width="1.5" PointX="2.75" PointY="3.75" />
+        <EntityTypeShape EntityType="MrBillDBModel.webpages_OAuthMembership" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="MrBillDBModel.webpages_Roles" Width="1.5" PointX="0.75" PointY="14.25" />
+        <AssociationConnector Association="MrBillDBModel.fk_Company_RootCompany" />
+        <AssociationConnector Association="MrBillDBModel.fk_UserProfile_Company" />
+        <AssociationConnector Association="MrBillDBModel.fk_CostCenter_UserProfile" />
+        <AssociationConnector Association="MrBillDBModel.fk_Email_UserProfile" />
+        <AssociationConnector Association="MrBillDBModel.fk_Employee_UserProfile" />
+        <AssociationConnector Association="MrBillDBModel.fk_Project_UserProfile" />
+        <AssociationConnector Association="MrBillDBModel.FK_Setting_UserProfile" />
+        <AssociationConnector Association="MrBillDBModel.fk_UserSupplier_Supplier" />
+        <AssociationConnector Association="MrBillDBModel.fk_UserProfile_Role" />
+        <AssociationConnector Association="MrBillDBModel.fk_UserSupplier_UserProfile" />
+        <AssociationConnector Association="MrBillDBModel.webpages_UsersInRoles" />
+        <EntityTypeShape EntityType="MrBillDBModel.Transaction" Width="1.5" PointX="10.5" PointY="8.5" />
+        <AssociationConnector Association="MrBillDBModel.fk_Transaction_CostCenter" />
+        <AssociationConnector Association="MrBillDBModel.fk_Transaction_Employee" />
+        <AssociationConnector Association="MrBillDBModel.fk_Transaction_PaymentType" />
+        <AssociationConnector Association="MrBillDBModel.fk_Transaction_Project" />
+        <AssociationConnector Association="MrBillDBModel.fk_Transaction_Supplier" />
+        <AssociationConnector Association="MrBillDBModel.fk_Transaction_Category" />
+        <AssociationConnector Association="MrBillDBModel.fk_Transaction_TransactionGroup" />
+        <AssociationConnector Association="MrBillDBModel.fk_Transaction_UserProfile" />
+        <AssociationConnector Association="MrBillDBModel.fk_Transaction_UserProfile_Unlock" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

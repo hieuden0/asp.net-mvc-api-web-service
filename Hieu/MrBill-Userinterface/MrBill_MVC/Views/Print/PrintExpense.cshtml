@@ -1,0 +1,193 @@
+﻿@using System.Globalization
+@using System.Web.UI.WebControls
+@using Microsoft.Data.OData.Query.SemanticAst
+@using MrBill_MVC.MrBillTransactionServices
+@model MrBill_MVC.Models.UserModel
+<link href="/Content/featherlight.css" rel="stylesheet" />
+<link href="/Content/print-style.css" rel="stylesheet" />
+@{
+    ViewBag.Title = "MyBookings";
+}
+
+<div class="container bloc-xl">
+    <br />
+    <br />
+
+    <div class="row">
+        <span style="float:right;">Utskrivet: @ViewBag.printDate	</span>	<br />
+        Namn: @ViewBag.Name				<br />
+        Företag: @ViewBag.Company		<br />
+        Adress:	 @ViewBag.Adress		<br />
+        Stad: @ViewBag.City				<br />
+        PostNr: @ViewBag.Zip			<br />
+        Land: @ViewBag.Country			<br />
+
+    </div>
+    <div class="row">
+        @*<div class="new-booking">
+                <span class="add-button"><span class=""></span><span class="add">@Html.ActionLink("LÄGG TILL", "AddBooking", null, new { @class = "btn btn-primary btn-lg btn-block" })</span></span>
+            </div>*@
+
+        <h4>@ViewBag.noBook</h4>
+        @foreach (var date in ViewBag.monthList)
+        {
+            <div class="col-sm-12 month-row">
+                <div class="month-header" style="background-color: #7cc5df;">
+                    <strong class="month-trigger fui-radio-unchecked"></strong><span class="month-header-text">@date.ToString()</span><span class="recepit-number"></span>
+                    <span class="print">
+                        PRINT
+                        <img src="~/Content/img/printer.png" alt="" />
+                    </span>
+                    <span class="export-w no-print">@Html.ActionLink("Export Word", "PrintDocment", new { id = @date.Replace(" ", "_") }, null)</span>
+                </div>
+                <div class="bookings table-item" style="display: inline !important">
+                    <div class="tableHead">
+                        <span class="number-top" align="left">Nr</span>
+                        <span class="date-top" align="left">Datum</span>
+                        <span class="supplier-top" align="left">Leverantör</span>
+                        <span class="destination-top" align="left">Ort</span>
+                        <span class="product-top" align="left">Produkt</span>
+                        <span class="price-top" align="left">Belopp</span>
+                        <span class="vat-top" align="left">Moms</span>
+                        <span class="kost-top" align="left">Kostnadsställe</span>
+                        <span class="reciept-top" align="left">Bifogat kvitto</span>
+                    </div>
+
+                    @{int count = 1;}
+                    <div class="booking-holder">
+                        @foreach (var item in ((IEnumerable<TransactionDTO>)ViewBag.transList).Where(item => item.AddedDate.ToString("Y", new CultureInfo("sv-SE")).ToLower() == @date.ToString()).OrderBy(e => e.AirDepTime1))
+                        {
+                            if (@item.Vat3 == null)
+                            {
+
+                                <div class="col-sm-12 top-book op-cl">
+
+                                    <span class="number" align="left">@count</span>
+                                    <span class="date-top" align="left">@item.AirDepTime1.ToString("yyy-dd-MM")</span>
+                                    <span class="supplier-top" align="left">@item.SupplierInfoes.SupplierName</span>
+
+                                    <span class="destination-top" align="left">@item.Destination</span>
+                                    <span class="product-top" align="left" title="@item.Product">@item.Product</span>
+
+                                    <span class="price-top" align="left">@Math.Round(Convert.ToDecimal(@item.Price)) @item.PriceCurrency</span>
+
+                                    @if (item.Vat1 == null)
+                                    {
+                                        <span class="vat-top" align="left">0.00 @item.PriceCurrency</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="vat-top" align="left">
+                                            @item.Vat1
+                                            @if (@item.Vat1 != null)
+                                            {
+                                                @item.PriceCurrency
+                                            }
+
+                                        </span>
+                                    }
+
+                                    <span class="kost-top" align="left">
+                                        @if (item.Project == null)
+                                        {
+                                            <span>&nbsp;</span>
+                                        }
+                                        else
+                                        {
+                                            @item.Project.ProjectNumber
+                                        }
+
+                                    </span>
+                                    @if (!string.IsNullOrEmpty(@item.ReceiptLink))
+                                    {
+                                        <span class="reciept-top" align="left">Ja</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="reciept-top" align="left">Nej</span>
+                                    }
+
+                                    @*@Html.ActionLink("|", "EditMyBookings", new { id = @item.id })*@
+
+
+                                </div>
+                                count++;
+                            }
+                        }
+                    </div>
+                </div>
+            </div>}
+        <div class="pagebreak"> </div>
+        @*<div class="attached-images">
+        @{int imageCount = 1;}
+        @foreach (var date in ViewBag.monthList)
+        {
+            foreach (var item in ((IEnumerable<Transaction>)ViewBag.transList).Where(item => item.date1.ToString("Y", new CultureInfo("sv-SE")).ToLower() == @date.ToString()).OrderBy(e => e.date1))
+            {
+                if (@item.vat3 == null && @item.fileLocation != null)
+                {
+                    <h5>KVITTO @imageCount</h5>
+                    <div class="print-attached-info attached-head">
+                        <span class="date">Datum</span>
+                        <span class="supplier">Leverantör</span>
+                        <span class="destination">Ort</span>
+                        <span class="product">Produkt</span>
+                        <span class="price">Belopp</span>
+                        <span class="vat">Moms</span>
+                        <span class="cardnr">Betalsätt</span>
+                    </div>
+
+
+                    <div class="print-attached-info attached-info">
+                        <span class="date">@item.addedDate.ToShortDateString()</span>
+                        <span class="supplier">@item.transactionSupplier</span>
+                        <span class="destination">@item.destination</span>
+                        <span class="product">@item.product</span>
+                        <span class="price">@Convert.ToDecimal(@item.price.Value).ToString("#,0.00") @item.currency.Replace(",", "")</span>
+                        <span class="vat">
+                            @if (@item.vat1 != null)
+                            {
+                                @Convert.ToDecimal(@item.vat1.Value).ToString("#,0.00")
+                            }
+                            else
+                            {
+                                <span>0,00</span>
+                            }
+                            @item.currency.Replace(",", "")
+                        </span>
+                        <span class="cardnr">@item.creditCardNumber</span>
+                    </div>
+
+                    if (@item.fileLocation.ToLower().Contains(".pdf"))
+                    {
+
+                        var url = "http://docs.google.com/gview?url=" + ViewBag.Url + @item.fileLocation + "&embedded=true";
+                        <iframe src="@url" height="1040" width="738" frameborder="0" class="reciept-img"></iframe>
+
+
+                    }
+                    else
+                    {
+                        <div class="img-holder">
+
+                            <img class="reciept-img" src="@item.fileLocation" />
+                        </div>
+                    }
+
+                    imageCount++;
+                }
+
+            }
+
+        }
+    </div>*@
+
+
+        @section scripts
+		{
+
+            <script src="~/Scripts/print-script.js"></script>
+        }
+    </div>
+    <br />
+</div>

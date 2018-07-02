@@ -1,0 +1,134 @@
+﻿@using System.Collections
+@using System.Web.UI.WebControls
+@using MrBill_MVC.MrBillTransactionServices
+@model MrBill_MVC.Models.TravelModel
+@{
+    ViewBag.Title = "Manage Account";
+}
+
+<nav class="navbar navbar-inverse navbar-embossed" role="navigation">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
+            <span class="sr-only">Toggle navigation</span>
+        </button>
+
+    </div>
+    <div class="collapse navbar-collapse" id="navbar-collapse-01">
+        <ul class="nav navbar-nav navbar-left">
+            <li>
+                <a class="navbar-brand" href="/">
+                    <img src="~/Content/img/mrbill.png" alt="" />
+                </a>
+            </li>
+            @Html.Partial("_LoginPartial")
+        </ul>
+    </div>
+</nav>
+
+
+@*<div class="col-lg-10 center account-holder">
+        <h4>Lägg till Konto</h4>
+        @foreach (var item in @ViewBag.SupDropDown)
+        {
+            <div class="col-lg-3 supplier-info">
+
+                <div class="supplier-head">
+                    <span class="fui-radio-unchecked account-icon"></span>
+                    <h6 class="account-head">@item</h6>
+                </div>
+                <div class="supplier-edit-info">
+                    @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true)
+
+                        <div class="form-group">
+                            <div class="form-group" style="display: none;">
+                                @Html.TextBoxFor(m => m.CompanyName, new { @id = @item, name = @item, @class = "form-control", @placeholder = "företag", Value = @item })
+                                @Html.ValidationMessageFor(m => m.UserName)
+                            </div>
+
+                            <div class="form-group">
+                                @Html.TextBoxFor(m => m.UserName, new { @id = "user", @class = "form-control", @placeholder = "Användarnamn"})
+                                @Html.ValidationMessageFor(m => m.UserName)
+
+                            </div>
+
+                            <div class="form-group">
+                                @Html.PasswordFor(m => m.Password, new { @id = "pass", @class = "form-control", @placeholder = "Lösenord" })
+                                @Html.ValidationMessageFor(m => m.Password)
+                            </div>
+                            <div class="form-group">
+                                @Html.PasswordFor(m => m.ConfirmPassword, new { @id = "RePass", @class = "form-control", @placeholder = "Bekräfta Lösenord" })
+                                @Html.ValidationMessageFor(m => m.Password)
+                            </div>
+                            <div class="form-group">
+                            </div>
+                            <input type="submit" value="SPARA" class="btn btn-primary btn-lg btn-block" />
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>*@
+
+
+
+<div class="bloc d-bloc" id="bloc-5">
+    <div class="container bloc-xl">
+        <div class="row">
+            <div class="col-sm-4">
+            </div>
+            <div class="col-sm-4">
+                <br />
+                @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+                    <div class="supplier-info login-form">
+                        <div class="form-group">
+                            <div class="form-group">
+                                @*@Html.DropDownList("SupDropDown", (IEnumerable<SelectListItem>)ViewBag.PriorityID, new { @class = "form-control" })*@
+                                @*@Html.DropDownList("SupDropDown", (IEnumerable<SupplierInfoDTO>)ViewBag.SupDropDown, new { @class = "form-control" })*@
+                                <select class="form-control" name="SupDropDown">
+                                    <option value="VÄLJ">
+                                        VÄLJ
+                                    </option>
+                                    @foreach (var supItem in @ViewBag.SupDropDown)
+                                    {
+                                        <option value="@supItem.SupplierId">
+                                            @supItem.SupplierName
+                                        </option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                @Html.TextBoxFor(m => m.UserName, new { @id = "user", @class = "form-control", @placeholder = "Användarnamn" })
+                                @Html.ValidationMessageFor(m => m.UserName)
+                            </div>
+                            <div class="form-group">
+                                @Html.PasswordFor(m => m.Password, new { @id = "pass", @class = "form-control", @placeholder = "Lösenord" })
+                                @Html.ValidationMessageFor(m => m.Password)
+                            </div>
+                            <div class="form-group">
+                                @Html.PasswordFor(m => m.ConfirmPassword, new { @id = "RePass", @class = "form-control", @placeholder = "Bekräfta Lösenord" })
+                                @Html.ValidationMessageFor(m => m.Password)
+                            </div>
+                            <div class="form-group">
+                            </div>
+                            <input type="submit" value="SPARA" class="btn btn-primary btn-lg btn-block" />
+                        </div>
+                        <span style="color: black">@ViewBag.Added</span>
+                    </div>
+                }
+            </div>
+        </div>
+        <br />
+        <br />
+        <br />
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/manage-account-script.js"></script>
+}

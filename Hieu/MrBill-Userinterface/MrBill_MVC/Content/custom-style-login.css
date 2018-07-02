@@ -1,0 +1,91 @@
+﻿
+@font-face {
+    font-family: "AvenirNext";
+    src: url(//fonts/AvenirNext-Medium.ttf) format("truetype");
+}
+@font-face {
+    font-family: "AvenirNextCondensed";
+    src: url(//fonts/AvenirNextCondensed-Medium.ttf) format("truetype");
+}
+
+
+
+.forgot {
+    display: block;
+    margin-top: 15px;
+    font-size: 13px;
+    color: #BFC9CA;
+    text-align: center;
+}
+
+
+
+
+
+
+
+
+@media (max-width: 1192px) { 
+    .account-holder { margin-left: 16% }
+}
+@media (max-width: 1100px) { 
+    .account-holder { margin-left: 13% }
+}
+@media (max-width: 1069px) { 
+    .account-holder { margin-left: 11% }
+}
+@media (max-width: 882px) { 
+    .account-holder { margin-left: 7% }
+}
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.open .dropdown-toggle.btn-primary {
+    background-color: #02667C !important;
+    border-color: #006BCA;
+}
+.btn-primary {
+    background-color: #292C2F !important;
+    border-color: #2e6da4;
+}
+
+a.print:hover { color: #fff }
+/*FLAT INPUT STYLE*/
+.well,
+.navbar-inner,
+.popover,
+.btn,
+.tooltip,
+input,
+select,
+textarea,
+pre,
+.progress,
+.modal,
+.add-on,
+.alert,
+.table-bordered,
+.nav > .active > a,
+.dropdown-menu,
+.tooltip-inner,
+.badge,
+.label,
+.img-polaroid {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    -webkit-border-radius: 0 !important;
+    -moz-border-radius: 0 !important;
+    border-radius: 0 !important;
+    border: 0 !important;
+    border-collapse: collapse !important;
+    background-image: none !important;
+}
+
+
+.main-wrapper-wide {
+    background-image: url('img/skyline-edited.jpg');
+    background-repeat: no-repeat;
+    background-position: top;
+}

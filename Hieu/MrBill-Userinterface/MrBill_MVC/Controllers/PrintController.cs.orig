@@ -1,0 +1,211 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Net.Mime;
+using System.ServiceModel;
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using Microsoft.Ajax.Utilities;
+using MrBill_MVC.Models;
+using MrBill_MVC.TransactionService;
+using MrBill_MVC.UserService;
+using Novacode;
+<<<<<<< HEAD
+using Ionic.Zip;
+=======
+using System.IO;
+using Ionic.Zip;
+using System.Collections.Generic;
+>>>>>>> bd71cfd92735d4182ad4b09c4cdd12c3424133b3
+using AuthenticationToken = MrBill_MVC.UserService.AuthenticationToken;
+using Transaction = MrBill_MVC.TransactionService.Transaction;
+
+namespace MrBill_MVC.Controllers
+{
+	public class PrintController : Controller
+	{
+		// GET: Print
+		public ActionResult Print(string id, UserModel model)
+		{
+			var membershipUser = Membership.GetUser();
+			if (membershipUser == null) return RedirectToAction("Index", "Home");
+
+			var userName = membershipUser.UserName;
+			//userName = "StoraHovdingen";
+			var userServiceClient = new UserServicePortTypeClient();
+			var auth = new AuthenticationToken { username = "MrBprofileWS", password = "Go4AHik3@n8!" };
+			var user = new User();
+
+			try
+			{
+				user = userServiceClient.getUserByUsername(auth, userName);
+			}
+
+			catch (Exception)
+			{
+				FormsAuthentication.SignOut();
+				TempData["SignoutMessage"] = "Något gick fel, vänligen försök igen senare";
+				return RedirectToAction("Index", "Home");
+			}
+			ViewBag.Name = user.firstName + " " + user.lastName;
+			ViewBag.Adress = user.address.address;
+			ViewBag.City = user.address.city;
+			ViewBag.Zip = user.address.postalCode;
+			ViewBag.Country = user.address.country;
+
+			ViewBag.Company = user.specialRequest;
+			ViewBag.Url = Request.Headers["host"];
+			var userId = user.id.ToString();
+
+			var transactionService = new TransactionServicePortTypeClient();
+
+			var transAuth = new TransactionService.AuthenticationToken { username = "MrBprofileWS", password = "Go4AHik3@n8!" };
+
+			((BasicHttpBinding)transactionService.Endpoint.Binding).MaxReceivedMessageSize = int.MaxValue;
+
+			var userTransactions = transactionService.getTransactionsForUser(transAuth, userId);
+
+			var transList = userTransactions.ToList();
+
+			string[] monthList = { id.Replace('_', ' ') };
+
+
+			var month = DateTime.Parse(monthList[0], CultureInfo.CurrentCulture).Month;
+
+
+
+			ViewBag.monthList = monthList;
+
+
+
+
+
+			if (transList.Count < 1)
+			{
+				ViewBag.noBook = "Inga bokningar hittade för ditt konto";
+			}
+
+			ViewBag.transList = transList;
+			ViewBag.printDate = DateTime.Now;
+			return View();
+		}
+
+		[WordDocument]
+		public ActionResult PrintDocment(string id)
+		{
+			var membershipUser = Membership.GetUser();
+			if (membershipUser == null) return RedirectToAction("Index", "Home");
+
+			var userName = membershipUser.UserName;
+			//userName = "StoraHovdingen";
+			var userServiceClient = new UserServicePortTypeClient();
+			var auth = new AuthenticationToken { username = "MrBprofileWS", password = "Go4AHik3@n8!" };
+			var user = new User();
+
+			try
+			{
+				user = userServiceClient.getUserByUsername(auth, userName);
+			}
+
+			catch (Exception)
+			{
+				FormsAuthentication.SignOut();
+				TempData["SignoutMessage"] = "Något gick fel, vänligen försök igen senare";
+				return RedirectToAction("Index", "Home");
+			}
+
+			ViewBag.Name = user.firstName + " " + user.lastName;
+			ViewBag.Adress = user.address.address;
+			ViewBag.City = user.address.city;
+			ViewBag.Zip = user.address.postalCode;
+			ViewBag.Country = user.address.country;
+
+			ViewBag.Company = user.specialRequest;
+			ViewBag.Url = Request.Headers["host"];
+			var userId = user.id.ToString();
+
+			var transactionService = new TransactionServicePortTypeClient();
+
+			var transAuth = new TransactionService.AuthenticationToken { username = "MrBprofileWS", password = "Go4AHik3@n8!" };
+
+			((BasicHttpBinding)transactionService.Endpoint.Binding).MaxReceivedMessageSize = int.MaxValue;
+
+			var userTransactions = transactionService.getTransactionsForUser(transAuth, userId);
+
+			var transList = userTransactions.ToList();
+
+			string[] monthList = { id.Replace('_', ' ') };
+
+
+			var month = DateTime.Parse(monthList[0], CultureInfo.CurrentCulture).Month;
+
+			ViewBag.monthList = monthList;
+
+			if (transList.Count < 1)
+			{
+				ViewBag.noBook = "Inga bokningar hittade för ditt konto";
+			}
+
+			ViewBag.transList = transList;
+			ViewBag.printDate = DateTime.Now;
+			ViewBag.WordDocumentFilename = "MrBill " + monthList[0];
+
+
+			ZipFile zip = new ZipFile("MyNewZip.zip");
+
+			foreach (var trans in userTransactions.Where(e => e.date1.Month.Equals(month)))
+			{	
+				zip.AddDirectory(trans.fileLocation ,null); // AddDirectory recurses subdirectories
+			}
+
+			zip.Save(); 
+			return View("Print");
+
+		}
+
+		[HttpPost]
+		public ActionResult Print(UserModel model)
+		{
+			return View(model);
+		}
+
+		public class WordDocumentAttribute : ActionFilterAttribute
+		{
+			public string DefaultFilename { get; set; }
+
+			public override void OnActionExecuted(ActionExecutedContext filterContext)
+			{
+				var result = filterContext.Result as ViewResult;
+
+				if (result != null)
+					result.MasterName = "~/Views/Shared/_LayoutWord.cshtml";
+
+				filterContext.Controller.ViewBag.WordDocumentMode = false;
+
+				base.OnActionExecuted(filterContext);
+			}
+
+			public override void OnResultExecuted(ResultExecutedContext filterContext)
+			{
+				var filename = filterContext.Controller.ViewBag.WordDocumentFilename;
+				filename = filename ?? DefaultFilename ?? "Document";
+
+				filterContext.HttpContext.Response.AppendHeader("Content-Disposition", string.Format("filename={0}.doc", filename));
+				filterContext.HttpContext.Response.ContentType = "application/msword";
+
+				base.OnResultExecuted(filterContext);
+			}
+
+		}
+
+	}
+
+}

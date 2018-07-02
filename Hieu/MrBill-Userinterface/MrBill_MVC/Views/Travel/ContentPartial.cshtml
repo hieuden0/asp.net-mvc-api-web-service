@@ -1,0 +1,535 @@
+﻿@using MrBill_MVC
+@using System.Globalization
+@using MrBill_MVC.MrBillTransactionServices
+@{
+    Layout = null;
+}
+
+@{
+    ViewBag.Title = "MyBookings";
+    int count = 0;
+    var pdfPath = System.Configuration.ConfigurationManager.AppSettings["pdfPath"];
+    var currencyFormat = "N";
+}
+
+
+<div class="row">
+    <div class="sort-holder">
+        <div class="sort sort-added">
+            UTLÄGG
+        </div>
+        <div class="sort sort-traveldate">
+            RESERÄKNING
+        </div>
+    </div>
+
+    <h4>@ViewBag.noBook</h4>
+    @foreach (var date in ViewBag.monthList)
+    {
+        <div id="jq-dropdown-@date.ToString().Split(' ')[0]" class="jq-dropdown jq-dropdown-tip">
+            <ul class="jq-dropdown-menu">
+                <li><div onclick="pdfReview(event,'@ViewBag.UserName','@date.ToString().Split(' ')[0]','@date.ToString().Split(' ')[1]',1);">Förhandsgranska<span class="preview-pdf"></span></div></li>
+                <li class="jq-dropdown-divider"></li>
+                <li><div onclick="downloadReport(event,'@ViewBag.UserName','@date.ToString().Split(' ')[0]','@date.ToString().Split(' ')[1]',1);"><span class="download-pdf"></span> Spara PDF-fil</div></li>
+                <li class="jq-dropdown-divider"></li>
+                <li><div class="down-dowrd">@Html.ActionLink("Spara Word-fil", "PrintDocmentOutlay", new { id = @date.Replace(" ", "_") }, null)<span class="download-word"></span></div></li>
+                <li class="jq-dropdown-divider"></li>
+                <li><div onclick="printPdf(event,'@ViewBag.UserName','@date.ToString().Split(' ')[0]','@date.ToString().Split(' ')[1]',1);">Skriv ut<span class="print-pdf"></span></div></li>
+                <li class="jq-dropdown-divider"></li>
+                <li><div onclick="sendEmail(event,'@ViewBag.UserName','@date.ToString().Split(' ')[0]','@date.ToString().Split(' ')[1]',1);">E-mail (PDF)<span class="send-email"></span></div></li>
+            </ul>
+        </div>
+        <div class="col-sm-12 month-row sort1">
+            <div class="month-header" id="month-row-@date.Replace(" ", "-")">
+                <strong class="month-trigger "></strong><span class="month-header-text">@date.ToString()</span><span class="recepit-number"></span>
+                <span class="print" data-jq-dropdown="#jq-dropdown-@date.ToString().Split(' ')[0]">
+                    @*<a href="@Url.Action("PrintOutlay", "Print", new {id = @date.Replace(" ", "_")})" class="print" target="_blank"><span class="glyphicon glyphicon-print"></span></a>*@
+                    @*<span class="glyphicon glyphicon-print" onclick="downloadReport(event,'@ViewBag.UserName','@date.ToString().Split(' ')[0]','@date.ToString().Split(' ')[1]');"></span>*@
+                    <span class="glyphicon glyphicon-print">
+                    </span>
+                    print
+                    <span class="arrow-expand">▼ </span>
+                </span>
+            </div>
+            <script>
+
+                function downloadReport(event, username, month, year, sortType) {
+                    $(".download-pdf").addClass("loading-span");
+
+                    var url = "/Print/DownloadReport?username=" + username + "&month=" + transMonth(month) + "&year=" + year + "&sortType=" + sortType;
+                    window.location = url;
+                    setTimeout(function () {
+                        $(".download-pdf").removeClass("loading-span");
+                    }, 1000);
+
+                };
+
+
+                function printPdf(event, username, month, year, sortType) {
+                    $(".print-pdf").addClass("loading-span");
+                    $.ajax({
+                        url: "/Print/pdfReview",
+                        data: { username: username, month: transMonth(month), year: year, sortType: sortType },
+                        method: "POST",
+                        success: function (result) {
+                            var fileName = result;
+                            var object2 = "<object data=\"{FileName}\" type=\"application/pdf\" width=\"800px\" height=\"400px\">";
+                            object2 += "<iframe src=\"{FileName}\" id=\"examplePDF\" name=\"examplePDF\" width=\"100%\" height=\"100%\" style=\"border: none;\">";
+                            object2 += "If you are unable to view file, you can download from <a href = \"{FileName}\">here</a>";
+                            object2 += " or download <a target = \"_blank\" href = \"http://get.adobe.com/reader/\">Adobe PDF Reader</a> to view the file.";
+                            object2 += "</iframe>"
+                            object2 += "</object>";
+                            object2 = object2.replace(/{FileName}/g, "@pdfPath" + fileName);
+                            $("#dialog").html(object2);
+                            window.frames["examplePDF"].focus();
+                            window.frames["examplePDF"].print();
+                            $(".print-pdf").removeClass("loading-span");
+                        }
+                    });
+                };
+
+                function pdfReview(event, username, month, year, sortType) {
+                    $(".preview-pdf").addClass("loading-span");
+                    $.ajax({
+                        url: "/Print/pdfReview",
+                        data: { username: username, month: transMonth(month), year: year, sortType: sortType },
+                        method: "POST",
+                        success: function (result) {
+                            if (result != "") {
+                                //var fileName = "abc.pdf";
+                                var fileName = result;
+                                $("#dialog").dialog({
+                                    modal: true,
+                                    closeOnEscape: false,
+                                    title: fileName,
+                                    width: 850,
+                                    height: 600,
+                                    resizable: false,
+                                    draggable: false,
+                                    dialogClass: "noclose",
+                                    create: function () {
+                                        var me = $(this);
+                                        me.dialog("widget").find('.ui-dialog-titlebar-close').remove();
+                                    },
+                                    buttons: {
+                                        "Print PDF": function () {
+                                            window.frames["examplePDF"].focus();
+                                            window.frames["examplePDF"].print();
+                                        },
+                                        "Send Email": function () {
+                                            var me = $(this);
+                                            me.dialog('close');
+                                            $('body').removeClass('stop-scrolling')
+                                        },
+                                        Close: function () {
+                                            var me = $(this);
+                                            me.dialog('close');
+                                            $('body').removeClass('stop-scrolling')
+                                        }
+                                    },
+
+                                    open: function () {
+                                        //object = object.replace(/{FileName}/g, "\\services\\Pdf\\" + fileName);
+                                        var object2 = "<object data=\"{FileName}\" type=\"application/pdf\" width=\"800px\" height=\"400px\">";
+                                        object2 += "<iframe src=\"{FileName}\" id=\"examplePDF\" name=\"examplePDF\" width=\"100%\" height=\"100%\" style=\"border: none;\">";
+                                        object2 += "If you are unable to view file, you can download from <a href = \"{FileName}\">here</a>";
+                                        object2 += " or download <a target = \"_blank\" href = \"http://get.adobe.com/reader/\">Adobe PDF Reader</a> to view the file.";
+                                        object2 += "</iframe>"
+                                        object2 += "</object>";
+                                        object2 = object2.replace(/{FileName}/g, "@pdfPath" + fileName);
+                                        $("#dialog").html(object2);
+                                        $('body').addClass('stop-scrolling')
+                                        $(".preview-pdf").removeClass("loading-span");
+                                    }
+                                });
+                            } else {
+                                alert("something wrong happen!");
+                            }
+                        }
+                    });
+                };
+
+                function sendEmail(event, username, month, year, sortType) {
+                    $(".send-email").addClass("loading-span");
+                    $.ajax({
+                        url: "/Print/SendEmailReport",
+                        data: { username: username, month: transMonth(month), year: year, sortType: sortType },
+                        method: "POST",
+                        success: function (result) {
+                            $(".send-email").removeClass("loading-span");
+                            $("#dialog2").dialog({
+                                modal: true,
+                                closeOnEscape: false,
+                                title: "Mail",
+                                width: 350,
+                                height: 300,
+                                resizable: false,
+                                draggable: false,
+                                dialogClass: "noclose",
+                                create: function () {
+                                    var me = $(this);
+                                    me.dialog("widget").find('.ui-dialog-titlebar-close').remove();
+                                },
+                                buttons: {
+                                    Close: function () {
+                                        var me = $(this);
+                                        me.dialog('close');
+                                        $('body').removeClass('stop-scrolling')
+                                    }
+                                },
+
+                                open: function () {
+                                    if (result == "True") {
+                                        var object2 = "<p>The mail have been sent.</p>";
+                                        $("#dialog2").html(object2);
+                                    } else {
+                                        alert("bbb.");
+                                    }
+                                    $('body').addClass('stop-scrolling')
+                                }
+                            });
+
+                        }
+                    });
+                };
+
+                function createMaintrip(event, username, transactionId, groupname, date) {
+                    event.stopPropagation();
+                    $("#dialog2").dialog({
+                        modal: true,
+                        closeOnEscape: false,
+                        title: "Skapa huvudresa",
+                        width: 450,
+                        height: 200,
+                        resizable: false,
+                        draggable: false,
+                        dialogClass: "noclose",
+                        create: function () {
+                            var me = $(this);
+                            me.dialog("widget").find('.ui-dialog-titlebar-close').remove();
+
+                        },
+                        buttons: {
+                            "Create": function () {
+                                var me = $(this);
+                                me.dialog('close');
+                                $('#loading').show();
+                                $.ajax({
+                                    url: "/Travel/CreateMainStrip",
+                                    data: { username: username, transactionId: transactionId, groupName: $("#create-maintrip").val() },
+                                    method: "POST",
+                                    success: function (result) {
+                                        if (result) {
+                                            reloadContent(date);
+                                        } else {
+                                            alert("ccc")
+                                            $('#loading').hide();
+                                        }
+                                    }
+                                });
+                            },
+                            Close: function () {
+                                var me = $(this);
+                                if ($(".maintrip-" + transactionId).is(':checked')) {
+                                    $(".maintrip-" + transactionId).click();
+                                } else {
+                                    $(".maintrip-" + transactionId).click();
+                                }
+                                me.dialog('close');
+                            }
+                        },
+
+                        open: function () {
+                            var object2 = "<input class=\"form-control\" type=\"text\" id=\"create-maintrip\" name=\"mainTrip\" value=\"{groupname}\" style =\"border: 2px solid black !important;border-radius: 4px !important;height: 100%;    max-width: 100% !important;background: white;\" />";
+                            object2 = object2.replace(/{groupname}/g, groupname);
+                            $("#dialog2").html(object2);
+
+                        }
+                    });
+                };
+
+                function removeMainTrip(event, username, transactionId, mainTrip, groupId, date, transGroupList) {
+                    event.stopPropagation();
+                    $("#dialog2").dialog({
+                        modal: true,
+                        closeOnEscape: false,
+                        title: "Remove group",
+                        width: 550,
+                        height: 350,
+                        resizable: false,
+                        draggable: false,
+                        dialogClass: "noclose",
+                        create: function () {
+                            var me = $(this);
+                            me.dialog("widget").find('.ui-dialog-titlebar-close').remove();
+                        },
+                        buttons: {
+                            "Yes": function () {
+                                var me = $(this);
+                                me.dialog('close');
+                                $('#loading').show();
+                                var cbChangeTrip = $("#change-main-trip");
+                                if (cbChangeTrip.val() == "") {
+                                    $.ajax({
+                                        url: "/Travel/RemoveMainTrip",
+                                        cache: false,
+                                        data: { username: username, mainTrip: mainTrip },
+                                        method: "POST",
+                                        success: function (result) {
+                                            if (result == 1) {
+                                                reloadContent(date);
+                                            } else {
+                                                alert("ddd")
+                                                $('#loading').show();
+                                            }
+                                        }
+                                    });
+                                } else {
+                                    var selectOption = JSON.parse(cbChangeTrip.val());
+                                    $.ajax({
+                                        url: "/Travel/ChangeMainTrip",
+                                        cache: false,
+                                        data: { username: username, mainTrip: mainTrip, groupIdOfGrouptrans: selectOption["groupId"], transIdOfGroupTrans: selectOption["mainTrip"] },
+                                        method: "POST",
+                                        success: function (result) {
+                                            if (result == 1) {
+                                                reloadContent(date);
+                                            } else {
+                                                alert("eee")
+                                                $('#loading').show();
+                                            }
+                                        }
+                                    });
+                                }
+                            },
+                            "No": function () {
+                                var me = $(this);
+                                if ($(".maintrip-" + transactionId).is(':checked')) {
+                                    $(".maintrip-" + transactionId).click();
+                                } else {
+                                    $(".maintrip-" + transactionId).click();
+                                }
+                                me.dialog('close');
+                            }
+                        },
+
+                        open: function () {
+                            var object2 = "<p>You are about to remove the main trip from the group. All transactions will be returned to normal transactions. Are you sure you want to do this or do you want to change main trip?</p>";
+                            object2 += "<br\>";
+                            object2 += "<select id=\"change-main-trip\" style=\"float:right;font-weight: bold,font-size: 0.7em;margin-left:10px;\" class=\"connect-trip-selected\" onclick=\"stopEvent()\" onchange=\"\">";
+                            object2 += "<option value\"\"></option>";
+                            for (var i = 0; i < transGroupList.length; i++) {
+                                if (transGroupList[i].TransactionGroupID != groupId || transGroupList[i].TransactionId != transactionId) {
+                                    object2 += "<option value='{\"groupId\":\"" + transGroupList[i].TransactionGroup.TransactionGroupID + "\"\,\"mainTrip\":\"" + transGroupList[i].TransactionId + "\"}'>" + transGroupList[i].TransactionGroup.Name + "</option>";
+                                }
+                            }
+                            object2 += "<\select>";
+                            object2 += "<p style=\"float:right;font-weight: bold;\">Change main trip<\p>";
+                            $("#dialog2").html(object2);
+                            console.log(transGroupList);
+                        }
+                    });
+                };
+
+                function stopEvent(event) {
+
+                    event.stopPropagation();
+                }
+
+                function connectTripChange(username, transactionId, option, date) {
+                    $('#loading').show();
+                    var mainTrip = 0;
+                    var groupId = 0;
+                    if (option.value == 'normal') {
+                        mainTrip = 0;
+                        groupId = 0;
+                    } else {
+                        var selectOption = JSON.parse(option.value);
+                        groupId = selectOption['groupId'];
+                        mainTrip = selectOption['mainTrip'];
+                    }
+
+                    var baseUrl = document.location.origin;
+                    $.ajax({
+                        url: baseUrl + "/Travel/ConnectTrip",
+                        data: { username: username, transactionId: transactionId, groupId: groupId, mainTrip: mainTrip },
+                        method: "POST",
+                        cache: false,
+                        success: function (result) {
+                            if (result.result == '1') {
+                                reloadContent(date);
+                            } else {
+                                alert("eee")
+                                $('#loading').show();
+                            }
+                        },
+                        error: function (error) {
+                            console.log(error + "error");
+                        }
+                    });
+
+                }
+
+                function transMonth(month) {
+                    switch (month) {
+                        case "januari": return 1; break; case "februari": return 2; break; case "mars": return 3; break; case "april": return 4; break; case "maj": return 5; break; case "juni": return 6; break; case "juli": return 7; break; case "augusti": return 8; break; case "september": return 9; break; case "oktober": return 10; break; case "november": return 11; break; case "december": return 12; break;
+                    }
+
+                };
+            </script>
+
+
+            @*          SORT 1              *@
+            <div class="bookings table-item">
+                @*class="bookings table-item">*@
+                <div class="col-lg-12 header">
+                    <span class="date-head">UTLÄGG / RESDATUM</span>
+                    <span class="location-head">PLATS</span>
+                    <span class="price-head">KVITTOBELOPP</span>
+                </div>
+
+                @foreach (var item in ((IEnumerable<TransactionDTO>)ViewBag.transList).Where(item => item.AddedDate.ToString("Y", new CultureInfo("sv-SE")).ToLower() == @date.ToString()).OrderBy(t => t.AddedDate))
+                {
+
+                    if (@item.Vat3 != null && @item != null)
+                    {
+                        continue;
+                    }
+
+                    if (item.TransactionGroupID != null && item.MainTrip != null)
+                    {
+                        continue;
+                    }
+                    else if (item.TransactionGroupID != null && item.MainTrip == null)
+                    {
+                        var transTripItem = ((IEnumerable<TransactionDTO>)ViewBag.transList).Where(t => t.MainTrip == item.TransactionId).OrderBy(t => t.AddedDate);
+                        var transGroupListCondition = item.AddedDate;
+                        @Html.Action("Item", "Travel", new { item = item, date = date, transList = ViewBag.transList, transGroupListCondition = transGroupListCondition })
+                        foreach (var tripItem in transTripItem)
+                        {
+                            @Html.Action("Item", "Travel", new { item = tripItem, date = date, transList = ViewBag.transList, transGroupListCondition = transGroupListCondition })
+                        }
+                    }
+                    else
+                    {
+                        var transGroupListCondition = item.AddedDate;
+                        @Html.Action("Item", "Travel", new { item = item, date = date, transList = ViewBag.transList, transGroupListCondition = transGroupListCondition })
+                    }
+                }
+
+            </div>
+        </div>}
+
+
+    @*          SORT 2         *@
+
+    @foreach (var date in ViewBag.monthList)
+    {
+        <div id="jq-dropdown-sort2-@date.ToString().Split(' ')[0]" class="jq-dropdown jq-dropdown-tip">
+            <ul class="jq-dropdown-menu">
+                <li><div onclick="pdfReview(event,'@ViewBag.UserName','@date.ToString().Split(' ')[0]','@date.ToString().Split(' ')[1]',2);">Förhandsgranska<span class="preview-pdf"></span></div></li>
+                <li class="jq-dropdown-divider"></li>
+                <li><div onclick="downloadReport(event,'@ViewBag.UserName','@date.ToString().Split(' ')[0]','@date.ToString().Split(' ')[1]',2);"><span class="download-pdf"></span> Spara PDF-fil</div></li>
+                <li class="jq-dropdown-divider"></li>
+                <li><div class="down-dowrd">@Html.ActionLink("Spara Word-fil", "PrintDocmentOutlay", new { id = @date.Replace(" ", "_") }, null)<span class="download-word"></span></div></li>
+                <li class="jq-dropdown-divider"></li>
+                <li><div onclick="printPdf(event,'@ViewBag.UserName','@date.ToString().Split(' ')[0]','@date.ToString().Split(' ')[1]',2);">Skriv ut<span class="print-pdf"></span></div></li>
+                <li class="jq-dropdown-divider"></li>
+                <li><div onclick="sendEmail(event,'@ViewBag.UserName','@date.ToString().Split(' ')[0]','@date.ToString().Split(' ')[1]',2);">E-mail (PDF)<span class="send-email"></span></div></li>
+            </ul>
+        </div>
+        <div class="col-sm-12 month-row sort2">
+            <div class="month-header month-header-2">
+                @*<strong class="month-trigger "></strong><span class="month-header-text">@date.ToString()</span><span class="recepit-number"></span>
+                    <span class="print">
+                        <a href="@Url.Action("PrintExpense", "Print", new {id = @date.Replace(" ", "_")})" class="print" target="_blank"><span class="glyphicon glyphicon-print"></span></a>
+                    </span>*@
+                <strong class="month-trigger "></strong><span class="month-header-text">@date.ToString()</span><span class="recepit-number"></span>
+                <span class="print" data-jq-dropdown="#jq-dropdown-sort2-@date.ToString().Split(' ')[0]">
+                    @*<a href="@Url.Action("PrintOutlay", "Print", new {id = @date.Replace(" ", "_")})" class="print" target="_blank"><span class="glyphicon glyphicon-print"></span></a>*@
+                    @*<span class="glyphicon glyphicon-print" onclick="downloadReport(event,'@ViewBag.UserName','@date.ToString().Split(' ')[0]','@date.ToString().Split(' ')[1]');"></span>*@
+                    <span class="glyphicon glyphicon-print">
+                    </span>
+                    print
+                    <span class="arrow-expand">▼ </span>
+                </span>
+            </div>
+
+            @*          SORT 1              *@
+            <div class="bookings table-item">
+                @*class="bookings table-item">*@
+
+                <div class="col-lg-12 header">
+                    <span class="date-head">UTLÄGG / RESDATUM</span>
+                    <span class="location-head">PLATS</span>
+                    <span class="price-head">KVITTOBELOPP</span>
+                </div>
+
+
+                @foreach (var item in ((IEnumerable<TransactionDTO>)ViewBag.transList).Where(item => item.AirDepTime1.ToString("Y", new CultureInfo("sv-SE")).ToLower() == @date.ToString()).OrderBy(t => t.AirDepTime1))//.OrderBy(e => e.date1))
+                {
+
+                    if (@item.Vat3 == null)
+                    {
+                        if (@item.Vat3 != null && @item != null)
+                        {
+                            continue;
+                        }
+
+                        if (item.TransactionGroupID != null && item.MainTrip != null)
+                        {
+                            continue;
+                        }
+                        else if (item.TransactionGroupID != null && item.MainTrip == null)
+                        {
+                            var transTripItem = ((IEnumerable<TransactionDTO>)ViewBag.transList).Where(t => t.MainTrip == item.TransactionId).OrderBy(t => t.AddedDate);
+                            var transGroupListCondition = item.AddedDate;
+                            @Html.Action("Item", "Travel", new { item = item, date = date, transList = ViewBag.transList, transGroupListCondition = transGroupListCondition })
+                            foreach (var tripItem in transTripItem)
+                            {
+                                @Html.Action("Item", "Travel", new { item = tripItem, date = date, transList = ViewBag.transList, transGroupListCondition = transGroupListCondition })
+                            }
+
+                        }
+                        else
+                        {
+                            var transGroupListCondition = item.AddedDate;
+                            @Html.Action("Item", "Travel", new { item = item, date = date, transList = ViewBag.transList, transGroupListCondition = transGroupListCondition })
+                        }
+                    }
+                }
+            </div>
+        </div>
+    }
+
+    <div class="date-holder">
+        @*<div class="deleted-bookings">
+                @Html.ActionLink("INAKTIVA", "DeletedBookings", "Travel", null)
+            </div>*@
+
+        <div class="year-holder">
+            <span>@DateTime.Now.Year</span>
+
+        </div>
+
+        <div class="last-year-holder">
+            @Html.ActionLink(@DateTime.Now.AddYears(-1).Year.ToString(), "MyBookingsLastYear", "travel", null)
+            <div class="month-holder"></div>
+        </div>
+    </div>
+    <div id="add-box" class="add-popup">
+        @*DESIGN FOR ADDING A BOOKING*@
+        <div class="text-div">
+            <textarea class="add-info-box head form-control"></textarea>
+            <button class="btn btn-primary btn-lg btn-block add-info-btn">SPARA</button>
+        </div>
+    </div>
+    @*<div id="edit-box" class="edit-popup">
+        </div>*@
+
+    <script src="~/Scripts/jquery-ui-1.11.4.js"></script>
+    <script src="~/Scripts/featherlight.js"></script>
+    <script src="~/Scripts/country-code-converter.js"></script>
+    <script src="~/Scripts/myBookings-lib.js"></script>
+    <script src="~/Scripts/myBookings-script.js"></script>
+</div>

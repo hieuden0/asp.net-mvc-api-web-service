@@ -1,0 +1,104 @@
+﻿@using MrBill_MVC
+@using System.Globalization
+@using MrBill_MVC.MrBillUserServices
+@model List<MrBill_MVC.MrBillUserServices.UserSupplierInfoDTO>
+@{
+    Layout = null;
+}
+
+<table class="rounded-corner" id="table-supplier">
+    <tbody id="tbody-supplier" class="supplier-dialog">
+        <tr class="dialog-header-supplier">
+            <td class="rounded-q4"></td>
+            <td class="rounded-q3">Supplier</td>
+            <td class="rounded-x3">UserName</td>
+            <td class="rounded-x3">Password</td>
+            <td class="rounded-q4">Edit</td>
+            <td class="rounded-q4"></td>
+        </tr>
+
+        @for (var i = 1; i < 6; i++)
+        {
+            var supplierInfo = ((IEnumerable<UserSupplierInfoDTO>)ViewBag.userSupplierList).FirstOrDefault(t => t.SupplierId == i);
+            var image = "";
+            if (i == 1)
+            {
+                image = "/Images/suppliers/sas.jpg";
+            }
+            else if (i == 2)
+            {
+                image = "/Images/suppliers/hotels_com.png";
+            }
+            else if (i == 3)
+            {
+                image = "/Images/suppliers/easypark.png";
+            }
+            else if (i == 4)
+            {
+                image = "/Images/suppliers/cabonline.png";
+            }
+            else if (i == 5)
+            {
+                image = "/Images/suppliers/NORWEIGAN.png";
+            }
+            if (supplierInfo == null)
+            {
+                <tr>
+                    <td class="rounded-q4">@i</td>
+                    <td class="rounded-q3"><img src="@image" border="0" /></td>
+                    <td class="rounded-x3"><span id="usernameS-@i" class="display-@i"></span><input class="rounded-x3 edit edit-@i" id="edit-user-@i" type="text" value="" /></td>
+                    <td class="rounded-x3"><input type="password" id="password-@i" value="" class="td-rounded display-@i" disabled /><input class="rounded-x3 edit edit-@i" id="edit-password-@i" type="text" value=""> </td>
+                    <td class="rounded-q4">
+                        <img src="/Content/img/user_edit.png" class="edit-button edit-button-@i" alt="" title="" border="0" onclick="edit(event, @i)" />
+                        <img class="accept-button accept-button-@i" style="width:16px;height:16px;display:none" src="/Content/img/okay.png" alt="" title="" border="0" onclick="accept(event,@i,@i,@ViewBag.userId)" />
+                        <img class="loading-button-@i" style="width:16px;height:16px;display:none" src="/Content/img/page-loader.gif" alt="" title="" border="0" />
+                    </td>
+                    <td class="rounded-q4">
+                        <img class="edit-button delete-button-@i" src="" alt="" title="" border="0" />
+                        <img class="accept-button cancel-button-@i" style="display:none" src="/Content/img/cancel.png" alt="" title="" border="0" onclick="cancel(event,@i)" />
+                    </td>
+                </tr>
+            }
+            else
+            {
+                <tr>
+                    <td class="rounded-q4">@i</td>
+                    <td class="rounded-q3"><img src="@image" border="0" /></td>
+                    <td class="rounded-x3"><span id="usernameS-@i" class="display-@i">@supplierInfo.Username</span><input class="rounded-x3 edit edit-@i" id="edit-user-@i" type="text" value="" /></td>
+                    <td class="rounded-x3"><input type="password" id="password-@i" value="@supplierInfo.Password" class="td-rounded display-@i" disabled /><input class="rounded-x3 edit edit-@i" id="edit-password-@i" type="text" value=""> </td>
+                    <td class="rounded-q4">
+                        <img src="/Content/img/user_edit.png" class="edit-button edit-button-@i" border="0" onclick="edit(event, @i)" />
+                        <img class="accept-button accept-button-@i" style="width:16px;height:16px;display:none" src="/Content/img/okay.png" alt="" title="" border="0" onclick="accept(event,@i,@i,@ViewBag.userId)" />
+                        <img class="loading-button-@i" style="width:16px;height:16px;display:none" src="/Content/img/page-loader.gif" alt="" title="" border="0" />
+                    </td>
+                    <td class="rounded-q4">
+                        <img class="edit-button delete-button-@i" src="" alt="" title="" border="0" />
+                        <img class="accept-button cancel-button-@i" style="display:none" src="/Content/img/cancel.png" alt="" title="" border="0" onclick="cancel(event,@i)" />
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+@*<table border="1" cellpadding="6">
+    @for (int i = 0; i < Model.Count; i++)
+    {
+        <tr>
+            <td>
+                Model[i].UserName
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+        </tr>
+    }
+    <tr>
+        <td colspan="4">
+            <input type="submit" value="Submit" />
+        </td>
+    </tr>
+</table>*@

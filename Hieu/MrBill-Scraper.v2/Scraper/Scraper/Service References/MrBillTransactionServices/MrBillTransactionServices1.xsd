@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/MrBillServices.DTO" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/MrBillServices.DTO" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfTransactionCheckInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TransactionCheckInfo" nillable="true" type="tns:TransactionCheckInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTransactionCheckInfo" nillable="true" type="tns:ArrayOfTransactionCheckInfo" />
+  <xs:complexType name="TransactionCheckInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BookingReference" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SupplierName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TransactionID" type="xs:long" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TransactionCheckInfo" nillable="true" type="tns:TransactionCheckInfo" />
+  <xs:complexType name="ArrayOfTransactionDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TransactionDTO" nillable="true" type="tns:TransactionDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTransactionDTO" nillable="true" type="tns:ArrayOfTransactionDTO" />
+  <xs:complexType name="TransactionDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AddedDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="AirDepTime1" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="AirDepTime2" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="AirRetTime1" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="AirRetTime2" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ApproveDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Attendees" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BookingDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="BookingRef" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CarTime1" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="CarTime2" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="CardHolder" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CardNumber" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CategoryID" type="xs:int" />
+      <xs:element minOccurs="0" name="CityDep1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CityDep2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CityRet1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CityRet2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CostCenter" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Country" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Destination" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EmployeeID" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ExportStatus" type="xs:int" />
+      <xs:element minOccurs="0" name="ExtraInfo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="HtlTime1" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="HtlTime2" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="PaymentID" type="xs:int" />
+      <xs:element minOccurs="0" name="PaymentType" nillable="true" type="tns:PaymentTypeDTO" />
+      <xs:element minOccurs="0" name="Price" type="xs:float" />
+      <xs:element minOccurs="0" name="PriceCurrency" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PriceUserCurrency" type="xs:float" />
+      <xs:element minOccurs="0" name="Product" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Project" nillable="true" type="tns:ProjectDTO" />
+      <xs:element minOccurs="0" name="ProjectNO" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ReceiptLink" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RemoveDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Status" type="xs:int" />
+      <xs:element minOccurs="0" name="SupplierID" type="xs:int" />
+      <xs:element minOccurs="0" name="SupplierInfoes" nillable="true" type="tns:SupplierInfoDTO" />
+      <xs:element minOccurs="0" name="Total" type="xs:float" />
+      <xs:element minOccurs="0" name="TransactionGroupID" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="TransactionId" type="xs:int" />
+      <xs:element minOccurs="0" name="Traveller" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Units" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="UnlockedBy" type="xs:int" />
+      <xs:element minOccurs="0" name="UnlockedDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="UserID" type="xs:int" />
+      <xs:element minOccurs="0" name="Vat1" nillable="true" type="xs:float" />
+      <xs:element minOccurs="0" name="Vat2" nillable="true" type="xs:float" />
+      <xs:element minOccurs="0" name="Vat3" nillable="true" type="xs:float" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TransactionDTO" nillable="true" type="tns:TransactionDTO" />
+  <xs:complexType name="PaymentTypeDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="PaymentId" type="xs:int" />
+      <xs:element minOccurs="0" name="PaymentName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PaymentTypeDTO" nillable="true" type="tns:PaymentTypeDTO" />
+  <xs:complexType name="ProjectDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ProjectID" type="xs:int" />
+      <xs:element minOccurs="0" name="ProjectNumber" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserControlID" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ProjectDTO" nillable="true" type="tns:ProjectDTO" />
+  <xs:complexType name="SupplierInfoDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ResetPasswordUrl" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SignUpUrl" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SupplierId" type="xs:int" />
+      <xs:element minOccurs="0" name="SupplierName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Url" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SupplierInfoDTO" nillable="true" type="tns:SupplierInfoDTO" />
+  <xs:complexType name="UserSupplierInfoDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Password" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SupplierId" type="xs:int" />
+      <xs:element minOccurs="0" name="SupplierInfo" nillable="true" type="tns:SupplierInfoDTO" />
+      <xs:element minOccurs="0" name="UserId" type="xs:int" />
+      <xs:element minOccurs="0" name="Username" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UserSupplierInfoDTO" nillable="true" type="tns:UserSupplierInfoDTO" />
+</xs:schema>

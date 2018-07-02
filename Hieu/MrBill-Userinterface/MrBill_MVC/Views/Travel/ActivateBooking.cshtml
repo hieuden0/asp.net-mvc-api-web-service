@@ -1,0 +1,60 @@
+﻿@using MrBill_MVC.MrBillTransactionServices
+@model MrBill_MVC.Models.UserModel
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+
+<nav class="navbar navbar-inverse navbar-embossed" role="navigation">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
+            <span class="sr-only">Toggle navigation</span>
+        </button>
+    </div>
+    <div class="collapse navbar-collapse" id="navbar-collapse-01">
+        <ul class="nav navbar-nav navbar-left">
+            <li>
+                <a class="navbar-brand" href="/">
+                    <img src="~/Content/img/mrbill.png" alt="" />
+                </a>
+            </li>
+            @Html.Partial("_LoginPartial")
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+
+
+        <div>
+            <h4>Är du säker på att du vill aktivera denna bokning från MrBill?</h4>
+
+            <h5>Bokning</h5>
+            <p></p>
+            @foreach (var item in ((List<TransactionDTO>)@ViewBag.transaction))
+            {
+                <input type="text" name="id" value="@item.TransactionId" hidden />
+                <p>Leverantör: @item.SupplierInfoes.SupplierName Ref: @item.BookingRef</p>
+
+
+            }
+
+            <button type="submit" class="btn btn-primary btn-lg btn-block edit-booking-btn">AKTIVERA</button>
+        </div>
+    }
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $(".main-wrapper-wide").height(window.innerHeight - (1.1 * window.innerHeight/100));
+            $(".footer-distributed").css("bottom", 0);
+            $(".footer-distributed").css("position", "absolute");
+
+        });
+    </script>
+}

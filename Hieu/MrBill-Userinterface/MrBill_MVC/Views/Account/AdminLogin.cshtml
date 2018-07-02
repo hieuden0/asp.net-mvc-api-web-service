@@ -1,0 +1,51 @@
+﻿@using System.Globalization
+@using System.Web.UI.WebControls
+@using Microsoft.Data.OData.Query.SemanticAst
+@using MrBill_MVC.MrBillTransactionServices
+@model MrBill_MVC.Models.LoginModel
+<link href="/Content/featherlight.css" rel="stylesheet" />
+<link href="/Content/print-style.css" rel="stylesheet" />
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AdminLogin</title>
+</head>
+<body style="">
+    <div>
+        <div class="col-sm-4">
+        </div>
+        <div class="col-sm-4">
+            <br />
+            <br />
+            @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+                <div class="login-form">
+                    <center>
+                        <h5 class="register-text">Logga in</h5>
+                    </center>
+                    <div class="form-group">
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.UserName, new { @id = "user", @class = "form-control", @placeholder = "Email" })
+                            <label for="Email" class="login-field-icon fui-mail"></label>
+                            @Html.ValidationMessageFor(m => m.UserName)
+                        </div>
+                        <div class="form-group">
+                            @Html.PasswordFor(m => m.Password, new { @id = "pass", @class = "form-control", @placeholder = "Lösenord" })
+                            <label for="Password" class="login-field-icon fui-lock"></label>
+                            @Html.ValidationMessageFor(m => m.Password)
+                        </div>
+                        <input type="submit" value="Log in" class="btn btn-primary btn-lg btn-block" />
+                        <span>@ViewBag.Message</span>
+                    </div>
+                </div>
+            }
+        </div>
+        <br />
+    </div>
+</body>
+</html>

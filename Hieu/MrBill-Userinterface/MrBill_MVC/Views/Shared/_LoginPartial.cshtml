@@ -1,0 +1,97 @@
+﻿
+@if (Request.IsAuthenticated)
+{
+    if (Request.Url != null && Request.Url.AbsoluteUri.Contains("/MyBookings"))
+    {
+        <li class="active-menu">
+            @Html.ActionLink("RESOR", "MyBookings", "Travel", routeValues: null, htmlAttributes: new { @class = "menu-item", title = "" })
+        </li>
+        <li>
+            @Html.ActionLink("LÄGG TILL RESA", "AddBooking", "Travel", routeValues: null, htmlAttributes: new { @class = "menu-item", title = "" })
+        </li>
+
+        @*<li>
+                @Html.ActionLink("LÄGG TILL KONTO", "TravelAccounts", "Travel", routeValues: null, htmlAttributes: new { @class = "menu-item", title = "" })
+            </li>*@
+
+    }
+
+    else if (Request.Url != null && Request.Url.AbsoluteUri.Contains("/TravelAccounts"))
+    {
+        <li>
+            @Html.ActionLink("RESOR", "MyBookings", "Travel", routeValues: null, htmlAttributes: new { @class = "menu-item", title = "" })
+        </li>
+        <li>
+            @Html.ActionLink("LÄGG TILL RESA", "AddBooking", "Travel", routeValues: null, htmlAttributes: new { @class = "menu-item", title = "" })
+        </li>
+        @*<li class="active-menu">
+                @Html.ActionLink("LÄGG TILL KONTO", "TravelAccounts", "Travel", routeValues: null, htmlAttributes: new { @class = "menu-item", title = "" })
+            </li>*@
+    }
+    else if (Request.Url != null && Request.Url.AbsoluteUri.Contains("/AddBooking"))
+    {
+        <li>
+            @Html.ActionLink("RESOR", "MyBookings", "Travel", routeValues: null, htmlAttributes: new { @class = "menu-item", title = "" })
+        </li>
+        <li class="active-menu">
+            @Html.ActionLink("LÄGG TILL RESA", "AddBooking", "Travel", routeValues: null, htmlAttributes: new { @class = "menu-item", title = "" })
+        </li>
+        @*<li>
+                @Html.ActionLink("LÄGG TILL KONTO", "TravelAccounts", "Travel", routeValues: null, htmlAttributes: new { @class = "menu-item", title = "" })
+            </li>*@
+    }
+    else
+    {
+        <li>
+            @Html.ActionLink("RESOR", "MyBookings", "Travel", routeValues: null, htmlAttributes: new { @class = "menu-item", title = "" })
+        </li>
+        <li>
+            @Html.ActionLink("LÄGG TILL RESA", "AddBooking", "Travel", routeValues: null, htmlAttributes: new { @class = "menu-item", title = "" })
+        </li>
+
+        @*<li>
+                @Html.ActionLink("LÄGG TILL KONTO", "TravelAccounts", "Travel", routeValues: null, htmlAttributes: new { @class = "menu-item", title = "" })
+            </li>*@
+    }
+    <li class="dropdown create">
+
+        @Html.ActionLink("MITT KONTO", "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "dropdown-toggle", title = "", @data_toggle = "dropdown" })
+        <ul class="dropdown-menu">
+            <li>@Html.ActionLink("BYT LÖSENORD", "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "", title = "" })</li>
+            <li>@Html.ActionLink("ANVÄNDARINFORMATION", "UpdateAccount", "Account", routeValues: null, htmlAttributes: new { @class = "", title = "" })</li>
+            <li>
+                @Html.ActionLink("HANTERA LEVERANTÖRER", "Manage", "Travel", routeValues: null, htmlAttributes: new { @class = "", title = "" })
+        </li>
+
+        @using (Html.BeginForm("LogOff", "Account", new { area = "" },
+                FormMethod.Post, new { id = "logoutForm" }))
+        {
+            <li>
+                <a class="logout" href="javascript: document.getElementById('logoutForm').submit();">LOGGA UT</a>
+            </li>
+        }
+    </ul>
+</li>
+}
+
+else
+{
+
+    var currentUrl = Request.Url.AbsoluteUri;
+    if (currentUrl.Contains("/Login"))
+    {
+        <li class="active-menu">@Html.ActionLink("LOGGA IN", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "ltc-4" })</li>
+        <li class="create">@Html.ActionLink("SKAPA KONTO", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+    }
+    else if (currentUrl.Contains("/Register"))
+    {
+        <li>@Html.ActionLink("LOGGA IN", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "ltc-4" })</li>
+        <li class="active-menu create">@Html.ActionLink("SKAPA KONTO", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+    }
+    else
+    {
+        <li>@Html.ActionLink("LOGGA IN", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "ltc-4" })</li>
+        <li class="create">@Html.ActionLink("SKAPA KONTO", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+    }
+
+}

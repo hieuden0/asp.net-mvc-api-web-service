@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="a4801455-0059-4985-858d-291290aef9c8" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://mrbill.mrorange.nu/services/MrBillServices.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="MrBillServices.xsd" MetadataType="Schema" ID="ed141210-9a25-4ef3-8d5f-ddbd5c8108ad" SourceId="1" SourceUrl="http://mrbill.mrorange.nu/services/MrBillServices.svc?xsd=xsd3" />
+    <MetadataFile FileName="MrBillServices1.xsd" MetadataType="Schema" ID="9e9373a7-a72a-4a3d-9465-4426366b6fc0" SourceId="1" SourceUrl="http://mrbill.mrorange.nu/services/MrBillServices.svc?xsd=xsd2" />
+    <MetadataFile FileName="MrBillServices2.xsd" MetadataType="Schema" ID="85c1bdee-f94a-4b1a-8443-f36396f783b2" SourceId="1" SourceUrl="http://mrbill.mrorange.nu/services/MrBillServices.svc?xsd=xsd1" />
+    <MetadataFile FileName="MrBillServices3.xsd" MetadataType="Schema" ID="7fde2024-24ec-4c83-81a5-d31074831ee7" SourceId="1" SourceUrl="http://mrbill.mrorange.nu/services/MrBillServices.svc?xsd=xsd0" />
+    <MetadataFile FileName="MrBillServices.wsdl" MetadataType="Wsdl" ID="d2fe660d-eb82-475f-8794-6e32de8a69fd" SourceId="1" SourceUrl="http://mrbill.mrorange.nu/services/MrBillServices.svc?wsdl" />
+    <MetadataFile FileName="MrBillServices.disco" MetadataType="Disco" ID="ec78aea3-fbf8-45fe-b085-17b3a58a5306" SourceId="1" SourceUrl="http://mrbill.mrorange.nu/services/MrBillServices.svc?disco" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
